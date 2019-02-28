@@ -265,6 +265,11 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1774508725717331750, guid: 46260ba24f6138c45860737cb6961510,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46260ba24f6138c45860737cb6961510, type: 3}
 --- !u!4 &5012514121266667129 stripped
