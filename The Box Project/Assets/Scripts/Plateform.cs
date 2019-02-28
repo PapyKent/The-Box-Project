@@ -35,11 +35,22 @@ public class Plateform : MonoBehaviour
     private void OnColorButtonPressed(Color newColor)
     {
         if(m_currentColor != Color.NONE)
-            gameObject.SetActive(newColor == m_currentColor);
+        {
+            bool sameColor = newColor == m_currentColor;
+            m_activeSpriteRenderer.enabled = sameColor;
+            m_inactiveSpriteRenderer.enabled = !sameColor;
+            m_collider.enabled = sameColor;
+        }
     }
 
     [SerializeField]
     private Color m_currentColor = Color.NONE;
+    [SerializeField]
+    private SpriteRenderer m_activeSpriteRenderer = null;
+    [SerializeField]
+    private SpriteRenderer m_inactiveSpriteRenderer = null;
+    [SerializeField]
+    private Collider m_collider = null;
 
 
     #endregion
