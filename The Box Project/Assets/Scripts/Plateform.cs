@@ -50,7 +50,7 @@ public class Plateform : MonoBehaviour
     [SerializeField]
     private SpriteRenderer m_inactiveSpriteRenderer = null;
     [SerializeField]
-    private Collider m_collider = null;
+    private Collider2D m_collider = null;
 
 
     #endregion

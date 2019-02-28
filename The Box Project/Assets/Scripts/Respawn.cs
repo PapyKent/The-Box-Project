@@ -7,7 +7,7 @@ public class Respawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("Start"))
+        if(Input.GetButtonDown("Start"))
         {
             m_player.transform.position = transform.position;
         }
