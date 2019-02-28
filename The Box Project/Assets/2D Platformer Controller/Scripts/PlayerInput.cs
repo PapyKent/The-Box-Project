@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Player))]
 public class PlayerInput : MonoBehaviour
@@ -65,6 +66,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetButtonDown("B Button"))
         {
             m_colorButtonPressedListeners?.Invoke(Plateform.Color.RED);
+        }
+
+        if (Input.GetButtonDown("Start"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
