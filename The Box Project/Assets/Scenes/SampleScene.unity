@@ -8042,7 +8042,7 @@ MonoBehaviour:
   localWaypoints:
   - {x: 0, y: 0, z: 0}
   - {x: 150, y: 0, z: 0}
-  speed: 5
+  speed: 4
   cyclic: 0
   waitTime: 1
   easeAmount: 0
