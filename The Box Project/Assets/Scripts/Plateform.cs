@@ -34,7 +34,8 @@ public class Plateform : MonoBehaviour
 
     private void OnColorButtonPressed(Color newColor)
     {
-        gameObject.SetActive(newColor == m_currentColor);
+        if(m_currentColor != Color.NONE)
+            gameObject.SetActive(newColor == m_currentColor);
     }
 
     [SerializeField]
