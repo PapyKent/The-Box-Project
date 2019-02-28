@@ -51,6 +51,21 @@ public class PlayerInput : MonoBehaviour
         {
             player.OnJumpInputUp();
         }
+
+        if(Input.GetButtonDown("Y Button"))
+        {
+            m_colorButtonPressedListeners?.Invoke(Plateform.Color.YELLOW);
+        }
+
+        if (Input.GetButtonDown("X Button"))
+        {
+            m_colorButtonPressedListeners?.Invoke(Plateform.Color.BLUE);
+        }
+
+        if (Input.GetButtonDown("B Button"))
+        {
+            m_colorButtonPressedListeners?.Invoke(Plateform.Color.RED);
+        }
     }
 
     private Player player;
