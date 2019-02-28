@@ -3,7 +3,34 @@
 [RequireComponent(typeof(Player))]
 public class PlayerInput : MonoBehaviour
 {
-    private Player player;
+    public static PlayerInput Instance { get { return s_instance; } }
+
+    public delegate void OnColorButtonPressed(Plateform.Color color);
+
+    public void RegisterOnColorButtonPressed(OnColorButtonPressed method, bool register)
+    {
+        if(register)
+        {
+            m_colorButtonPressedListeners += method;
+        }
+        else
+        {
+            m_colorButtonPressedListeners -= method;
+        }
+    }
+
+    private void Awake()
+    {
+        if(s_instance != null)
+        {
+            Debug.Log("Duplicate PlayerInput => Destroyed.");
+            Destroy(gameObject);
+        }
+        else
+        {
+            s_instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -25,4 +52,8 @@ public class PlayerInput : MonoBehaviour
             player.OnJumpInputUp();
         }
     }
+
+    private Player player;
+    private static PlayerInput s_instance = null;
+    private OnColorButtonPressed m_colorButtonPressedListeners = null;
 }
