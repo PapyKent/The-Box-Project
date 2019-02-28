@@ -8,7 +8,8 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        CheckpointManager.Instance.CurrentCheckpoint = this;
+        if(other.tag == "Player")
+            CheckpointManager.Instance.CurrentCheckpoint = this;
     }
 
     private void Start()
