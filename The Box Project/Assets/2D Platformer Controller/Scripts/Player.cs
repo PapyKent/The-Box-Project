@@ -63,21 +63,21 @@ public class Player : MonoBehaviour
     {
         if (wallSliding)
         {
-            if (wallDirX == directionalInput.x)
-            {
-                velocity.x = -wallDirX * wallJumpClimb.x;
-                velocity.y = wallJumpClimb.y;
-            }
-            else if (directionalInput.x == 0)
-            {
-                velocity.x = -wallDirX * wallJumpOff.x;
-                velocity.y = wallJumpOff.y;
-            }
-            else
-            {
-                velocity.x = -wallDirX * wallLeap.x;
-                velocity.y = wallLeap.y;
-            }
+            //if (wallDirX == directionalInput.x)
+            //{
+            //    velocity.x = -wallDirX * wallJumpClimb.x;
+            //    velocity.y = wallJumpClimb.y;
+            //}
+            //else if (directionalInput.x == 0)
+            //{
+            //    velocity.x = -wallDirX * wallJumpOff.x;
+            //    velocity.y = wallJumpOff.y;
+            //}
+            //else
+            //{
+            //    velocity.x = -wallDirX * wallLeap.x;
+            //    velocity.y = wallLeap.y;
+            //}
             isDoubleJumping = false;
         }
         if (controller.collisions.below)
