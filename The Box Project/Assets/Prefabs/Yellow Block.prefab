@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3542355103652306849, guid: bcc5755c96f301c4485478eb01ed52d5,
+        type: 3}
+      propertyPath: m_Name
+      value: Yellow Block
+      objectReference: {fileID: 0}
     - target: {fileID: 5270880272546343746, guid: bcc5755c96f301c4485478eb01ed52d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25,17 +30,17 @@ PrefabInstance:
     - target: {fileID: 5270880272546343746, guid: bcc5755c96f301c4485478eb01ed52d5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5270880272546343746, guid: bcc5755c96f301c4485478eb01ed52d5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5270880272546343746, guid: bcc5755c96f301c4485478eb01ed52d5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5270880272546343746, guid: bcc5755c96f301c4485478eb01ed52d5,
         type: 3}
@@ -62,10 +67,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3542355103652306849, guid: bcc5755c96f301c4485478eb01ed52d5,
+    - target: {fileID: 8045801632895581978, guid: bcc5755c96f301c4485478eb01ed52d5,
         type: 3}
-      propertyPath: m_Name
-      value: Yellow Block
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8045801632895581978, guid: bcc5755c96f301c4485478eb01ed52d5,
         type: 3}
