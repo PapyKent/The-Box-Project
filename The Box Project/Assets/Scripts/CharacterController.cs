@@ -44,18 +44,22 @@ public class CharacterController : MonoBehaviour
         if(!m_isJumping && m_pressedJump)
         {
             m_isJumping = true;
+            m_hasReleasedJump = false;
             m_velocity.y = m_maxJumpSpeed;
         }
-        else if(m_isJumping && m_releasedJump)
+        else if (m_isJumping && m_releasedJump && !m_hasReleasedJump)
         {
-            if(m_velocity.y < m_minJumpSpeed)
+            if (m_velocity.y > m_minJumpSpeed)
             {
+                Debug.Log("Velocity: " + m_velocity);
                 m_velocity.y = m_minJumpSpeed;
             }
+            m_hasReleasedJump = true;
         }
         else if(m_isJumping && m_collisions.below)
         {
             m_isJumping = false;
+            Debug.Log("au sol" );
         }
     }
 
@@ -90,5 +94,7 @@ public class CharacterController : MonoBehaviour
     private bool m_isJumping = false;
     private bool m_pressedJump = false;
     private bool m_releasedJump = false;
+
+    private bool m_hasReleasedJump = false;
     #endregion
 }

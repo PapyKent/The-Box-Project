@@ -26,10 +26,8 @@ public class GroundCharacterCollider : MonoBehaviour
             
             if(hit.collider != null )
             {
-                Debug.Log("On a touché au raycast");
                 if(hit.collider.tag == "Ground")
                 {
-                    Debug.Log("On touche le ground");
                     collisions.below = true;
                 }
             }
