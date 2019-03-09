@@ -24,7 +24,18 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(m_inputs);
+        Vector3 newPos = transform.position + (Vector3)m_inputs;
+        if(m_isJumping)
+        {
+            Collider2D collider = Physics2D.OverlapBox(newPos, m_groundCollider.ColliderBounds.size, 0.0f, m_obstacleLayer);
+            if (collider != null)
+            {
+                newPos = new Vector3(newPos.x, collider.bounds.max.y + m_groundCollider.ColliderBounds.extents.y, newPos.z);
+            }
+        }
+        transform.position = newPos;
+        
+            //transform.Translate(m_inputs);
     }
 
     private void HandleSpriteDirection()
@@ -100,6 +111,9 @@ public class CharacterController : MonoBehaviour
     private SpriteRenderer m_sprite = null;
     [SerializeField]
     private GroundCharacterCollider m_groundCollider = null;
+
+    [SerializeField]
+    private LayerMask m_obstacleLayer;
 
     private Vector2 m_inputs = Vector2.zero;
     private Vector2 m_velocity = Vector2.zero;
