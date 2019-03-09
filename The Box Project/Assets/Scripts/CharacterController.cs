@@ -45,15 +45,18 @@ public class CharacterController : MonoBehaviour
         {
             m_isJumping = true;
             m_hasReleasedJump = false;
-            m_velocity.y = m_maxJumpSpeed;
+            m_velocity.y = m_jumpSpeed;
+            m_yJumpStart = transform.position.y;
         }
         else if (m_isJumping && m_releasedJump && !m_hasReleasedJump)
         {
-            if (m_velocity.y > m_minJumpSpeed)
-            {
-                Debug.Log("Velocity: " + m_velocity);
-                m_velocity.y = m_minJumpSpeed;
-            }
+            m_hasReleasedJump = true;
+            m_velocity.y = 0.0f;
+        }
+        else if(transform.position.y - m_yJumpStart >= m_maxJumpHeight )
+        {
+            m_velocity.y = 0.0f;
+            Debug.Log("On passe par la");
             m_hasReleasedJump = true;
         }
         else if(m_isJumping && m_collisions.below)
@@ -65,9 +68,17 @@ public class CharacterController : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if(!m_collisions.below)
+        if(m_isJumping && m_hasReleasedJump)
         {
-            m_velocity.y += m_gravity * Time.fixedDeltaTime;
+            if(m_velocity.y > m_maxFallSpeed)
+            {
+                float newVelocity = m_velocity.y + (m_gravity * Time.fixedDeltaTime);
+                if (newVelocity < m_maxFallSpeed)
+                {
+                    newVelocity = m_maxFallSpeed;
+                }
+                m_velocity.y = newVelocity;
+            }
         }
         else if(!m_isJumping)
         {
@@ -78,11 +89,13 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private float m_groundSpeed = 5.0f;
     [SerializeField]
-    private float m_maxJumpSpeed = 20.0f;
+    private float m_jumpSpeed = 20.0f;
     [SerializeField]
-    private float m_minJumpSpeed = 10.0f;
+    private float m_maxJumpHeight = 5.0f;
     [SerializeField]
     private float m_gravity = -9.81f;
+    [SerializeField]
+    private float m_maxFallSpeed = -25.0f;
     [SerializeField]
     private SpriteRenderer m_sprite = null;
     [SerializeField]
@@ -94,6 +107,7 @@ public class CharacterController : MonoBehaviour
     private bool m_isJumping = false;
     private bool m_pressedJump = false;
     private bool m_releasedJump = false;
+    private float m_yJumpStart = 0.0f;
 
     private bool m_hasReleasedJump = false;
     #endregion

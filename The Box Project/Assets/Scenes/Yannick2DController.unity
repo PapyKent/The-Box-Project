@@ -808,9 +808,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_groundSpeed: 0.2
-  m_maxJumpSpeed: 20
-  m_minJumpSpeed: 5
+  m_jumpSpeed: 20
+  m_maxJumpHeight: 6
   m_gravity: -47.1
+  m_maxFallSpeed: -25
   m_sprite: {fileID: 1846811760}
   m_groundCollider: {fileID: 1392827690}
 --- !u!4 &516629246
@@ -1814,7 +1815,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2152,7 +2153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_distanceBetweenRay: 0.25
-  m_shootRayDistance: 0.1
+  m_shootRayDistance: 0.25
   m_groundCollider: {fileID: 1392827689}
   m_collisionMask:
     serializedVersion: 2
