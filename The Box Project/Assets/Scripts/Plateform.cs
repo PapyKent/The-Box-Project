@@ -19,12 +19,12 @@ public class Plateform : MonoBehaviour
 
     private void Start()
     {
-        PlayerInput.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
+        InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
     }
 
     private void OnDestroy()
     {
-        PlayerInput.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
+        InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
     }
 
     private void Update()
