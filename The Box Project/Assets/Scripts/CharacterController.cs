@@ -27,9 +27,9 @@ public class CharacterController : MonoBehaviour
         Vector3 newPos = transform.position + (Vector3)m_inputs;
         if (m_velocity.y < 0.0f)
         {
-            if(m_collisions.below && (newPos.y - (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.belowHit.collider.bounds.max.y)
+            if(m_collisions.below && (newPos.y - (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
             {
-                newPos.y = m_collisions.belowHit.collider.bounds.max.y + (m_groundCollider.ColliderBounds.size.y / 2);
+                newPos.y = m_collisions.belowHit.point.y + (m_groundCollider.ColliderBounds.size.y / 2);
                 m_velocity.y = 0.0f;
                 m_isJumping = false;
                 m_isGrounded = true;
@@ -37,27 +37,27 @@ public class CharacterController : MonoBehaviour
         }
         else if(m_velocity.y > 0.0f)
         {
-            if(m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.aboveHit.collider.bounds.min.y)
+            if(m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.aboveHit.point.y)
             {
                 if (m_velocity.y > 0.0f)
                     m_velocity.y = 0.0f;
                 m_hasReleasedJump = true;
-                newPos.y = m_collisions.aboveHit.collider.bounds.min.y - (m_groundCollider.ColliderBounds.size.y / 2);
+                newPos.y = m_collisions.aboveHit.point.y - (m_groundCollider.ColliderBounds.size.y / 2);
             }
         }
 
         if(m_inputs.x > 0.0f)
         {
-            if(m_collisions.right && (newPos.x - (m_groundCollider.ColliderBounds.size.x / 2) < m_collisions.rightHit.collider.bounds.min.x))
+            if(m_collisions.right && (newPos.x - (m_groundCollider.ColliderBounds.size.x / 2) < m_collisions.rightHit.point.x))
             {
-                newPos.x = m_collisions.rightHit.collider.bounds.min.x - (m_groundCollider.ColliderBounds.size.x / 2);
+                newPos.x = m_collisions.rightHit.point.x - (m_groundCollider.ColliderBounds.size.x / 2);
             }
         }
         else if(m_inputs.x < 0.0f)
         {
-            if (m_collisions.left && (newPos.x + (m_groundCollider.ColliderBounds.size.x / 2) > m_collisions.leftHit.collider.bounds.max.x))
+            if (m_collisions.left && (newPos.x + (m_groundCollider.ColliderBounds.size.x / 2) > m_collisions.leftHit.point.x))
             {
-                newPos.x = m_collisions.leftHit.collider.bounds.max.x + (m_groundCollider.ColliderBounds.size.x / 2);
+                newPos.x = m_collisions.leftHit.point.x + (m_groundCollider.ColliderBounds.size.x / 2);
             }
         }
         transform.position = newPos;
