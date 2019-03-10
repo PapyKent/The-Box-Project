@@ -6,17 +6,17 @@ public class CharacterController : MonoBehaviour
 {
     #region Private
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         m_inputs = new Vector2(Input.GetAxis("Horizontal") * m_groundSpeed, 0.0f);
         HandleSpriteDirection();
         m_collisions.Reset();
-        m_groundCollider.CheckVerticalCollisions(ref m_collisions);
+        HandleSideCollisions();
+        if (m_velocity.y > 0.0f)
+            m_groundCollider.CheckAboveCollisions(ref m_collisions);
+        else
+            m_groundCollider.CheckBelowCollisions(ref m_collisions);
+        CheckIfGrounded();        
         HandleJump();
         ApplyGravity();
         m_inputs.y = m_velocity.y * Time.fixedDeltaTime;
@@ -25,17 +25,70 @@ public class CharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 newPos = transform.position + (Vector3)m_inputs;
-        if(m_isJumping)
+        if (m_velocity.y < 0.0f)
         {
-            Collider2D collider = Physics2D.OverlapBox(newPos, m_groundCollider.ColliderBounds.size, 0.0f, m_obstacleLayer);
-            if (collider != null)
+            if(m_collisions.below && (newPos.y - (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.belowHit.collider.bounds.max.y)
             {
-                newPos = new Vector3(newPos.x, collider.bounds.max.y + m_groundCollider.ColliderBounds.extents.y, newPos.z);
+                newPos.y = m_collisions.belowHit.collider.bounds.max.y + (m_groundCollider.ColliderBounds.size.y / 2);
+                m_velocity.y = 0.0f;
+                m_isJumping = false;
+                m_isGrounded = true;
+            }
+        }
+        else if(m_velocity.y > 0.0f)
+        {
+            if(m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.aboveHit.collider.bounds.min.y)
+            {
+                if (m_velocity.y > 0.0f)
+                    m_velocity.y = 0.0f;
+                m_hasReleasedJump = true;
+                newPos.y = m_collisions.aboveHit.collider.bounds.min.y - (m_groundCollider.ColliderBounds.size.y / 2);
+            }
+        }
+
+        if(m_inputs.x > 0.0f)
+        {
+            if(m_collisions.right && (newPos.x - (m_groundCollider.ColliderBounds.size.x / 2) < m_collisions.rightHit.collider.bounds.min.x))
+            {
+                newPos.x = m_collisions.rightHit.collider.bounds.min.x - (m_groundCollider.ColliderBounds.size.x / 2);
+            }
+        }
+        else if(m_inputs.x < 0.0f)
+        {
+            if (m_collisions.left && (newPos.x + (m_groundCollider.ColliderBounds.size.x / 2) > m_collisions.leftHit.collider.bounds.max.x))
+            {
+                newPos.x = m_collisions.leftHit.collider.bounds.max.x + (m_groundCollider.ColliderBounds.size.x / 2);
             }
         }
         transform.position = newPos;
-        
-            //transform.Translate(m_inputs);
+        //transform.Translate(m_inputs);
+    }
+
+    private void HandleSideCollisions()
+    {
+        CheckSideCollisions();
+        if (m_inputs.x > 0.0f && m_collisions.right)
+        {
+            if (!m_isJumping && m_collisions.rightHit.point.y > m_groundCollider.ColliderBounds.min.y)
+            {
+                m_inputs = new Vector2(0.0f, m_inputs.y);
+            }
+        }
+        else if (m_inputs.x < 0.0f && m_collisions.left)
+        {
+            if (!m_isJumping && m_collisions.leftHit.point.y > m_groundCollider.ColliderBounds.min.y)
+            {
+                m_inputs = new Vector2(0.0f, m_inputs.y);
+            }
+        }
+    }
+
+    private void CheckSideCollisions()
+    {
+        if (m_collisions.faceRight)
+            m_groundCollider.CheckRightCollisions(ref m_collisions);
+        else
+            m_groundCollider.CheckLeftCollisions(ref m_collisions);
     }
 
     private void HandleSpriteDirection()
@@ -44,6 +97,7 @@ public class CharacterController : MonoBehaviour
         {
             bool flipX = m_inputs.x > 0.0f;
             m_sprite.flipX = flipX;
+            m_collisions.faceRight = flipX;
         }
     }
 
@@ -52,36 +106,45 @@ public class CharacterController : MonoBehaviour
         m_pressedJump = Input.GetButtonDown("Jump");
         m_releasedJump = Input.GetButtonUp("Jump");
 
-        if(!m_isJumping && m_pressedJump)
+        if(!m_isJumping && m_pressedJump && m_isGrounded)
         {
+            //Here we start jumping
             m_isJumping = true;
             m_hasReleasedJump = false;
             m_velocity.y = m_jumpSpeed;
             m_yJumpStart = transform.position.y;
         }
-        else if (m_isJumping && m_releasedJump && !m_hasReleasedJump)
+        else if (m_isJumping && m_releasedJump && !m_hasReleasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight))
         {
-            m_hasReleasedJump = true;
-            m_velocity.y = 0.0f;
-        }
-        else if(transform.position.y - m_yJumpStart >= m_maxJumpHeight )
-        {
-            m_velocity.y = 0.0f;
-            Debug.Log("On passe par la");
+            //We enter here if the player keeps holding the jump button
+            //We want him to fall down (max jump height reached)
+            if(m_velocity.y > 0.0f)
+                m_velocity.y = 0.0f;
             m_hasReleasedJump = true;
         }
-        else if(m_isJumping && m_collisions.below)
+    }
+
+    private void CheckIfGrounded()
+    {
+        if(m_collisions.below)
         {
-            m_isJumping = false;
-            Debug.Log("au sol" );
+            if(Mathf.Abs(m_collisions.belowHit.collider.bounds.max.y - m_groundCollider.ColliderBounds.min.y) < 0.05f)
+            {
+                m_isGrounded = true;
+                m_isJumping = false;
+            }
+        }
+        else
+        {
+            m_isGrounded = false;
         }
     }
 
     private void ApplyGravity()
     {
-        if(m_isJumping && m_hasReleasedJump)
+        if((!m_isGrounded && !m_isJumping) || (m_isJumping && m_hasReleasedJump))
         {
-            if(m_velocity.y > m_maxFallSpeed)
+            if (m_velocity.y > m_maxFallSpeed)
             {
                 float newVelocity = m_velocity.y + (m_gravity * Time.fixedDeltaTime);
                 if (newVelocity < m_maxFallSpeed)
@@ -90,10 +153,6 @@ public class CharacterController : MonoBehaviour
                 }
                 m_velocity.y = newVelocity;
             }
-        }
-        else if(!m_isJumping)
-        {
-            m_velocity.y = 0.0f;
         }
     }
 
@@ -124,5 +183,6 @@ public class CharacterController : MonoBehaviour
     private float m_yJumpStart = 0.0f;
 
     private bool m_hasReleasedJump = false;
+    private bool m_isGrounded = false;
     #endregion
 }

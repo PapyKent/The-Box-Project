@@ -9,41 +9,46 @@ public class GroundCharacterCollider : MonoBehaviour
         public bool above, below;
         public bool left, right;
 
-        public Vector2 aboveCollider, belowCollider;
-        public Vector2 leftCollider, rightCollider;
+        public RaycastHit2D aboveHit, belowHit;
+        public RaycastHit2D leftHit, rightHit;
+
+        public bool faceRight;
 
         public void Reset()
         {
             above = below = false;
             left = right = false;
-            aboveCollider = belowCollider = leftCollider = rightCollider = Vector2.zero;
         }
     }
 
     public Bounds ColliderBounds { get { return m_groundCollider.bounds; } }
 
-    public void CheckVerticalCollisions(ref CollisionInfo collisions)
+    //public void CheckVerticalCollisions(ref CollisionInfo collisions)
+    //{
+    //    CheckBelowCollisions(ref collisions);
+    //    CheckAboveCollisions(ref collisions);
+    //    CheckRightCollisions(ref collisions);
+    //    CheckLeftCollisions(ref collisions);
+    //}
+
+    public void CheckBelowCollisions(ref CollisionInfo collisions)
     {
-        Vector2 origin = m_groundCollider.bounds.min;
-        for (int i = 0; i < m_verticalRaycastCount + 1; i++)
-        {
-            Debug.DrawRay(origin, (Vector3.up * -1) * m_shootRayDistance, Color.red);
-            RaycastHit2D hit = Physics2D.Raycast(origin, Vector3.up * -1, m_shootRayDistance, m_collisionMask);
-            
-            if(hit.collider != null )
-            {
-                if(hit.collider.tag == "Ground")
-                {
-                    collisions.below = true;
-                    collisions.belowCollider = hit.point;
-                }
-            }
-            origin = new Vector2(origin.x + (m_groundCollider.bounds.size.x / m_verticalRaycastCount), origin.y);
-            if(origin.x > m_groundCollider.bounds.max.x)
-            {
-                origin = m_groundCollider.bounds.max;
-            }
-        }
+        CheckCollisions(ref collisions.below, ref collisions.belowHit, m_groundCollider.bounds.min, Vector3.down, true);
+    }
+
+    public void CheckAboveCollisions(ref CollisionInfo collisions)
+    {
+        CheckCollisions(ref collisions.above, ref collisions.aboveHit, new Vector2(m_groundCollider.bounds.min.x, m_groundCollider.bounds.max.y), Vector3.up, true);
+    }
+
+    public void CheckRightCollisions(ref CollisionInfo collisions)
+    {
+        CheckCollisions(ref collisions.right, ref collisions.rightHit, new Vector2(m_groundCollider.bounds.max.x, m_groundCollider.bounds.min.y), Vector3.right, false);
+    }
+
+    public void CheckLeftCollisions(ref CollisionInfo collisions)
+    {
+        CheckCollisions(ref collisions.left, ref collisions.leftHit, m_groundCollider.bounds.min, Vector3.left, false);
     }
 
     #region Private
@@ -52,6 +57,42 @@ public class GroundCharacterCollider : MonoBehaviour
     {
         m_horizontalRaycastCount = Mathf.RoundToInt(m_groundCollider.bounds.size.y / m_distanceBetweenRay);
         m_verticalRaycastCount = Mathf.RoundToInt(m_groundCollider.bounds.size.x / m_distanceBetweenRay);
+        m_shootRayDistance = 1.0f;
+    }
+
+    private void CheckCollisions(ref bool collisionDirection, ref RaycastHit2D refHit, Vector2 origin, Vector3 rayDirection, bool vertical)
+    {
+        int limit = vertical ? m_verticalRaycastCount + 1 : m_horizontalRaycastCount;
+        if (vertical)
+            origin.x += 0.05f;
+        else
+            origin.y += 0.05f;
+        for (int i = 0; i <  limit; i++)
+        {
+            if(i == limit -1)
+            {
+                if (vertical)
+                    origin.x -= 0.1f;
+                else
+                    origin.y -= 0.1f;
+            }
+            Debug.DrawRay(origin, rayDirection * m_shootRayDistance, Color.red);
+            RaycastHit2D hit = Physics2D.Raycast(origin, rayDirection, m_shootRayDistance, m_collisionMask);
+
+            if (hit.collider != null)
+            {
+                collisionDirection = true;
+                refHit = hit;
+            }
+            if(vertical)
+            {
+                origin = new Vector2(origin.x + (m_groundCollider.bounds.size.x / m_verticalRaycastCount), origin.y);
+            }
+            else
+            {
+                origin = new Vector2(origin.x, origin.y + (m_groundCollider.bounds.size.y / m_verticalRaycastCount));
+            }
+        }
     }
 
     [SerializeField]
@@ -63,7 +104,7 @@ public class GroundCharacterCollider : MonoBehaviour
     [SerializeField]
     private LayerMask m_collisionMask;
 
-    private float m_verticalRaycastCount = 0;
-    private float m_horizontalRaycastCount = 0;
+    private int m_verticalRaycastCount = 0;
+    private int m_horizontalRaycastCount = 0;
     #endregion
 }
