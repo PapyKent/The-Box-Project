@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour
         m_inputs = new Vector2(Input.GetAxis("Horizontal") * m_groundSpeed, 0.0f);
         HandleSpriteDirection();
         m_collisions.Reset();
-        HandleSideCollisions();
+        CheckSideCollisions();
         if (m_velocity.y > 0.0f)
             m_groundCollider.CheckAboveCollisions(ref m_collisions);
         else
@@ -37,7 +37,7 @@ public class CharacterController : MonoBehaviour
         }
         else if(m_velocity.y > 0.0f)
         {
-            if(m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.aboveHit.point.y)
+            if(m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) > m_collisions.aboveHit.point.y)
             {
                 if (m_velocity.y > 0.0f)
                     m_velocity.y = 0.0f;
@@ -48,39 +48,21 @@ public class CharacterController : MonoBehaviour
 
         if(m_inputs.x > 0.0f)
         {
-            if(m_collisions.right && (newPos.x - (m_groundCollider.ColliderBounds.size.x / 2) < m_collisions.rightHit.point.x))
+            if(m_collisions.right && (newPos.x + (m_groundCollider.ColliderBounds.size.x / 2) > m_collisions.rightHit.point.x))
             {
-                newPos.x = m_collisions.rightHit.point.x - (m_groundCollider.ColliderBounds.size.x / 2);
+
+                newPos.x = transform.position.x;// m_collisions.rightHit.point.x - (m_groundCollider.ColliderBounds.size.x / 2);
             }
         }
         else if(m_inputs.x < 0.0f)
         {
-            if (m_collisions.left && (newPos.x + (m_groundCollider.ColliderBounds.size.x / 2) > m_collisions.leftHit.point.x))
+            if (m_collisions.left && (newPos.x - (m_groundCollider.ColliderBounds.size.x / 2) < m_collisions.leftHit.point.x))
             {
                 newPos.x = m_collisions.leftHit.point.x + (m_groundCollider.ColliderBounds.size.x / 2);
             }
         }
         transform.position = newPos;
         //transform.Translate(m_inputs);
-    }
-
-    private void HandleSideCollisions()
-    {
-        CheckSideCollisions();
-        if (m_inputs.x > 0.0f && m_collisions.right)
-        {
-            if (!m_isJumping && m_collisions.rightHit.point.y > m_groundCollider.ColliderBounds.min.y)
-            {
-                m_inputs = new Vector2(0.0f, m_inputs.y);
-            }
-        }
-        else if (m_inputs.x < 0.0f && m_collisions.left)
-        {
-            if (!m_isJumping && m_collisions.leftHit.point.y > m_groundCollider.ColliderBounds.min.y)
-            {
-                m_inputs = new Vector2(0.0f, m_inputs.y);
-            }
-        }
     }
 
     private void CheckSideCollisions()
