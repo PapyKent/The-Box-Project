@@ -19,12 +19,12 @@ public class Plateform : MonoBehaviour
 
     private void Start()
     {
-        InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
+        //InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
     }
 
     private void OnDestroy()
     {
-        InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
+       // InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
     }
 
     private void Update()

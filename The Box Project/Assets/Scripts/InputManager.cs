@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     public bool ReleasedJump { get => m_releasedJump; }
     public Vector2 DirectionalInput { get => m_directionalInput; }
 
-    public delegate void OnColorButtonPressed(Plateform.Color color);
+    public delegate void OnColorButtonPressed(GridManager.Color color);
 
     public void RegisterOnColorButtonPressed(OnColorButtonPressed method, bool register)
     {
@@ -46,17 +46,17 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetButtonDown("Y Button"))
         {
-            m_colorButtonPressedListeners?.Invoke(Plateform.Color.YELLOW);
+            m_colorButtonPressedListeners?.Invoke(GridManager.Color.YELLOW);
         }
 
         if (Input.GetButtonDown("X Button"))
         {
-            m_colorButtonPressedListeners?.Invoke(Plateform.Color.BLUE);
+            m_colorButtonPressedListeners?.Invoke(GridManager.Color.BLUE);
         }
 
         if (Input.GetButtonDown("B Button"))
         {
-            m_colorButtonPressedListeners?.Invoke(Plateform.Color.RED);
+            m_colorButtonPressedListeners?.Invoke(GridManager.Color.RED);
         }
 
         if (Input.GetButtonDown("Start"))
