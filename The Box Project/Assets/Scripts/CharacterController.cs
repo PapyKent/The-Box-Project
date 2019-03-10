@@ -110,10 +110,14 @@ public class CharacterController : MonoBehaviour
     {
         if(m_collisions.below)
         {
-            if(Mathf.Abs(m_collisions.belowHit.collider.bounds.max.y - m_groundCollider.ColliderBounds.min.y) < 0.05f)
+            if(Mathf.Abs(m_collisions.belowHit.point.y - m_groundCollider.ColliderBounds.min.y) < 0.05f)
             {
                 m_isGrounded = true;
                 m_isJumping = false;
+            }
+            else
+            {
+                m_isGrounded = false;
             }
         }
         else

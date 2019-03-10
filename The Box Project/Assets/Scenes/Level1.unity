@@ -719,7 +719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_groundSpeed: 0.18
   m_jumpSpeed: 15
-  m_maxJumpHeight: 4
+  m_maxJumpHeight: 4.5
   m_gravity: -47.1
   m_maxFallSpeed: -18
   m_sprite: {fileID: 620468330}
