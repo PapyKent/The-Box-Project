@@ -85,8 +85,6 @@ public class InputManager : MonoBehaviour
     private static InputManager s_instance = null;
     private OnColorButtonPressed m_colorButtonPressedListeners = null;
 
-    [SerializeField]
-    private Player m_player = null;
 
     #endregion
 }
