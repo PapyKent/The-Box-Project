@@ -11,5 +11,9 @@ public class ReloadLevelBox : MonoBehaviour
         {
             CheckpointManager.Instance.ReloadLevel();
         }
+        foreach(MovingPlatform movingPlat in FindObjectsOfType<MovingPlatform>())
+        {
+            movingPlat.ResetMovingPlatform();
+        }
     }
 }

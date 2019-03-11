@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    public void SetExternalForce(Vector2 externalForce)
+    {
+        m_externalForces += externalForce;
+    }
+
     #region Private
 
     private void Update()
@@ -24,8 +29,8 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 newPos = transform.position + (Vector3)m_inputs;
-        if (m_velocity.y < 0.0f)
+        Vector3 newPos = transform.position + (Vector3)m_inputs + (Vector3)m_externalForces;
+        if (m_velocity.y < 0.0f || m_externalForces.y < 0.0f)
         {
             if(m_collisions.below && (newPos.y - (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
             {
@@ -35,7 +40,7 @@ public class CharacterController : MonoBehaviour
                 m_isGrounded = true;
             }
         }
-        else if(m_velocity.y > 0.0f)
+        else if(m_velocity.y > 0.0f ||m_externalForces.y > 0.0f)
         {
             if(m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) > m_collisions.aboveHit.point.y)
             {
@@ -46,7 +51,7 @@ public class CharacterController : MonoBehaviour
             }
         }
 
-        if(m_inputs.x > 0.0f)
+        if(m_inputs.x > 0.0f || m_externalForces.x > 0.0f)
         {
             if(m_collisions.right && (newPos.x + (m_groundCollider.ColliderBounds.size.x / 2) > m_collisions.rightHit.point.x))
             {
@@ -54,7 +59,7 @@ public class CharacterController : MonoBehaviour
                 newPos.x = transform.position.x;// m_collisions.rightHit.point.x - (m_groundCollider.ColliderBounds.size.x / 2);
             }
         }
-        else if(m_inputs.x < 0.0f)
+        else if(m_inputs.x < 0.0f || m_externalForces.x < 0.0f)
         {
             if (m_collisions.left && (newPos.x - (m_groundCollider.ColliderBounds.size.x / 2) < m_collisions.leftHit.point.x))
             {
@@ -62,6 +67,7 @@ public class CharacterController : MonoBehaviour
             }
         }
         transform.position = newPos;
+        m_externalForces = Vector2.zero;
         //transform.Translate(m_inputs);
     }
 
@@ -161,6 +167,7 @@ public class CharacterController : MonoBehaviour
     private LayerMask m_obstacleLayer;
 
     private Vector2 m_inputs = Vector2.zero;
+    private Vector2 m_externalForces = Vector2.zero;
     private Vector2 m_velocity = Vector2.zero;
     private GroundCharacterCollider.CollisionInfo m_collisions;
     private bool m_isJumping = false;

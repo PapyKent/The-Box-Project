@@ -79,7 +79,7 @@ public class GroundCharacterCollider : MonoBehaviour
             Debug.DrawRay(origin, rayDirection * m_shootRayDistance, Color.red);
             RaycastHit2D hit = Physics2D.Raycast(origin, rayDirection, m_shootRayDistance, m_collisionMask);
 
-            if (hit.collider != null)
+            if (hit.collider != null && !hit.collider.isTrigger)
             {
                 collisionDirection = true;
                 refHit = hit;
