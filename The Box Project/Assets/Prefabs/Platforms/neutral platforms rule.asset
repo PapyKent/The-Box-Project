@@ -66,7 +66,7 @@ MonoBehaviour:
     m_Output: 0
     m_ColliderType: 1
     m_RandomTransform: 0
-  - m_Neighbors: 0200000001000000000000000200000001000000020000000200000002000000
+  - m_Neighbors: 0000000001000000000000000200000001000000020000000200000000000000
     m_Sprites:
     - {fileID: 21300000, guid: a01d97d4fb6d6a54db96c19ee0f75800, type: 3}
     m_GameObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
     m_Output: 0
     m_ColliderType: 1
     m_RandomTransform: 0
-  - m_Neighbors: 0000000001000000020000000100000002000000020000000200000002000000
+  - m_Neighbors: 0000000001000000000000000100000002000000000000000200000002000000
     m_Sprites:
     - {fileID: 21300000, guid: a818b32204475424d8bac4ec6b1cccca, type: 3}
     m_GameObject: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
     m_Output: 0
     m_ColliderType: 1
     m_RandomTransform: 0
-  - m_Neighbors: 0200000002000000020000000200000001000000020000000100000000000000
+  - m_Neighbors: 0200000002000000000000000200000001000000000000000100000000000000
     m_Sprites:
     - {fileID: 21300000, guid: f13776167856326439eaee6347dac093, type: 3}
     m_GameObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
     m_Output: 0
     m_ColliderType: 1
     m_RandomTransform: 0
-  - m_Neighbors: 0200000002000000020000000100000002000000000000000100000002000000
+  - m_Neighbors: 0000000002000000020000000100000002000000000000000100000000000000
     m_Sprites:
     - {fileID: 21300000, guid: d07dd08d38ae3204e8e954c1a7103902, type: 3}
     m_GameObject: {fileID: 0}
