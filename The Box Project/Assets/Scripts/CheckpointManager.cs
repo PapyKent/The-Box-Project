@@ -8,6 +8,11 @@ public class CheckpointManager : MonoBehaviour
 
     public Checkpoint CurrentCheckpoint { get { return m_currentCheckpoint; } set { m_currentCheckpoint = value; } }
 
+    public void ReloadLevel()
+    {
+        m_player.transform.position = m_currentCheckpoint.transform.position;
+    }
+
     #region Private
 
     private void Awake()
@@ -26,6 +31,8 @@ public class CheckpointManager : MonoBehaviour
 
     [SerializeField]
     private Checkpoint m_beginCheckpoint = null;
+    [SerializeField]
+    private CharacterController m_player = null;
  
     private Checkpoint m_currentCheckpoint = null;
     private static CheckpointManager s_instance = null;
