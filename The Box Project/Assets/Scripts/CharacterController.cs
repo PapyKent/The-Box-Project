@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        m_inputs = new Vector2(Input.GetAxis("Horizontal") * m_groundSpeed, 0.0f);
+        m_inputs = InputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
         HandleSpriteDirection();
         m_collisions.Reset();
         CheckSideCollisions();
@@ -85,8 +85,8 @@ public class CharacterController : MonoBehaviour
 
     private void HandleJump()
     {
-        m_pressedJump = Input.GetButtonDown("Jump");
-        m_releasedJump = Input.GetButtonUp("Jump");
+        m_pressedJump = InputManager.Instance.PressedJump;
+        m_releasedJump = InputManager.Instance.ReleasedJump;
 
         if(!m_isJumping && m_pressedJump && m_isGrounded)
         {
