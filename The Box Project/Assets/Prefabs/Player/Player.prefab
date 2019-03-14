@@ -203,11 +203,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_groundSpeed: 0.18
   m_jumpSpeed: 15
-  m_maxJumpHeight: 4.5
-  m_gravity: -47.1
-  m_maxFallSpeed: -18
+  m_maxJumpHeight: 2.75
+  m_gravity: -40
+  m_maxFallSpeed: -15
   m_sprite: {fileID: 1096166763986101619}
   m_groundCollider: {fileID: 1096166763230127145}
+  m_timeVerticalSpeedCut: 0.4
   m_obstacleLayer:
     serializedVersion: 2
     m_Bits: 512

@@ -44,9 +44,10 @@ public class CharacterController : MonoBehaviour
         {
             if(m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) > m_collisions.aboveHit.point.y)
             {
-                if (m_velocity.y > 0.0f)
-                    m_velocity.y = 0.0f;
+                //if (m_velocity.y > 0.0f)
+                //    m_velocity.y = 0.0f;
                 m_hasReleasedJump = true;
+                //m_elapsedTimeVerticalSpeedCut = m_timeVerticalSpeedCut;
                 newPos.y = m_collisions.aboveHit.point.y - (m_groundCollider.ColliderBounds.size.y / 2);
             }
         }
@@ -102,13 +103,24 @@ public class CharacterController : MonoBehaviour
             m_velocity.y = m_jumpSpeed;
             m_yJumpStart = transform.position.y;
         }
-        else if (m_isJumping && m_releasedJump && !m_hasReleasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight))
+        else if (!m_hasReleasedJump  && (m_isJumping && m_releasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight)))
         {
             //We enter here if the player keeps holding the jump button
             //We want him to fall down (max jump height reached)
-            if(m_velocity.y > 0.0f)
-                m_velocity.y = 0.0f;
+            //if(m_velocity.y > 0.0f)
+            //    m_velocity.y = 0.0f;
             m_hasReleasedJump = true;
+            m_elapsedTimeVerticalSpeedCut = 0.0f;
+        }
+
+        if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_timeVerticalSpeedCut)
+        {
+            float newVelocity = m_jumpSpeed * ((m_timeVerticalSpeedCut - (m_elapsedTimeVerticalSpeedCut / m_timeVerticalSpeedCut)) / m_timeVerticalSpeedCut);
+            if (newVelocity < m_maxFallSpeed)
+                newVelocity = m_maxFallSpeed;
+            Debug.Log("New velocity: " + newVelocity);
+            m_velocity.y = newVelocity;
+            m_elapsedTimeVerticalSpeedCut += Time.deltaTime;
         }
     }
 
@@ -134,7 +146,7 @@ public class CharacterController : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if((!m_isGrounded && !m_isJumping) || (m_isJumping && m_hasReleasedJump))
+        if((!m_isGrounded && !m_isJumping) || (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut >= m_timeVerticalSpeedCut))
         {
             if (m_velocity.y > m_maxFallSpeed)
             {
@@ -162,6 +174,8 @@ public class CharacterController : MonoBehaviour
     private SpriteRenderer m_sprite = null;
     [SerializeField]
     private GroundCharacterCollider m_groundCollider = null;
+    [SerializeField]
+    private float m_timeVerticalSpeedCut = 0.3f;
 
     [SerializeField]
     private LayerMask m_obstacleLayer;
@@ -174,6 +188,8 @@ public class CharacterController : MonoBehaviour
     private bool m_pressedJump = false;
     private bool m_releasedJump = false;
     private float m_yJumpStart = 0.0f;
+    private float m_elapsedTimeVerticalSpeedCut = 0.0f;
+    private float m_stepVerticalSpeedCut = 0.0f;
 
     private bool m_hasReleasedJump = false;
     private bool m_isGrounded = false;
