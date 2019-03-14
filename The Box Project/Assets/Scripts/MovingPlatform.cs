@@ -34,6 +34,12 @@ public class MovingPlatform : MonoBehaviour
         {
             m_isMoving = true;
         }
+        InputManager.Instance?.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.Instance?.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
     }
 
     private void Update()
@@ -97,6 +103,17 @@ public class MovingPlatform : MonoBehaviour
         return Mathf.Pow(x, a) / (Mathf.Pow(x, a) + Mathf.Pow(1 - x, a));
     }
 
+    private void OnColorButtonPressed(GridManager.Color color)
+    {
+        if(m_color != GridManager.Color.NONE)
+        {
+            bool sameColor = color == m_color;
+            m_activeGraphics.SetActive(sameColor);
+            m_unactiveGraphics.SetActive(!sameColor);
+            m_collider.enabled = sameColor;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (localWaypoints != null)
@@ -113,6 +130,7 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
+    [Header("Moving properties")]
     [SerializeField]
     private bool m_alwaysMove = false;
     [SerializeField]
@@ -120,17 +138,27 @@ public class MovingPlatform : MonoBehaviour
 
     [SerializeField]
     private float m_speed;
+    [SerializeField]
     private bool m_cyclic;
+    [SerializeField]
     private float m_waitTIme;
     [Range(0, 2)]
     [SerializeField]
     public float easeAmount;
 
+    [Header("Tile attributes")]
+    [SerializeField]
+    private GridManager.Color m_color = GridManager.Color.NONE;
+    [SerializeField]
+    private GameObject m_activeGraphics = null;
+    [SerializeField]
+    private GameObject m_unactiveGraphics = null;
+    [SerializeField]
+    private BoxCollider2D m_collider = null;
+
     private int fromWaypointIndex;
     private float percentBetweenWaypoints;
     private float nextMoveTime;
-
-
     private bool m_isMoving = false;
     private Vector3[] globalWaypoints;
     private CharacterController m_playerOnPlatform = null;
