@@ -108,17 +108,14 @@ public class CharacterController : MonoBehaviour
         }
         else if (!m_hasReleasedJump  && (m_isJumping && m_releasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight) || (m_collisions.above && m_willHitAbove)))
         {
-            //We enter here if the player keeps holding the jump button
-            //We want him to fall down (max jump height reached)
-            //if(m_velocity.y > 0.0f)
-            //    m_velocity.y = 0.0f;
             m_hasReleasedJump = true;
+            m_currentTimeVerticalSpeedCut = m_willHitAbove ? m_timeVerticalSpeedCut / 2 : m_timeVerticalSpeedCut;
             m_elapsedTimeVerticalSpeedCut = 0.0f;
         }
 
-        if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_timeVerticalSpeedCut)
+        if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_currentTimeVerticalSpeedCut)
         {
-            float newVelocity = m_jumpSpeed * ((m_timeVerticalSpeedCut - (m_elapsedTimeVerticalSpeedCut / m_timeVerticalSpeedCut)) / m_timeVerticalSpeedCut);
+            float newVelocity = m_jumpSpeed * ((m_currentTimeVerticalSpeedCut - (m_elapsedTimeVerticalSpeedCut / m_currentTimeVerticalSpeedCut)) / m_currentTimeVerticalSpeedCut);
             if (newVelocity < m_maxFallSpeed)
                 newVelocity = m_maxFallSpeed;
             Debug.Log("New velocity: " + newVelocity);
@@ -192,10 +189,10 @@ public class CharacterController : MonoBehaviour
     private bool m_releasedJump = false;
     private float m_yJumpStart = 0.0f;
     private float m_elapsedTimeVerticalSpeedCut = 0.0f;
-    private float m_stepVerticalSpeedCut = 0.0f;
 
     private bool m_hasReleasedJump = false;
     private bool m_isGrounded = false;
     private bool m_willHitAbove = false;
+    private float m_currentTimeVerticalSpeedCut = 0.0f;
     #endregion
 }
