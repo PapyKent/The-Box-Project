@@ -46,9 +46,12 @@ public class CharacterController : MonoBehaviour
             {
                 //if (m_velocity.y > 0.0f)
                 //    m_velocity.y = 0.0f;
-                m_hasReleasedJump = true;
-                //m_elapsedTimeVerticalSpeedCut = m_timeVerticalSpeedCut;
+                m_willHitAbove = true;
                 newPos.y = m_collisions.aboveHit.point.y - (m_groundCollider.ColliderBounds.size.y / 2);
+            }
+            else
+            {
+                m_willHitAbove = false;
             }
         }
 
@@ -103,7 +106,7 @@ public class CharacterController : MonoBehaviour
             m_velocity.y = m_jumpSpeed;
             m_yJumpStart = transform.position.y;
         }
-        else if (!m_hasReleasedJump  && (m_isJumping && m_releasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight)))
+        else if (!m_hasReleasedJump  && (m_isJumping && m_releasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight) || (m_collisions.above && m_willHitAbove)))
         {
             //We enter here if the player keeps holding the jump button
             //We want him to fall down (max jump height reached)
@@ -193,5 +196,6 @@ public class CharacterController : MonoBehaviour
 
     private bool m_hasReleasedJump = false;
     private bool m_isGrounded = false;
+    private bool m_willHitAbove = false;
     #endregion
 }
