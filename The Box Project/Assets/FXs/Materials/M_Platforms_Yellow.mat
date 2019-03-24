@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Platforms_Yellow
+  m_Shader: {fileID: 4800000, guid: 0037485db8ecd2f418b3668435ae7c48, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: c3a863161c533f74faad79a170a71cee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _Dissolveamount: 1.35
+    - _EmissiveContrast: 1.5
+    - _Float10: 6.4
+    - _Float13: 0
+    - _Float14: 0.45
+    - _Float2: -20.79
+    - _Float3: 12.13
+    - _HeightGradient: 0.15
+    - _HeightStartGradient: 0.3
+    - _HorizontalHeightGradient: 0.15
+    - _HorizontalHeightStartGradient: 0.36
+    - _Speed: 0.23
+    - _Transparency: 1
+    - _UVScale: 13
+    - _VertexPos: 0
+    - _VerticalHeightGradient: 0.15
+    - _VerticalHeightStartGradient: 0.38
+    - __dirty: 0
+    m_Colors:
+    - _BaseColor: {r: 1, g: 0.6987091, b: 0, a: 0}
+    - _Emissive: {r: 4.150763, g: 0.83309805, b: 0, a: 1}
+    - _Vector0: {r: 0.09, g: 0, b: 0, a: 0}

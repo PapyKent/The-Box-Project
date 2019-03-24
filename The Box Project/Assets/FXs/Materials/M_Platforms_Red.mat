@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Platforms_Red
+  m_Shader: {fileID: 4800000, guid: 0037485db8ecd2f418b3668435ae7c48, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: b207e96c97fc137458440e4dccd7f1ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _Dissolveamount: 1.57
+    - _EmissiveContrast: 1.5
+    - _Float10: 6.4
+    - _Float2: 0.03
+    - _Float3: 0.15
+    - _HeightGradient: 0.15
+    - _HeightStartGradient: 0.4
+    - _HorizontalHeightGradient: 0.15
+    - _HorizontalHeightStartGradient: 0.36
+    - _Speed: 0.3
+    - _Transparency: 1
+    - _UVScale: 10.82
+    - _VerticalHeightGradient: 0.15
+    - _VerticalHeightStartGradient: 0.38
+    - __dirty: 0
+    m_Colors:
+    - _BaseColor: {r: 0.7176471, g: 0, b: 0.26727524, a: 0}
+    - _Emissive: {r: 4.73167, g: 0, b: 0.117340066, a: 1}
