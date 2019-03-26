@@ -42,7 +42,8 @@ public class Platform : MonoBehaviour
 	{
 		float elapsedTime = 0.0f;
 		float oldElapsedTime = 0.0f;
-		m_offFx?.Play();
+		if (m_offFx != null)
+			m_offFx.Play();
 		m_renderer.material.SetFloat("_UVScale", m_fxConfig.DisappearUVScale);
 		while (elapsedTime < 1.0f || oldElapsedTime < 1.0f)
 		{
@@ -56,7 +57,8 @@ public class Platform : MonoBehaviour
 
 	private void FXAppear()
 	{
-		m_onFx?.Play();
+		if (m_onFx != null)
+			m_onFx?.Play();
 		m_renderer.material.SetFloat("_UVScale", m_fxConfig.AppearUVScale);
 		m_renderer.material.SetFloat("_DissolveAmount", m_fxConfig.AppearDissolveAmount);
 	}
