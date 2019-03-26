@@ -48,7 +48,7 @@ public class Platform : MonoBehaviour
 		while (elapsedTime < 1.0f || oldElapsedTime < 1.0f)
 		{
 			float dissolveAmount = Mathf.Lerp(m_fxConfig.BeginDisappearDissolveAmount, m_fxConfig.EndDisappearDissolveAmount, elapsedTime);
-			m_renderer.material.SetFloat("_DissolveAmount", dissolveAmount);
+			m_renderer.material.SetFloat("_Dissolveamount", dissolveAmount);
 			yield return null;
 			oldElapsedTime = elapsedTime;
 			elapsedTime += Time.deltaTime * m_fxConfig.PlatformDissolveSpeed;
@@ -60,7 +60,7 @@ public class Platform : MonoBehaviour
 		if (m_onFx != null)
 			m_onFx?.Play();
 		m_renderer.material.SetFloat("_UVScale", m_fxConfig.AppearUVScale);
-		m_renderer.material.SetFloat("_DissolveAmount", m_fxConfig.AppearDissolveAmount);
+		m_renderer.material.SetFloat("_Dissolveamount", m_fxConfig.AppearDissolveAmount);
 	}
 
 	[SerializeField]
