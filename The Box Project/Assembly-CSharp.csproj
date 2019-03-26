@@ -85,37 +85,61 @@
     <Compile Include="Assets\Scripts\Playtest\Brackeys2DController.cs" />
     <Compile Include="Assets\Scripts\Playtest\BrackeysPlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ReloadLevelBox.cs" />
+    <None Include="Assets\Shader\SpriteShaders\CameraDepthTexture.shader" />
     <None Include="Assets\FXs\Shaders\DissolveParticles.shader" />
+    <None Include="Assets\Shader\SpriteShaders\SpritesPixelLit.shader" />
     <None Include="Assets\2D Platformer Controller\Readme.txt" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\Noise\SimplexNoise2D.hlsl" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SpriteUnlit.cginc" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\Noise\ClassicNoise3D.hlsl" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\Noise\Noise3d.cginc" />
+    <None Include="Assets\Shader\SpriteShaders\CameraDepthNormalsTexture.shader" />
+    <None Include="Assets\Shader\SpriteShaders\SpritesPixelLitDissolve.shader" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SimplexNoise3D.hlsl" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\ShaderShared.cginc" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SpriteShadows.cginc" />
+    <None Include="Assets\Shader\SpriteShaders\SpritesUnlit.shader" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SpritePixelLighting.cginc" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SpriteDissolve.cginc" />
     <None Include="Assets\2D Platformer Controller\LICENSE02.txt" />
     <None Include="Assets\2D Platformer Controller\LICENSE.txt" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\ShaderMaths.cginc" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SpriteLighting.cginc" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\Noise\Noise2d.cginc" />
+    <None Include="Assets\Shader\World_UVs.shader" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\Noise\SimplexNoise3D.hlsl" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\Noise\ClassicNoise2D.hlsl" />
+    <None Include="Assets\Shader\SpriteShaders\CameraNormalsTexture.shader" />
+    <None Include="Assets\Shader\SpriteShaders\SpritesVertexLit.shader" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SpriteSpecular.cginc" />
     <None Include="Assets\FXs\Shaders\Platforms.shader" />
+    <None Include="Assets\Shader\SpriteShaders\CGIncludes\SpriteVertexLighting.cginc" />
     <Reference Include="Cinemachine">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -319,13 +343,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.6f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/Yannick/CoursProjet/UnityProjects/The-Box-Project/The Box Project/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/GitHub/The-Box-Project/The Box Project/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.6f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
