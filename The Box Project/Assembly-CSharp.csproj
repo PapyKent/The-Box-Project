@@ -66,6 +66,7 @@
     <Compile Include="Assets\2D Platformer Controller\Scripts\Player.cs" />
     <Compile Include="Assets\2D Platformer Controller\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\2D Platformer Controller\Scripts\RaycastController.cs" />
+    <Compile Include="Assets\FXs\Scripts\Crown_FX_Trigger.cs" />
     <Compile Include="Assets\FXs\Scripts\Platform_Trigger.cs" />
     <Compile Include="Assets\FXs\Scripts\Platforms_Color_State.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
