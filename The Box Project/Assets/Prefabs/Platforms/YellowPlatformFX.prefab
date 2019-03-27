@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 113474014970208590}
   - component: {fileID: 225881504518154346}
   - component: {fileID: 243172986545223174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4932,7 +4932,7 @@ GameObject:
   - component: {fileID: 113474014232600406}
   - component: {fileID: 225881504787590548}
   - component: {fileID: 243172986187878252}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9732,7 +9732,7 @@ GameObject:
   - component: {fileID: 6224076283815652928}
   - component: {fileID: 8251988244816992280}
   - component: {fileID: 5837420093849088853}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14290,7 +14290,7 @@ GameObject:
   - component: {fileID: 5498371653940069732}
   - component: {fileID: 6074078169209586206}
   - component: {fileID: 450097274881695181}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FX_Platform_YellowOff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19055,7 +19055,7 @@ GameObject:
   - component: {fileID: 6753663260595497318}
   - component: {fileID: 7015593464641574492}
   - component: {fileID: 3194105357353323260}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Yellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19132,7 +19132,7 @@ GameObject:
   - component: {fileID: 6129879995923474200}
   - component: {fileID: 2807235121424271869}
   - component: {fileID: 8283136286457424825}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: YellowPlatformFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19210,7 +19210,7 @@ GameObject:
   - component: {fileID: 9062614425309853164}
   - component: {fileID: 8357994281846919558}
   - component: {fileID: 8465533723614654887}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23966,7 +23966,7 @@ GameObject:
   - component: {fileID: 332105511318581868}
   - component: {fileID: 2062286037317219606}
   - component: {fileID: 5686589231607769797}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FX_Platform_YellowOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

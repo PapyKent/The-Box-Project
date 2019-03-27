@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8376063009692489535}
   - component: {fileID: 3216406149717722101}
   - component: {fileID: 6436767020570709140}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FX_Platform_RedOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4779,7 +4779,7 @@ GameObject:
   - component: {fileID: 1304630581050760641}
   - component: {fileID: 8034527203013200222}
   - component: {fileID: 1452423268610058306}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Side_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9544,7 +9544,7 @@ GameObject:
   - component: {fileID: 4471900156602772246}
   - component: {fileID: 6680561553176455481}
   - component: {fileID: 3412338923443793146}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RedPlatformFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9621,7 +9621,7 @@ GameObject:
   - component: {fileID: 4860063797062793074}
   - component: {fileID: 7388301258023843471}
   - component: {fileID: 5374548463943149834}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14386,7 +14386,7 @@ GameObject:
   - component: {fileID: 7822015109844869953}
   - component: {fileID: 1103246927001757030}
   - component: {fileID: 7496481615520383667}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19142,7 +19142,7 @@ GameObject:
   - component: {fileID: 6513602969333342430}
   - component: {fileID: 278315651605587461}
   - component: {fileID: 3223441132451395991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
