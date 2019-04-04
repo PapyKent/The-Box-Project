@@ -65,6 +65,8 @@ public class GroundCharacterCollider : MonoBehaviour
 			origin.x += 0.05f;
 		else
 			origin.y += 0.05f;
+        refHit = new RaycastHit2D();
+        bool alreadyHit = false;
 		for (int i = 0; i < limit; i++)
 		{
 			if (i == limit - 1)
@@ -80,8 +82,11 @@ public class GroundCharacterCollider : MonoBehaviour
 			if (hit.collider != null && !hit.collider.isTrigger)
 			{
 				collisionDirection = true;
-				if (i == 0 || IsNewHitCloser(refHit, hit, rayDirection, vertical))
-					refHit = hit;
+				if (!alreadyHit ||  IsNewHitCloser(refHit, hit, rayDirection, vertical))
+                {
+                    alreadyHit = true;
+                    refHit = hit;
+                }
 			}
 			if (vertical)
 			{
