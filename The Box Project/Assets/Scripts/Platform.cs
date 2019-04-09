@@ -30,10 +30,20 @@ public class Platform : MonoBehaviour
 		{
 			bool sameColor = newColor == m_currentColor;
 			m_collider.enabled = sameColor;
-			if (sameColor && !m_active)
-				FXAppear();
-			else if (!sameColor && m_active)
-				StartCoroutine(FXDisappear());
+            if (sameColor && !m_active)
+            {
+                //play sfx
+                AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
+
+                FXAppear();
+            }
+            else if (!sameColor && m_active)
+            {
+                //play sfx
+                AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
+
+                StartCoroutine(FXDisappear());
+            }
 			m_active = sameColor;
 		}
 	}

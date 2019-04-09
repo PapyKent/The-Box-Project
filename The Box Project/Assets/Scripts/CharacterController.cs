@@ -97,11 +97,15 @@ public class CharacterController : MonoBehaviour
 
 		if (!m_isJumping && m_pressedJump && m_isGrounded)
 		{
-			//Here we start jumping
-			m_isJumping = true;
+            //play jump effect 
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.JUMP);
+
+            //Here we start jumping
+            m_isJumping = true;
 			m_hasReleasedJump = false;
 			m_velocity.y = m_jumpSpeed;
 			m_yJumpStart = transform.position.y;
+
 		}
 		else if (!m_hasReleasedJump && (m_isJumping && m_releasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight) || (m_collisions.above && m_willHitAbove)))
 		{
