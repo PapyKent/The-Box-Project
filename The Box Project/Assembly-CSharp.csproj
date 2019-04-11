@@ -69,13 +69,14 @@
     <Compile Include="Assets\FXs\Scripts\Crown_FX_Trigger.cs" />
     <Compile Include="Assets\FXs\Scripts\Platform_Trigger.cs" />
     <Compile Include="Assets\FXs\Scripts\Platforms_Color_State.cs" />
+    <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CameraOffset.cs" />
     <Compile Include="Assets\Scripts\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\CheckpointManager.cs" />
     <Compile Include="Assets\Scripts\GridManager.cs" />
-    <Compile Include="Assets\Scripts\GroundCharacterCollider.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\MovingPlatformTrigger.cs" />
@@ -85,7 +86,9 @@
     <Compile Include="Assets\Scripts\PlatformFXManager.cs" />
     <Compile Include="Assets\Scripts\Playtest\Brackeys2DController.cs" />
     <Compile Include="Assets\Scripts\Playtest\BrackeysPlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\RaycastCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\ReloadLevelBox.cs" />
+    <Compile Include="Assets\SwitchLevel.cs" />
     <None Include="Assets\Shader\SpriteShaders\CameraDepthTexture.shader" />
     <None Include="Assets\FXs\Shaders\DissolveParticles.shader" />
     <None Include="Assets\Shader\SpriteShaders\SpritesPixelLit.shader" />

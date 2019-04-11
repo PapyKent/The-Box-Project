@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1096166763230127147}
-  - component: {fileID: 1096166763230127145}
   - component: {fileID: 1096166763230127146}
   m_Layer: 0
   m_Name: GroundCollider
@@ -32,24 +31,6 @@ Transform:
   m_Father: {fileID: 1096166764240444413}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1096166763230127145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1096166763230127140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f06711373c157409bac99f0115c2ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_distanceBetweenRay: 0.25
-  m_shootRayDistance: 0.1
-  m_groundCollider: {fileID: 1096166763230127146}
-  m_collisionMask:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!61 &1096166763230127146
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -201,17 +182,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afc09ad6b793824189b982eea2e004d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 1096166763230127146}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 512
   m_groundSpeed: 0.18
   m_jumpSpeed: 15
   m_maxJumpHeight: 2.75
   m_gravity: -40
   m_maxFallSpeed: -15
   m_sprite: {fileID: 1096166763986101619}
-  m_groundCollider: {fileID: 1096166763230127145}
   m_timeVerticalSpeedCut: 0.4
-  m_obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &1096166764439550599
 GameObject:
   m_ObjectHideFlags: 0

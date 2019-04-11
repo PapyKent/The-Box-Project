@@ -1,22 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public class Platform : RaycastCollisionDetector
 {
-	public GridManager.Color CurrentColor
-	{
-		get
-		{
-			return m_currentColor;
-		}
-	}
+	public GridManager.Color CurrentColor { get { return m_currentColor; } }
 
 	#region Private
 
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
 		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
-		m_fxConfig = PlatformFXManager.Instance.GetPlatformFXConfig(m_currentColor);
+		m_fxConfig = PlatformFXManager.Instance?.GetPlatformFXConfig(m_currentColor);
 	}
 
 	private void OnDestroy()
@@ -30,20 +25,20 @@ public class Platform : MonoBehaviour
 		{
 			bool sameColor = newColor == m_currentColor;
 			m_collider.enabled = sameColor;
-            if (sameColor && !m_active)
-            {
-                //play sfx
-                AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
+			if (sameColor && !m_active)
+			{
+				//play sfx
+				AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
 
-                FXAppear();
-            }
-            else if (!sameColor && m_active)
-            {
-                //play sfx
-                AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
+				FXAppear();
+			}
+			else if (!sameColor && m_active)
+			{
+				//play sfx
+				AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
 
-                StartCoroutine(FXDisappear());
-            }
+				StartCoroutine(FXDisappear());
+			}
 			m_active = sameColor;
 		}
 	}
@@ -73,23 +68,22 @@ public class Platform : MonoBehaviour
 		m_renderer.material.SetFloat("_Dissolveamount", m_fxConfig.AppearDissolveAmount);
 	}
 
+	[Header("Platform Settings")]
 	[SerializeField]
-	private GridManager.Color m_currentColor = GridManager.Color.NONE;
-	[SerializeField]
-	private Collider2D m_collider = null;
+	protected GridManager.Color m_currentColor = GridManager.Color.NONE;
 
 	[Header("Graphics Settings")]
 	[SerializeField]
-	private Renderer m_renderer = null;
+	protected Renderer m_renderer = null;
 
 	[Header("FX Settings")]
 	[SerializeField]
-	private ParticleSystem m_onFx = null;
+	protected ParticleSystem m_onFx = null;
 	[SerializeField]
-	private ParticleSystem m_offFx = null;
+	protected ParticleSystem m_offFx = null;
 
-	private PlatformFXConfig m_fxConfig = null;
-	private bool m_active = false;
+	protected PlatformFXConfig m_fxConfig = null;
+	protected bool m_active = false;
 
 	#endregion Private
 }

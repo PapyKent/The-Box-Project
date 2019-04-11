@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class CharacterController : RaycastCollisionDetector
 {
+	public static CharacterController Instance { get { return s_instance; } }
+
 	public void SetExternalForce(Vector2 externalForce)
 	{
 		m_externalForces += externalForce;
@@ -9,30 +11,44 @@ public class CharacterController : MonoBehaviour
 
 	#region Private
 
+	private void Awake()
+	{
+		if (s_instance == null)
+			s_instance = this;
+		else
+			Destroy(this);
+	}
+
 	private void Update()
+	{
+	}
+
+	private void FixedUpdate()
 	{
 		m_inputs = InputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
 		HandleSpriteDirection();
 		m_collisions.Reset();
 		CheckSideCollisions();
+		if (m_externalForces.x > 0.0f && m_inputs.x < 0.0f && (m_collisions.left && m_collisions.leftHit.distance < Mathf.Epsilon)
+			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.right && m_collisions.rightHit.distance < Mathf.Epsilon))
+		{
+			m_inputs.x = 0.0f;
+		}
+
 		if (m_velocity.y > 0.0f)
-			m_groundCollider.CheckAboveCollisions(ref m_collisions);
+			CheckAboveCollisions(ref m_collisions);
 		else
-			m_groundCollider.CheckBelowCollisions(ref m_collisions);
+			CheckBelowCollisions(ref m_collisions);
 		CheckIfGrounded();
 		HandleJump();
 		ApplyGravity();
 		m_inputs.y = m_velocity.y * Time.fixedDeltaTime;
-	}
-
-	private void FixedUpdate()
-	{
 		Vector3 newPos = transform.position + (Vector3)m_inputs + (Vector3)m_externalForces;
 		if (m_velocity.y < 0.0f || m_externalForces.y < 0.0f)
 		{
-			if (m_collisions.below && (newPos.y - (m_groundCollider.ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
+			if (m_collisions.below && (newPos.y - (ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
 			{
-				newPos.y = m_collisions.belowHit.point.y + (m_groundCollider.ColliderBounds.size.y / 2);
+				newPos.y = m_collisions.belowHit.point.y + (ColliderBounds.size.y / 2);
 				m_velocity.y = 0.0f;
 				m_isJumping = false;
 				m_isGrounded = true;
@@ -40,12 +56,12 @@ public class CharacterController : MonoBehaviour
 		}
 		else if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
 		{
-			if (m_collisions.above && (newPos.y + (m_groundCollider.ColliderBounds.size.y / 2)) > m_collisions.aboveHit.point.y)
+			if (m_collisions.above && (newPos.y + (ColliderBounds.size.y / 2)) > m_collisions.aboveHit.point.y)
 			{
 				//if (m_velocity.y > 0.0f)
 				//    m_velocity.y = 0.0f;
 				m_willHitAbove = true;
-				newPos.y = m_collisions.aboveHit.point.y - (m_groundCollider.ColliderBounds.size.y / 2);
+				newPos.y = m_collisions.aboveHit.point.y - (ColliderBounds.size.y / 2);
 			}
 			else
 			{
@@ -55,16 +71,16 @@ public class CharacterController : MonoBehaviour
 
 		if (m_inputs.x > 0.0f || m_externalForces.x > 0.0f)
 		{
-			if (m_collisions.right && (newPos.x + (m_groundCollider.ColliderBounds.size.x / 2) > m_collisions.rightHit.point.x))
+			if (m_collisions.right && (newPos.x + (ColliderBounds.size.x / 2) > m_collisions.rightHit.point.x))
 			{
 				newPos.x = transform.position.x;// m_collisions.rightHit.point.x - (m_groundCollider.ColliderBounds.size.x / 2);
 			}
 		}
 		else if (m_inputs.x < 0.0f || m_externalForces.x < 0.0f)
 		{
-			if (m_collisions.left && (newPos.x - (m_groundCollider.ColliderBounds.size.x / 2) < m_collisions.leftHit.point.x))
+			if (m_collisions.left && (newPos.x - (ColliderBounds.size.x / 2) < m_collisions.leftHit.point.x))
 			{
-				newPos.x = m_collisions.leftHit.point.x + (m_groundCollider.ColliderBounds.size.x / 2);
+				newPos.x = m_collisions.leftHit.point.x + (ColliderBounds.size.x / 2);
 			}
 		}
 		transform.position = newPos;
@@ -75,9 +91,9 @@ public class CharacterController : MonoBehaviour
 	private void CheckSideCollisions()
 	{
 		if (m_collisions.faceRight)
-			m_groundCollider.CheckRightCollisions(ref m_collisions);
+			CheckRightCollisions(ref m_collisions);
 		else
-			m_groundCollider.CheckLeftCollisions(ref m_collisions);
+			CheckLeftCollisions(ref m_collisions);
 	}
 
 	private void HandleSpriteDirection()
@@ -97,15 +113,14 @@ public class CharacterController : MonoBehaviour
 
 		if (!m_isJumping && m_pressedJump && m_isGrounded)
 		{
-            //play jump effect 
-            AudioManager.Instance.PlaySFX(AudioManager.SFXType.JUMP);
+			//play jump effect
+			AudioManager.Instance.PlaySFX(AudioManager.SFXType.JUMP);
 
-            //Here we start jumping
-            m_isJumping = true;
+			//Here we start jumping
+			m_isJumping = true;
 			m_hasReleasedJump = false;
 			m_velocity.y = m_jumpSpeed;
 			m_yJumpStart = transform.position.y;
-
 		}
 		else if (!m_hasReleasedJump && (m_isJumping && m_releasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight) || (m_collisions.above && m_willHitAbove)))
 		{
@@ -119,7 +134,6 @@ public class CharacterController : MonoBehaviour
 			float newVelocity = m_jumpSpeed * ((m_currentTimeVerticalSpeedCut - (m_elapsedTimeVerticalSpeedCut / m_currentTimeVerticalSpeedCut)) / m_currentTimeVerticalSpeedCut);
 			if (newVelocity < m_maxFallSpeed)
 				newVelocity = m_maxFallSpeed;
-			Debug.Log("New velocity: " + newVelocity);
 			m_velocity.y = newVelocity;
 			m_elapsedTimeVerticalSpeedCut += Time.deltaTime;
 		}
@@ -129,7 +143,7 @@ public class CharacterController : MonoBehaviour
 	{
 		if (m_collisions.below)
 		{
-			if (Mathf.Abs(m_collisions.belowHit.point.y - m_groundCollider.ColliderBounds.min.y) < 0.05f)
+			if (Mathf.Abs(m_collisions.belowHit.point.y - ColliderBounds.min.y) < 0.05f)
 			{
 				m_isGrounded = true;
 				m_isJumping = false;
@@ -172,19 +186,16 @@ public class CharacterController : MonoBehaviour
 	[SerializeField]
 	private float m_maxFallSpeed = -25.0f;
 	[SerializeField]
-	private SpriteRenderer m_sprite = null;
-	[SerializeField]
-	private GroundCharacterCollider m_groundCollider = null;
-	[SerializeField]
 	private float m_timeVerticalSpeedCut = 0.3f;
 
+	[Header("Graphics Settings")]
 	[SerializeField]
-	private LayerMask m_obstacleLayer;
+	private SpriteRenderer m_sprite = null;
 
 	private Vector2 m_inputs = Vector2.zero;
 	private Vector2 m_externalForces = Vector2.zero;
 	private Vector2 m_velocity = Vector2.zero;
-	private GroundCharacterCollider.CollisionInfo m_collisions;
+	private CollisionInfo m_collisions;
 	private bool m_isJumping = false;
 	private bool m_pressedJump = false;
 	private bool m_releasedJump = false;
@@ -195,6 +206,8 @@ public class CharacterController : MonoBehaviour
 	private bool m_isGrounded = false;
 	private bool m_willHitAbove = false;
 	private float m_currentTimeVerticalSpeedCut = 0.0f;
+
+	private static CharacterController s_instance = null;
 
 	#endregion Private
 }
