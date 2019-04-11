@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,6 +34,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         AudioManager.Instance.PlayMusic();
+    }
+
+
+    public void loadLevel(int levelID)
+    {
+        switch (levelID)
+        {
+            case 1:
+                SceneManager.LoadScene("Level1");
+                break;
+            case 2:
+                SceneManager.LoadScene("Level1 - Graph");
+                break;
+
+            //todo: other levels
+
+            default:
+                break;
+        }
     }
 
    
