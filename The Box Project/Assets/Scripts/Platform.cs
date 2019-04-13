@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : RaycastCollisionDetector
@@ -29,14 +30,14 @@ public class Platform : RaycastCollisionDetector
 			{
 				//play sfx
 				AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
-
+				StopAllCoroutines();
 				FXAppear();
 			}
 			else if (!sameColor && m_active)
 			{
 				//play sfx
 				AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
-
+				StopAllCoroutines();
 				StartCoroutine(FXDisappear());
 			}
 			m_active = sameColor;
@@ -47,13 +48,12 @@ public class Platform : RaycastCollisionDetector
 	{
 		float elapsedTime = 0.0f;
 		float oldElapsedTime = 0.0f;
-		if (m_offFx != null)
-			m_offFx.Play();
-		m_renderer.material.SetFloat("_UVScale", m_fxConfig.DisappearUVScale);
+		PlayFxInList(m_offFx);
+		m_renderer.ForEach(renderer => renderer.material.SetFloat("_UVScale", m_fxConfig.DisappearUVScale));
 		while (elapsedTime < 1.0f || oldElapsedTime < 1.0f)
 		{
 			float dissolveAmount = Mathf.Lerp(m_fxConfig.BeginDisappearDissolveAmount, m_fxConfig.EndDisappearDissolveAmount, elapsedTime);
-			m_renderer.material.SetFloat("_Dissolveamount", dissolveAmount);
+			m_renderer.ForEach(renderer => renderer.material.SetFloat("_Dissolveamount", dissolveAmount));
 			yield return null;
 			oldElapsedTime = elapsedTime;
 			elapsedTime += Time.deltaTime * m_fxConfig.PlatformDissolveSpeed;
@@ -62,10 +62,23 @@ public class Platform : RaycastCollisionDetector
 
 	private void FXAppear()
 	{
-		if (m_onFx != null)
-			m_onFx?.Play();
-		m_renderer.material.SetFloat("_UVScale", m_fxConfig.AppearUVScale);
-		m_renderer.material.SetFloat("_Dissolveamount", m_fxConfig.AppearDissolveAmount);
+		PlayFxInList(m_onFx);
+		m_renderer.ForEach(renderer =>
+		{
+			renderer.material.SetFloat("_UVScale", m_fxConfig.AppearUVScale);
+			renderer.material.SetFloat("_Dissolveamount", m_fxConfig.AppearDissolveAmount);
+		});
+	}
+
+	private void PlayFxInList(List<ParticleSystem> fxs)
+	{
+		if (fxs.Count > 0)
+		{
+			foreach (ParticleSystem fx in fxs)
+			{
+				fx.Play();
+			}
+		}
 	}
 
 	[Header("Platform Settings")]
@@ -74,13 +87,13 @@ public class Platform : RaycastCollisionDetector
 
 	[Header("Graphics Settings")]
 	[SerializeField]
-	protected Renderer m_renderer = null;
+	protected List<Renderer> m_renderer = null;
 
 	[Header("FX Settings")]
 	[SerializeField]
-	protected ParticleSystem m_onFx = null;
+	protected List<ParticleSystem> m_onFx = null;
 	[SerializeField]
-	protected ParticleSystem m_offFx = null;
+	protected List<ParticleSystem> m_offFx = null;
 
 	protected PlatformFXConfig m_fxConfig = null;
 	protected bool m_active = false;
