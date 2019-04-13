@@ -35,13 +35,18 @@ public class MovingPlatform : Platform
 		{
 			m_isMoving = true;
 		}
+		if (m_currentColor == GridManager.Color.NONE)
+			m_active = true;
 	}
 
 	private void FixedUpdate()
 	{
 		m_collisions.Reset();
-		CheckAboveCollisions(ref m_collisions);
-		CheckIfPlayerIsOnPlatform();
+		if (m_active)
+		{
+			CheckAboveCollisions(ref m_collisions);
+			CheckIfPlayerIsOnPlatform();
+		}
 		if (m_isMoving)
 		{
 			Vector3 velocity = CalculatePlatformMovement();
@@ -52,6 +57,15 @@ public class MovingPlatform : Platform
 				CalculatePassengerMovement(velocity);
 			}
 			transform.Translate(velocity);
+		}
+	}
+
+	protected override void OnColorButtonPressed(GridManager.Color newColor)
+	{
+		base.OnColorButtonPressed(newColor);
+		if (!m_active)
+		{
+			SetCurrentPlayer(false);
 		}
 	}
 

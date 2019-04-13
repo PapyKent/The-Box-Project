@@ -17,12 +17,12 @@ public class Platform : RaycastCollisionDetector
 		EnablePlatform(false, true);
 	}
 
-	private void OnDestroy()
+	protected void OnDestroy()
 	{
 		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
 	}
 
-	private void OnColorButtonPressed(GridManager.Color newColor)
+	protected virtual void OnColorButtonPressed(GridManager.Color newColor)
 	{
 		if (m_currentColor != GridManager.Color.NONE)
 		{
