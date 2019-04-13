@@ -13,6 +13,8 @@ public class Platform : RaycastCollisionDetector
 		base.Start();
 		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
 		m_fxConfig = PlatformFXManager.Instance?.GetPlatformFXConfig(m_currentColor);
+		//HACK TO DISABLE PLATFORMS ON START
+		EnablePlatform(false, true);
 	}
 
 	private void OnDestroy()
@@ -25,23 +27,30 @@ public class Platform : RaycastCollisionDetector
 		if (m_currentColor != GridManager.Color.NONE)
 		{
 			bool sameColor = newColor == m_currentColor;
-			m_collider.enabled = sameColor;
-			if (sameColor && !m_active)
-			{
-				//play sfx
-				AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
-				StopAllCoroutines();
-				FXAppear();
-			}
-			else if (!sameColor && m_active)
-			{
-				//play sfx
-				AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
-				StopAllCoroutines();
-				StartCoroutine(FXDisappear());
-			}
-			m_active = sameColor;
+			EnablePlatform(sameColor);
 		}
+	}
+
+	protected void EnablePlatform(bool enable, bool force = false)
+	{
+		if (m_currentColor == GridManager.Color.NONE)
+			return;
+		m_collider.enabled = enable;
+		if (enable && (!m_active || force))
+		{
+			//play sfx
+			AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
+			StopAllCoroutines();
+			FXAppear();
+		}
+		else if (!enable && (m_active || force))
+		{
+			//play sfx
+			AudioManager.Instance.PlaySFX(AudioManager.SFXType.PLATFORMCHANGE);
+			StopAllCoroutines();
+			StartCoroutine(FXDisappear());
+		}
+		m_active = enable;
 	}
 
 	private IEnumerator FXDisappear()
