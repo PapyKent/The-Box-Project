@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\OLD\GridManager.cs" />
     <Compile Include="Assets\Scripts\OLD\MovingPlatformTrigger.cs" />
     <Compile Include="Assets\Scripts\OLD\Plateform.cs" />
+    <Compile Include="Assets\Scripts\Platform\BoucingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\Platform.cs" />
     <Compile Include="Assets\Scripts\Platform\PlatformFXConfig.cs" />

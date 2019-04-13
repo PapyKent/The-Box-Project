@@ -34,7 +34,10 @@ public class Platform : RaycastCollisionDetector
 	protected void EnablePlatform(bool enable, bool force = false)
 	{
 		if (m_currentColor == GridManager.Color.NONE)
+		{
+			m_active = true;
 			return;
+		}
 		m_collider.enabled = enable;
 		if (enable && (!m_active || force))
 		{

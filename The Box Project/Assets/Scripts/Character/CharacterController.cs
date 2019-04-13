@@ -9,6 +9,13 @@ public class CharacterController : RaycastCollisionDetector
 		m_externalForces += externalForce;
 	}
 
+	public void BouncePlayer(BoucingPlatform.BoucingConfig config)
+	{
+		m_lastBouncingConfig = config;
+		m_isBouncing = true;
+		//HandleJump();
+	}
+
 	#region Private
 
 	private void Awake()
@@ -51,6 +58,7 @@ public class CharacterController : RaycastCollisionDetector
 				newPos.y = m_collisions.belowHit.point.y + (ColliderBounds.size.y / 2);
 				m_velocity.y = 0.0f;
 				m_isJumping = false;
+				m_isBouncing = false;
 				m_isGrounded = true;
 			}
 		}
@@ -111,7 +119,20 @@ public class CharacterController : RaycastCollisionDetector
 		m_pressedJump = InputManager.Instance.PressedJump;
 		m_releasedJump = InputManager.Instance.ReleasedJump;
 
-		if (!m_isJumping && m_pressedJump && m_isGrounded)
+		float maxHeight = 0.0f;
+		float jumpSpeed = 0.0f;
+		if (m_isBouncing)
+		{
+			maxHeight = m_lastBouncingConfig.BoucingHeight;
+			jumpSpeed = m_lastBouncingConfig.BoucingSpeed;
+		}
+		else
+		{
+			maxHeight = m_maxJumpHeight;
+			jumpSpeed = m_jumpSpeed;
+		}
+
+		if (!m_isJumping && (m_pressedJump || m_isBouncing) && m_isGrounded)
 		{
 			//play jump effect
 			AudioManager.Instance.PlaySFX(AudioManager.SFXType.JUMP);
@@ -119,10 +140,10 @@ public class CharacterController : RaycastCollisionDetector
 			//Here we start jumping
 			m_isJumping = true;
 			m_hasReleasedJump = false;
-			m_velocity.y = m_jumpSpeed;
+			m_velocity.y = jumpSpeed;
 			m_yJumpStart = transform.position.y;
 		}
-		else if (!m_hasReleasedJump && (m_isJumping && m_releasedJump || (transform.position.y - m_yJumpStart >= m_maxJumpHeight) || (m_collisions.above && m_willHitAbove)))
+		else if (!m_hasReleasedJump && (m_isJumping && (m_releasedJump && !m_isBouncing) || (transform.position.y - m_yJumpStart >= maxHeight) || (m_collisions.above && m_willHitAbove)))
 		{
 			m_hasReleasedJump = true;
 			m_currentTimeVerticalSpeedCut = m_willHitAbove ? m_timeVerticalSpeedCut / 2 : m_timeVerticalSpeedCut;
@@ -131,6 +152,7 @@ public class CharacterController : RaycastCollisionDetector
 
 		if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_currentTimeVerticalSpeedCut)
 		{
+			m_isBouncing = false;
 			float newVelocity = m_jumpSpeed * ((m_currentTimeVerticalSpeedCut - (m_elapsedTimeVerticalSpeedCut / m_currentTimeVerticalSpeedCut)) / m_currentTimeVerticalSpeedCut);
 			if (newVelocity < m_maxFallSpeed)
 				newVelocity = m_maxFallSpeed;
@@ -143,7 +165,7 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_collisions.below)
 		{
-			if (Mathf.Abs(m_collisions.belowHit.point.y - ColliderBounds.min.y) < 0.05f)
+			if (m_collisions.belowHit.distance < 0.01f)
 			{
 				m_isGrounded = true;
 				m_isJumping = false;
@@ -206,6 +228,8 @@ public class CharacterController : RaycastCollisionDetector
 	private bool m_isGrounded = false;
 	private bool m_willHitAbove = false;
 	private float m_currentTimeVerticalSpeedCut = 0.0f;
+	private bool m_isBouncing = false;
+	private BoucingPlatform.BoucingConfig m_lastBouncingConfig;
 
 	private static CharacterController s_instance = null;
 
