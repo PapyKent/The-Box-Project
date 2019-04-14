@@ -175,7 +175,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2972173913744951065}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.5, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -222,11 +222,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_alwaysMove: 0
+  m_collider: {fileID: 2972173913744951068}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
+  m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
   - {x: 5, y: 0, z: 0}
   m_speed: 2
+  m_cyclic: 0
+  m_waitTIme: 0
   easeAmount: 0
 --- !u!1 &2972173913889066206
 GameObject:
