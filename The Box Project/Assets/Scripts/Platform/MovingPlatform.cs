@@ -54,6 +54,8 @@ public class MovingPlatform : Platform
 			{
 				CheckLeftCollisions(ref m_collisions);
 				CheckRightCollisions(ref m_collisions);
+				if (velocity.y < 0.0f)
+					CheckBelowCollisions(ref m_collisions);
 				CalculatePassengerMovement(velocity);
 			}
 			transform.Translate(velocity);
@@ -124,12 +126,19 @@ public class MovingPlatform : Platform
 		{
 			m_player.SetExternalForce(velocity);
 		}
-		if (velocity.x > 0.0f || velocity.x < 0.0f)
+		else if (velocity.x > 0.0f || velocity.x < 0.0f)
 		{
 			if (m_collisions.right && Mathf.Abs(m_collisions.rightHit.distance) < Mathf.Epsilon
 				|| m_collisions.left && Mathf.Abs(m_collisions.leftHit.distance) < Mathf.Epsilon)
 			{
-				m_player.SetExternalForce(velocity);
+				m_player.SetExternalForce(new Vector2(velocity.x, 0.0f));
+			}
+		}
+		else if (velocity.y < 0.0f)
+		{
+			if (m_collisions.below && Mathf.Abs(m_collisions.belowHit.distance) < Mathf.Epsilon)
+			{
+				m_player.SetExternalForce(new Vector2(0.0f, velocity.y));
 			}
 		}
 	}

@@ -13,7 +13,6 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		m_lastBouncingConfig = config;
 		m_isBouncing = true;
-		//HandleJump();
 	}
 
 	#region Private
@@ -91,6 +90,38 @@ public class CharacterController : RaycastCollisionDetector
 				newPos.x = m_collisions.leftHit.point.x + (ColliderBounds.size.x / 2);
 			}
 		}
+
+		Collider2D collider2D = Physics2D.OverlapBox(ColliderBounds.center, ColliderBounds.size, 360.0f, m_platformMask);
+		if (collider2D != null)
+		{
+			if (newPos.y > collider2D.bounds.center.y
+				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
+				&& (newPos.y - ColliderBounds.extents.y) < collider2D.bounds.max.y)
+			{
+				newPos.y = collider2D.bounds.max.y + ColliderBounds.extents.y + Mathf.Epsilon;
+				Debug.Log("Reajust above");
+			}
+			else if (newPos.y < collider2D.bounds.center.y
+				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
+				&& (newPos.y + ColliderBounds.extents.y) > collider2D.bounds.min.y)
+			{
+				newPos.y = collider2D.bounds.min.y - ColliderBounds.extents.y - Mathf.Epsilon;
+				Debug.Log("Reajust below");
+			}
+			else if (newPos.x >= collider2D.bounds.min.x
+				&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
+			{
+				newPos.x = collider2D.bounds.max.x + ColliderBounds.extents.x + Mathf.Epsilon;
+				Debug.Log("Reajust right");
+			}
+			else if (newPos.x <= collider2D.bounds.max.x
+				&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
+			{
+				newPos.x = collider2D.bounds.min.x - ColliderBounds.extents.x - Mathf.Epsilon;
+				Debug.Log("Reajust left");
+			}
+		}
+
 		transform.position = newPos;
 		m_externalForces = Vector2.zero;
 		//transform.Translate(m_inputs);
@@ -165,7 +196,7 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_collisions.below)
 		{
-			if (m_collisions.belowHit.distance < 0.01f)
+			if (m_collisions.belowHit.distance < 0.05f)
 			{
 				m_isGrounded = true;
 				m_isJumping = false;
@@ -209,6 +240,8 @@ public class CharacterController : RaycastCollisionDetector
 	private float m_maxFallSpeed = -25.0f;
 	[SerializeField]
 	private float m_timeVerticalSpeedCut = 0.3f;
+	[SerializeField]
+	private LayerMask m_platformMask;
 
 	[Header("Graphics Settings")]
 	[SerializeField]

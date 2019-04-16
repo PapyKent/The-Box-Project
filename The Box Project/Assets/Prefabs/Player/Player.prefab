@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1096166763230127147}
   - component: {fileID: 1096166763230127146}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1096166763986101612}
   - component: {fileID: 1096166763986101619}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1096166764240444413}
   - component: {fileID: 1096166764240444414}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -185,14 +185,17 @@ MonoBehaviour:
   m_collider: {fileID: 1096166763230127146}
   m_collisionMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   m_groundSpeed: 0.18
   m_jumpSpeed: 15
   m_maxJumpHeight: 2.75
   m_gravity: -40
   m_maxFallSpeed: -15
-  m_sprite: {fileID: 1096166763986101619}
   m_timeVerticalSpeedCut: 0.4
+  m_platformMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_sprite: {fileID: 1096166763986101619}
 --- !u!1 &1096166764439550599
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +207,7 @@ GameObject:
   - component: {fileID: 1096166764439550598}
   - component: {fileID: 1096166764439550597}
   - component: {fileID: 1096166764439550596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TriggerBox
   m_TagString: Player
   m_Icon: {fileID: 0}

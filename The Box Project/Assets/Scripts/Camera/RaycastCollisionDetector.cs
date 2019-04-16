@@ -89,7 +89,7 @@ public class RaycastCollisionDetector : MonoBehaviour
 			}
 			else
 			{
-				origin = new Vector2(origin.x, origin.y + (m_collider.bounds.size.y / m_verticalRaycastCount));
+				origin = new Vector2(origin.x, origin.y + (m_collider.bounds.size.y / m_horizontalRaycastCount));
 			}
 		}
 	}
