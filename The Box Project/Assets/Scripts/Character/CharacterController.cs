@@ -25,6 +25,17 @@ public class CharacterController : RaycastCollisionDetector
 			Destroy(this);
 	}
 
+	protected override void Start()
+	{
+		base.Start();
+		InputManager.Instance.RegisterOnJumpInput(OnJumpPressed, true);
+	}
+
+	protected void OnDestroy()
+	{
+		InputManager.Instance?.RegisterOnJumpInput(OnJumpPressed, false);
+	}
+
 	private void Update()
 	{
 	}
@@ -145,43 +156,49 @@ public class CharacterController : RaycastCollisionDetector
 		}
 	}
 
+	private void OnJumpPressed(bool jumpReleased)
+	{
+		if (!m_isJumping && !jumpReleased && m_isGrounded)
+		{
+			StartJump(true);
+		}
+		else if (!m_hasReleasedJump && m_isJumping && jumpReleased)
+		{
+			ReleaseJump();
+		}
+	}
+
+	private void StartJump(bool jump)
+	{
+		//play jump effect
+		AudioManager.Instance.PlaySFX(AudioManager.SFXType.JUMP);
+
+		//Here we start jumping
+		m_isJumping = true;
+		m_hasReleasedJump = false;
+		m_velocity.y = jump ? m_jumpSpeed : m_lastBouncingConfig.BoucingSpeed;
+		m_yJumpStart = transform.position.y;
+		m_currentMaxJumpHeight = jump ? m_maxJumpHeight : m_lastBouncingConfig.BoucingHeight;
+	}
+
+	private void ReleaseJump()
+	{
+		m_hasReleasedJump = true;
+		m_currentTimeVerticalSpeedCut = m_willHitAbove ? m_timeVerticalSpeedCut / 2 : m_timeVerticalSpeedCut;
+		m_elapsedTimeVerticalSpeedCut = 0.0f;
+	}
+
 	private void HandleJump()
 	{
-		m_pressedJump = InputManager.Instance.PressedJump;
-		m_releasedJump = InputManager.Instance.ReleasedJump;
-
-		float maxHeight = 0.0f;
-		float jumpSpeed = 0.0f;
-		if (m_isBouncing)
+		if (!m_isJumping && m_isBouncing && m_isGrounded)
 		{
-			maxHeight = m_lastBouncingConfig.BoucingHeight;
-			jumpSpeed = m_lastBouncingConfig.BoucingSpeed;
+			StartJump(false);
 		}
-		else
+		else if ((m_isJumping && !m_hasReleasedJump) && ((transform.position.y - m_yJumpStart >= m_currentMaxJumpHeight) || (m_collisions.above && m_willHitAbove)))
 		{
-			maxHeight = m_maxJumpHeight;
-			jumpSpeed = m_jumpSpeed;
+			ReleaseJump();
 		}
-
-		if (!m_isJumping && (m_pressedJump || m_isBouncing) && m_isGrounded)
-		{
-			//play jump effect
-			AudioManager.Instance.PlaySFX(AudioManager.SFXType.JUMP);
-
-			//Here we start jumping
-			m_isJumping = true;
-			m_hasReleasedJump = false;
-			m_velocity.y = jumpSpeed;
-			m_yJumpStart = transform.position.y;
-		}
-		else if (!m_hasReleasedJump && (m_isJumping && (m_releasedJump && !m_isBouncing) || (transform.position.y - m_yJumpStart >= maxHeight) || (m_collisions.above && m_willHitAbove)))
-		{
-			m_hasReleasedJump = true;
-			m_currentTimeVerticalSpeedCut = m_willHitAbove ? m_timeVerticalSpeedCut / 2 : m_timeVerticalSpeedCut;
-			m_elapsedTimeVerticalSpeedCut = 0.0f;
-		}
-
-		if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_currentTimeVerticalSpeedCut)
+		else if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_currentTimeVerticalSpeedCut)
 		{
 			m_isBouncing = false;
 			float newVelocity = m_jumpSpeed * ((m_currentTimeVerticalSpeedCut - (m_elapsedTimeVerticalSpeedCut / m_currentTimeVerticalSpeedCut)) / m_currentTimeVerticalSpeedCut);
@@ -252,10 +269,9 @@ public class CharacterController : RaycastCollisionDetector
 	private Vector2 m_velocity = Vector2.zero;
 	private CollisionInfo m_collisions;
 	private bool m_isJumping = false;
-	private bool m_pressedJump = false;
-	private bool m_releasedJump = false;
 	private float m_yJumpStart = 0.0f;
 	private float m_elapsedTimeVerticalSpeedCut = 0.0f;
+	private float m_currentMaxJumpHeight = 0.0f;
 
 	private bool m_hasReleasedJump = false;
 	private bool m_isGrounded = false;

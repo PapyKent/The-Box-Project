@@ -22,6 +22,11 @@ public class MovingPlatform : Platform
 
 	#region Private
 
+	protected void Awake()
+	{
+		m_startingPos = transform.position;
+	}
+
 	protected override void Start()
 	{
 		base.Start();
@@ -29,7 +34,7 @@ public class MovingPlatform : Platform
 		globalWaypoints = new Vector3[localWaypoints.Length];
 		for (int i = 0; i < globalWaypoints.Length; i++)
 		{
-			globalWaypoints[i] = localWaypoints[i] + transform.position;
+			globalWaypoints[i] = localWaypoints[i] + m_startingPos;
 		}
 		if (m_alwaysMove)
 		{
@@ -188,6 +193,7 @@ public class MovingPlatform : Platform
 	private Vector3[] globalWaypoints;
 	private CharacterController m_player = null;
 	private bool m_characterStandingOnPlatform = false;
+	private Vector3 m_startingPos;
 
 	#endregion Private
 }
