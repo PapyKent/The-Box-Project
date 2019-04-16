@@ -13066,21 +13066,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1096166764240444415, guid: a5faed2a47cfdf542a621c24da46714e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096166764240444414, guid: a5faed2a47cfdf542a621c24da46714e,
-        type: 3}
-      propertyPath: m_collisionMask.m_Bits
-      value: 1536
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096166764240444414, guid: a5faed2a47cfdf542a621c24da46714e,
-        type: 3}
-      propertyPath: m_platformMask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     - target: {fileID: 1096166764240444413, guid: a5faed2a47cfdf542a621c24da46714e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13135,21 +13120,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096166763230127140, guid: a5faed2a47cfdf542a621c24da46714e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096166763986101613, guid: a5faed2a47cfdf542a621c24da46714e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096166764439550599, guid: a5faed2a47cfdf542a621c24da46714e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5faed2a47cfdf542a621c24da46714e, type: 3}
