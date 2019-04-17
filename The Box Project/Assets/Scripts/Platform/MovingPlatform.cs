@@ -6,8 +6,10 @@ public class MovingPlatform : Platform
 	{
 		m_isMoving = false;
 		percentBetweenWaypoints = 0.0f;
-		transform.position = globalWaypoints[0];
-		m_characterStandingOnPlatform = false;
+        //transform.position = globalWaypoints[0];
+        transform.position = m_startingPos;
+        globalWaypointsCreation();
+        m_characterStandingOnPlatform = false;
 		if (m_alwaysMove)
 			m_isMoving = true;
 		Start();
@@ -31,18 +33,23 @@ public class MovingPlatform : Platform
 	{
 		base.Start();
 		m_player = CharacterController.Instance;
-		globalWaypoints = new Vector3[localWaypoints.Length];
-		for (int i = 0; i < globalWaypoints.Length; i++)
-		{
-			globalWaypoints[i] = localWaypoints[i] + m_startingPos;
-		}
-		if (m_alwaysMove)
+        globalWaypointsCreation();
+        if (m_alwaysMove)
 		{
 			m_isMoving = true;
 		}
 		if (m_currentColor == GridManager.Color.NONE)
 			m_active = true;
 	}
+
+    private void globalWaypointsCreation()
+    {
+        globalWaypoints = new Vector3[localWaypoints.Length];
+        for (int i = 0; i < globalWaypoints.Length; i++)
+        {
+            globalWaypoints[i] = localWaypoints[i] + m_startingPos;
+        }
+    }
 
 	private void FixedUpdate()
 	{
