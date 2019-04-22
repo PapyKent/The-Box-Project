@@ -73,7 +73,6 @@
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraOffset.cs" />
-    <Compile Include="Assets\Scripts\Camera\RaycastCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\CheckpointManager.cs" />
@@ -82,6 +81,7 @@
     <Compile Include="Assets\Scripts\OLD\GridManager.cs" />
     <Compile Include="Assets\Scripts\OLD\MovingPlatformTrigger.cs" />
     <Compile Include="Assets\Scripts\OLD\Plateform.cs" />
+    <Compile Include="Assets\Scripts\Physics\RaycastCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\Platform\BoucingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\Platform.cs" />
