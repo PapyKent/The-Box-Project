@@ -211,7 +211,7 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_collisions.below)
 		{
-			if (m_collisions.belowHit.distance < 0.05f)
+			if (m_collisions.belowHit.distance <= 0.1f)
 			{
 				m_isGrounded = true;
 				m_isJumping = false;
