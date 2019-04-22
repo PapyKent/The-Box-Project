@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SwitchLevel : MonoBehaviour
 {
-    [SerializeField] int nextLevelID;
+	[SerializeField]
+	private int m_sceneIndex = 0;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-            GameManager.Instance.loadLevel(nextLevelID);
-    }
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Player")
+			GameManager.Instance.LoadScene(m_sceneIndex);
+	}
 }

@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Tests/SampleScene.unity
-    guid: 10f1f3a77cbcd184b93bdd9f9504a43d
-  - enabled: 0
-    path: Assets/Scenes/Level1.unity
-    guid: 22fb75c3eac36a844a441b3c7f3d4cf4
   - enabled: 1
-    path: Assets/Scenes/Tests/Level1 - Quentin.unity
-    guid: bd667a018fe64fe4c9a01a66905ffd17
+    path: Assets/Scenes/Menu.unity
+    guid: a755690ebf6102e4989dda00f0e4054f
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level1.unity
+    guid: e86d442cf1f92bd4ea6d087c5ea70893
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level2.unity
+    guid: 9fdfa1283c686414d8637d029359cdb7
   m_configObjects: {}

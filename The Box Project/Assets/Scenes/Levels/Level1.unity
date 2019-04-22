@@ -6319,6 +6319,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 395856279}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -6327,10 +6335,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &395856279
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36633,6 +36637,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 660325513}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 0
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -36641,10 +36653,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &660325513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40226,6 +40234,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 880231460}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -40234,10 +40250,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &880231460
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40535,6 +40547,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 899942899}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -40543,10 +40563,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &899942899
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -46021,6 +46037,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 1205978284}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 4, y: 0, z: 0}
@@ -46029,10 +46053,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &1205978284
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -48556,12 +48576,12 @@ PrefabInstance:
     - target: {fileID: 1096166764240444413, guid: a5faed2a47cfdf542a621c24da46714e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.96
+      value: -24.14
       objectReference: {fileID: 0}
     - target: {fileID: 1096166764240444413, guid: a5faed2a47cfdf542a621c24da46714e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.11
+      value: -4.45
       objectReference: {fileID: 0}
     - target: {fileID: 1096166764240444413, guid: a5faed2a47cfdf542a621c24da46714e,
         type: 3}
@@ -49873,6 +49893,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 1342069543}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -49881,10 +49909,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &1342069543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62335,6 +62359,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 1546645851}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 0
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -62343,10 +62375,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &1546645851
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -68530,6 +68558,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 1717788143}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -68538,10 +68574,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &1717788143
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -70778,6 +70810,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 1818991295}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -70786,10 +70826,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &1818991295
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -74810,6 +74846,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521b8ac278028e4e8fea12ff1f9e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_collider: {fileID: 2019187463}
+  m_collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_currentColor: 0
+  m_renderer: []
+  m_onFx: []
+  m_offFx: []
   m_alwaysMove: 1
   localWaypoints:
   - {x: 0, y: 0, z: 0}
@@ -74818,10 +74862,6 @@ MonoBehaviour:
   m_cyclic: 0
   m_waitTIme: 0
   easeAmount: 0
-  m_color: 0
-  m_activeGraphics: {fileID: 0}
-  m_unactiveGraphics: {fileID: 0}
-  m_collider: {fileID: 0}
 --- !u!61 &2019187463
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -77018,12 +77058,12 @@ PrefabInstance:
     - target: {fileID: 4777005377300286293, guid: bd7aa432f6dcf0b4aa9dcc4646735891,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.033592
+      value: -17.037424
       objectReference: {fileID: 0}
     - target: {fileID: 4777005377300286293, guid: bd7aa432f6dcf0b4aa9dcc4646735891,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3971024
+      value: -2.3971434
       objectReference: {fileID: 0}
     - target: {fileID: 4777005377300286293, guid: bd7aa432f6dcf0b4aa9dcc4646735891,
         type: 3}
@@ -77072,11 +77112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.926407
+      value: -7.1025753
       objectReference: {fileID: 0}
     - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8728976
+      value: -1.2128563
       objectReference: {fileID: 0}
     - target: {fileID: 905176598, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_Follow
@@ -77300,6 +77340,16 @@ PrefabInstance:
     - target: {fileID: 6127944681884795202, guid: 3c7ea91ce6597b74e96b092a4c242aa5,
         type: 3}
       propertyPath: nextLevelID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127944681884795202, guid: 3c7ea91ce6597b74e96b092a4c242aa5,
+        type: 3}
+      propertyPath: m_sceneToLoad.m_Handle
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127944681884795202, guid: 3c7ea91ce6597b74e96b092a4c242aa5,
+        type: 3}
+      propertyPath: m_sceneIndex
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
