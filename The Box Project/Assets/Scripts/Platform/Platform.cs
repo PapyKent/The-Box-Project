@@ -8,9 +8,9 @@ public class Platform : RaycastCollisionDetector
 
 	#region Private
 
-	protected override void Start()
+	protected override void Awake()
 	{
-		base.Start();
+		base.Awake();
 		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
 		m_fxConfig = PlatformFXManager.Instance?.GetPlatformFXConfig(m_currentColor);
 		//HACK TO DISABLE PLATFORMS ON START

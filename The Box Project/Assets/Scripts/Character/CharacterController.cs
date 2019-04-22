@@ -17,18 +17,16 @@ public class CharacterController : RaycastCollisionDetector
 
 	#region Private
 
-	private void Awake()
+	protected override void Awake()
 	{
 		if (s_instance == null)
+		{
 			s_instance = this;
+			InputManager.Instance.RegisterOnJumpInput(OnJumpPressed, true);
+			base.Awake();
+		}
 		else
 			Destroy(this);
-	}
-
-	protected override void Start()
-	{
-		base.Start();
-		InputManager.Instance.RegisterOnJumpInput(OnJumpPressed, true);
 	}
 
 	protected void OnDestroy()

@@ -43,7 +43,7 @@ public class RaycastCollisionDetector : MonoBehaviour
 
 	#region Private
 
-	protected virtual void Start()
+	protected virtual void Awake()
 	{
 		if (m_collider != null)
 		{

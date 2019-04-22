@@ -16,9 +16,9 @@ public class BoucingPlatform : Platform
 
 	#region Private
 
-	protected override void Start()
+	protected override void Awake()
 	{
-		base.Start();
+		base.Awake();
 		m_character = CharacterController.Instance;
 	}
 

@@ -6,10 +6,10 @@ public class MovingPlatform : Platform
 	{
 		m_isMoving = false;
 		percentBetweenWaypoints = 0.0f;
-        //transform.position = globalWaypoints[0];
-        transform.position = m_startingPos;
-        globalWaypointsCreation();
-        m_characterStandingOnPlatform = false;
+		//transform.position = globalWaypoints[0];
+		transform.position = m_startingPos;
+		globalWaypointsCreation();
+		m_characterStandingOnPlatform = false;
 		if (m_alwaysMove)
 			m_isMoving = true;
 		Start();
@@ -24,17 +24,17 @@ public class MovingPlatform : Platform
 
 	#region Private
 
-	protected void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		m_startingPos = transform.position;
 	}
 
-	protected override void Start()
+	protected void Start()
 	{
-		base.Start();
 		m_player = CharacterController.Instance;
-        globalWaypointsCreation();
-        if (m_alwaysMove)
+		globalWaypointsCreation();
+		if (m_alwaysMove)
 		{
 			m_isMoving = true;
 		}
@@ -42,14 +42,14 @@ public class MovingPlatform : Platform
 			m_active = true;
 	}
 
-    private void globalWaypointsCreation()
-    {
-        globalWaypoints = new Vector3[localWaypoints.Length];
-        for (int i = 0; i < globalWaypoints.Length; i++)
-        {
-            globalWaypoints[i] = localWaypoints[i] + m_startingPos;
-        }
-    }
+	private void globalWaypointsCreation()
+	{
+		globalWaypoints = new Vector3[localWaypoints.Length];
+		for (int i = 0; i < globalWaypoints.Length; i++)
+		{
+			globalWaypoints[i] = localWaypoints[i] + m_startingPos;
+		}
+	}
 
 	private void FixedUpdate()
 	{
