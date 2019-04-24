@@ -2,7 +2,13 @@
 
 public class CharacterController : RaycastCollisionDetector
 {
-	public static CharacterController Instance { get { return s_instance; } }
+	public static CharacterController Instance
+	{
+		get
+		{
+			return s_instance;
+		}
+	}
 
 	public void SetExternalForce(Vector2 externalForce)
 	{
@@ -50,10 +56,9 @@ public class CharacterController : RaycastCollisionDetector
 			m_inputs.x = 0.0f;
 		}
 
-		if (m_velocity.y > 0.0f)
+		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
 			CheckAboveCollisions(ref m_collisions);
-		else
-			CheckBelowCollisions(ref m_collisions);
+		CheckBelowCollisions(ref m_collisions);
 		CheckIfGrounded();
 		HandleJump();
 		ApplyGravity();
@@ -74,8 +79,6 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			if (m_collisions.above && (newPos.y + (ColliderBounds.size.y / 2)) > m_collisions.aboveHit.point.y)
 			{
-				//if (m_velocity.y > 0.0f)
-				//    m_velocity.y = 0.0f;
 				m_willHitAbove = true;
 				newPos.y = m_collisions.aboveHit.point.y - (ColliderBounds.size.y / 2);
 			}
@@ -89,14 +92,22 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			if (m_collisions.right && (newPos.x + (ColliderBounds.size.x / 2) > m_collisions.rightHit.point.x))
 			{
-				newPos.x = transform.position.x;// m_collisions.rightHit.point.x - (m_groundCollider.ColliderBounds.size.x / 2);
+				if (m_externalForces.y == 0.0f ||
+					m_externalForces.y > 0.0f && newPos.y - (ColliderBounds.size.y / 2) <= m_collisions.rightHit.point.y)
+				{
+					newPos.x = transform.position.x; //m_collisions.rightHit.point.x - (ColliderBounds.size.x / 2);
+				}
 			}
 		}
 		else if (m_inputs.x < 0.0f || m_externalForces.x < 0.0f)
 		{
 			if (m_collisions.left && (newPos.x - (ColliderBounds.size.x / 2) < m_collisions.leftHit.point.x))
 			{
-				newPos.x = m_collisions.leftHit.point.x + (ColliderBounds.size.x / 2);
+				if (m_externalForces.y == 0.0f
+					|| m_externalForces.y < 0.0f && newPos.y - (ColliderBounds.size.y / 2) <= m_collisions.leftHit.point.y)
+				{
+					newPos.x = m_collisions.leftHit.point.x + (ColliderBounds.size.x / 2);
+				}
 			}
 		}
 
@@ -105,7 +116,8 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			if (newPos.y > collider2D.bounds.center.y
 				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
-				&& (newPos.y - ColliderBounds.extents.y) < collider2D.bounds.max.y)
+				&& (newPos.y - ColliderBounds.extents.y) < collider2D.bounds.max.y
+				&& !m_willHitAbove)
 			{
 				newPos.y = collider2D.bounds.max.y + ColliderBounds.extents.y + Mathf.Epsilon;
 				Debug.Log("Reajust above");
@@ -117,18 +129,19 @@ public class CharacterController : RaycastCollisionDetector
 				newPos.y = collider2D.bounds.min.y - ColliderBounds.extents.y - Mathf.Epsilon;
 				Debug.Log("Reajust below");
 			}
-			else if (newPos.x >= collider2D.bounds.min.x
-				&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
-			{
-				newPos.x = collider2D.bounds.max.x + ColliderBounds.extents.x + Mathf.Epsilon;
-				Debug.Log("Reajust right");
-			}
-			else if (newPos.x <= collider2D.bounds.max.x
-				&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
-			{
-				newPos.x = collider2D.bounds.min.x - ColliderBounds.extents.x - Mathf.Epsilon;
-				Debug.Log("Reajust left");
-			}
+			//This portion of code is used to put the player out of a moving plateform, from left/right. This is a bit extreme...
+			//else if (newPos.x >= collider2D.bounds.min.x
+			//	&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
+			//{
+			//	newPos.x = collider2D.bounds.max.x + ColliderBounds.extents.x + Mathf.Epsilon;
+			//	Debug.Log("Reajust right");
+			//}
+			//else if (newPos.x <= collider2D.bounds.max.x
+			//	&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
+			//{
+			//	newPos.x = collider2D.bounds.min.x - ColliderBounds.extents.x - Mathf.Epsilon;
+			//	Debug.Log("Reajust left");
+			//}
 		}
 
 		transform.position = newPos;
@@ -203,13 +216,13 @@ public class CharacterController : RaycastCollisionDetector
 			if (newVelocity < m_maxFallSpeed)
 				newVelocity = m_maxFallSpeed;
 			m_velocity.y = newVelocity;
-			m_elapsedTimeVerticalSpeedCut += Time.deltaTime;
+			m_elapsedTimeVerticalSpeedCut += Time.fixedDeltaTime;
 		}
 	}
 
 	private void CheckIfGrounded()
 	{
-		if (m_collisions.below)
+		if (m_collisions.below && m_hasReleasedJump)
 		{
 			if (m_collisions.belowHit.distance <= 0.1f)
 			{

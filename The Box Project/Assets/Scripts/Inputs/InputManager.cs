@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -71,10 +70,10 @@ public class InputManager : MonoBehaviour
 			m_colorButtonPressedListeners?.Invoke(GridManager.Color.RED);
 		}
 
-		if (Input.GetButtonDown("Start"))
-		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
+		//if (Input.GetButtonDown("Start"))
+		//{
+		//	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		//}
 	}
 
 	private void Awake()
