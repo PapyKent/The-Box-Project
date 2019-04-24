@@ -45806,14 +45806,14 @@ PolygonCollider2D:
       - {x: 441.15637, y: 1.2524815}
       - {x: 508.09354, y: 0.75463676}
       - {x: 540.7385, y: 0.1220417}
-      - {x: 540.98413, y: 39.684776}
+      - {x: 578.22797, y: 20.082747}
       - {x: 593.7118, y: 41.95195}
       - {x: 594.84814, y: 42.28177}
       - {x: 692.27814, y: 42.436096}
       - {x: 692.9688, y: 73.49213}
       - {x: 614.62244, y: 73.385475}
       - {x: 549.5458, y: 73.82789}
-      - {x: 504.93613, y: 68.015594}
+      - {x: 497.87943, y: 78.99273}
       - {x: 500.80173, y: 30.842577}
       - {x: 446.84296, y: 38.653046}
       - {x: 409.16293, y: 41.297073}
@@ -48576,12 +48576,12 @@ PrefabInstance:
     - target: {fileID: 1096166764240444413, guid: a5faed2a47cfdf542a621c24da46714e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.14
+      value: -23.27
       objectReference: {fileID: 0}
     - target: {fileID: 1096166764240444413, guid: a5faed2a47cfdf542a621c24da46714e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.45
+      value: -4.33
       objectReference: {fileID: 0}
     - target: {fileID: 1096166764240444413, guid: a5faed2a47cfdf542a621c24da46714e,
         type: 3}
@@ -77058,7 +77058,7 @@ PrefabInstance:
     - target: {fileID: 4777005377300286293, guid: bd7aa432f6dcf0b4aa9dcc4646735891,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.037424
+      value: -17.037422
       objectReference: {fileID: 0}
     - target: {fileID: 4777005377300286293, guid: bd7aa432f6dcf0b4aa9dcc4646735891,
         type: 3}
@@ -77112,11 +77112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.1025753
+      value: -6.2325783
       objectReference: {fileID: 0}
     - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.2128563
+      value: -1.0928564
       objectReference: {fileID: 0}
     - target: {fileID: 905176598, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_Follow
