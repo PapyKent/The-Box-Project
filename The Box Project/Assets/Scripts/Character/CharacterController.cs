@@ -21,6 +21,8 @@ public class CharacterController : RaycastCollisionDetector
 		m_isBouncing = true;
 	}
 
+	public bool FaceRight { get { return m_collisions.faceRight; } }
+
 	#region Private
 
 	protected override void Awake()
@@ -42,6 +44,8 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void Update()
 	{
+		m_animator.SetFloat("Speed", Mathf.Abs(m_inputs.x));
+		m_animator.SetBool("IsJumping", m_isJumping);
 	}
 
 	private void FixedUpdate()
@@ -161,9 +165,9 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_inputs.x != 0.0f)
 		{
-			bool flipX = m_inputs.x > 0.0f;
+			bool flipX = m_inputs.x < 0.0f;
 			m_sprite.flipX = flipX;
-			m_collisions.faceRight = flipX;
+			m_collisions.faceRight = !flipX;
 		}
 	}
 
@@ -274,6 +278,10 @@ public class CharacterController : RaycastCollisionDetector
 	[Header("Graphics Settings")]
 	[SerializeField]
 	private SpriteRenderer m_sprite = null;
+
+	[Header("Animation Settings")]
+	[SerializeField]
+	private Animator m_animator = null;
 
 	private Vector2 m_inputs = Vector2.zero;
 	private Vector2 m_externalForces = Vector2.zero;

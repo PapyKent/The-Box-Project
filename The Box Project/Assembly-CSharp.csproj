@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraOffset.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterController.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterCrown.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\CheckpointManager.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\ReloadLevelBox.cs" />

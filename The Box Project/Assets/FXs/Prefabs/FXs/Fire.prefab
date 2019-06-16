@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 200397209312381314}
   - component: {fileID: 200397209312381313}
   - component: {fileID: 8483934114629779104}
+  - component: {fileID: 2937392595399346765}
   m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200397209312381312}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -22.12, y: -2.5253758, z: -0.1425198}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.39999998, y: 0.15000011, z: 1.1057115}
   m_Children:
   - {fileID: 6123402507175170533}
   m_Father: {fileID: 0}
@@ -4716,7 +4717,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200397209312381312}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b244e3aa2036ef84fbb579d3cf18f12a, type: 3}
   m_Name: 
@@ -4724,10 +4725,33 @@ MonoBehaviour:
   burstFx: {fileID: 2661971933071151092}
   blueParticle: {r: 0.0990566, g: 0.6792861, b: 1, a: 1}
   redParticle: {r: 1, g: 0.07843137, b: 0.3243247, a: 1}
-  yellowParticle: {r: 1, g: 0.6227779, b: 0, a: 1}
+  yellowParticle: {r: 1, g: 0.7414487, b: 0, a: 1}
   blueMat: {r: 0.5685205, g: 40.17552, b: 25.452501, a: 0}
   redMat: {r: 39.764694, g: 0.5762999, b: 20.362597, a: 1}
   yellowMat: {r: 26.980392, g: 9.160785, b: 0.2509804, a: 0}
+--- !u!114 &2937392595399346765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200397209312381312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3391fa07e0269c4784bc71f6e72509d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fxMaterial: {fileID: 2100000, guid: 72adf0e6a2703c7418d04b366efc5042, type: 2}
+  m_fireFx: {fileID: 200397209312381314}
+  m_burstFx: {fileID: 2661971933071151092}
+  m_blueParticle: {r: 0.098039225, g: 0.6784314, b: 1, a: 1}
+  m_redParticle: {r: 1, g: 0.078431375, b: 0.3254902, a: 1}
+  m_yellowParticle: {r: 1, g: 0.7411765, b: 0, a: 1}
+  m_blueMat: {r: 0.6310294, g: 40.17554, b: 25.661863, a: 0}
+  m_redMat: {r: 39.7647, g: 0.62457645, b: 20.40283, a: 1}
+  m_yellowMat: {r: 26.980392, g: 9.181809, b: 0.28251722, a: 0}
+  m_parent: {fileID: 0}
+  m_zRotation: 5
 --- !u!1 &8545940563262282519
 GameObject:
   m_ObjectHideFlags: 0
