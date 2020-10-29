@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CharacterController : RaycastCollisionDetector
 {
@@ -46,6 +47,8 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		m_animator.SetFloat("Speed", Mathf.Abs(m_inputs.x));
 		m_animator.SetBool("IsJumping", m_isJumping);
+		m_animator.SetFloat("YVelocity", m_velocity.y);
+		m_animator.SetBool("IsGrounded", m_isGrounded);
 	}
 
 	private void FixedUpdate()
@@ -150,6 +153,13 @@ public class CharacterController : RaycastCollisionDetector
 
 		transform.position = newPos;
 		m_externalForces = Vector2.zero;
+
+		m_collisions.Reset();
+		CheckSideCollisions();
+		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
+			CheckAboveCollisions(ref m_collisions);
+		CheckBelowCollisions(ref m_collisions);
+		CheckIfGrounded();
 		//transform.Translate(m_inputs);
 	}
 
@@ -173,13 +183,21 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void OnJumpPressed(bool jumpReleased)
 	{
+		bool nothing = true;
 		if (!m_isJumping && !jumpReleased && m_isGrounded)
 		{
+			nothing = false;
 			StartJump(true);
 		}
 		else if (!m_hasReleasedJump && m_isJumping && jumpReleased)
 		{
+			nothing = false;
 			ReleaseJump();
+		}
+		if (nothing && !jumpReleased)
+		{
+			Debug.Log($"Ground Distance: {m_collisions.belowHit.distance}");
+			//Debug.Break();
 		}
 	}
 
@@ -226,12 +244,15 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void CheckIfGrounded()
 	{
-		if (m_collisions.below && m_hasReleasedJump)
+		if (m_collisions.below)
 		{
-			if (m_collisions.belowHit.distance <= 0.1f)
+			if (m_collisions.belowHit.distance <= m_groundedTolerance)
 			{
 				m_isGrounded = true;
-				m_isJumping = false;
+				if (m_hasReleasedJump)
+				{
+					m_isJumping = false;
+				}
 			}
 			else
 			{
@@ -274,6 +295,8 @@ public class CharacterController : RaycastCollisionDetector
 	private float m_timeVerticalSpeedCut = 0.3f;
 	[SerializeField]
 	private LayerMask m_platformMask;
+	[SerializeField]
+	private float m_groundedTolerance = 0.35f;
 
 	[Header("Graphics Settings")]
 	[SerializeField]

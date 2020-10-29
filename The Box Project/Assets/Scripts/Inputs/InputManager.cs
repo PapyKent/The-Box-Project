@@ -70,6 +70,22 @@ public class InputManager : MonoBehaviour
 			m_colorButtonPressedListeners?.Invoke(GridManager.Color.RED);
 		}
 
+		if (Input.GetKeyUp(KeyCode.KeypadMinus))
+		{
+			if (Time.timeScale > 0.2)
+			{
+				Time.timeScale -= 0.2f;
+			}
+		}
+
+		if (Input.GetKeyUp(KeyCode.KeypadPlus))
+		{
+			if (Time.timeScale < 4)
+			{
+				Time.timeScale += 0.2f;
+			}
+		}
+
 		//if (Input.GetButtonDown("Start"))
 		//{
 		//	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
