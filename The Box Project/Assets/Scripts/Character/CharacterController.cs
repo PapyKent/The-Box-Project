@@ -16,7 +16,7 @@ public class CharacterController : RaycastCollisionDetector
 		m_externalForces += externalForce;
 	}
 
-	public void BouncePlayer(BoucingPlatform.BoucingConfig config)
+	public void BouncePlayer(BouncingPlatform.BouncingConfig config)
 	{
 		m_lastBouncingConfig = config;
 		m_isBouncing = true;
@@ -212,13 +212,17 @@ public class CharacterController : RaycastCollisionDetector
 		m_velocity.y = jump ? m_jumpSpeed : m_lastBouncingConfig.BoucingSpeed;
 		m_yJumpStart = transform.position.y;
 		m_currentMaxJumpHeight = jump ? m_maxJumpHeight : m_lastBouncingConfig.BoucingHeight;
+
+		Debug.Log("Start jump");
 	}
 
 	private void ReleaseJump()
 	{
+		//m_isJumping = false;
 		m_hasReleasedJump = true;
 		m_currentTimeVerticalSpeedCut = m_willHitAbove ? m_timeVerticalSpeedCut / 2 : m_timeVerticalSpeedCut;
 		m_elapsedTimeVerticalSpeedCut = 0.0f;
+		Debug.Log("Release Jump");
 	}
 
 	private void HandleJump()
@@ -320,7 +324,7 @@ public class CharacterController : RaycastCollisionDetector
 	private bool m_willHitAbove = false;
 	private float m_currentTimeVerticalSpeedCut = 0.0f;
 	private bool m_isBouncing = false;
-	private BoucingPlatform.BoucingConfig m_lastBouncingConfig;
+	private BouncingPlatform.BouncingConfig m_lastBouncingConfig;
 
 	private static CharacterController s_instance = null;
 

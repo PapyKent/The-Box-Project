@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class ReloadLevelBox : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-        {
-            CheckpointManager.Instance.ReloadLevel();
-        }
-        foreach(MovingPlatform movingPlat in FindObjectsOfType<MovingPlatform>())
-        {
-            movingPlat.ResetMovingPlatform();
-        }
-    }
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Player")
+		{
+			CheckpointManager.Instance.ReloadLevel();
+		}
+		foreach (MovingPlatform movingPlat in FindObjectsOfType<MovingPlatform>())
+		{
+			movingPlat.ResetMovingPlatform();
+		}
+	}
 }

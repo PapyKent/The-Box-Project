@@ -23,26 +23,26 @@ public class CharacterCrown : MonoBehaviour
 		InputManager.Instance?.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
 	}
 
-	private void OnColorButtonPressed(GridManager.Color color)
+	private void OnColorButtonPressed(Platform.Color color)
 	{
 		ParticleSystem.MainModule mainFire = m_fireFx.main;
 		ParticleSystem.MainModule mainBurst = m_burstFx.main;
 
 		switch (color)
 		{
-			case GridManager.Color.BLUE:
+			case Platform.Color.BLUE:
 				mainFire.startColor = m_blueParticle;
 				mainBurst.startColor = m_blueParticle;
 				m_fxMaterial.SetColor("_Color", m_blueMat);
 				break;
 
-			case GridManager.Color.RED:
+			case Platform.Color.RED:
 				mainFire.startColor = m_redParticle;
 				mainBurst.startColor = m_redParticle;
 				m_fxMaterial.SetColor("_Color", m_redMat);
 				break;
 
-			case GridManager.Color.YELLOW:
+			case Platform.Color.YELLOW:
 				mainFire.startColor = m_yellowParticle;
 				mainBurst.startColor = m_yellowParticle;
 				m_fxMaterial.SetColor("_Color", m_yellowMat);
@@ -56,30 +56,30 @@ public class CharacterCrown : MonoBehaviour
 
 	[Header("Particles Systems")]
 	[SerializeField]
-	private Material m_fxMaterial;
+	private Material m_fxMaterial = null;
 	[SerializeField]
-	private ParticleSystem m_fireFx;
+	private ParticleSystem m_fireFx = null;
 	[SerializeField]
-	private ParticleSystem m_burstFx;
+	private ParticleSystem m_burstFx = null;
 
 	[Header("Particles Color")]
 	[SerializeField]
-	private Color m_blueParticle;
+	private Color m_blueParticle = Color.blue;
 	[SerializeField]
-	private Color m_redParticle;
+	private Color m_redParticle = Color.red;
 	[SerializeField]
-	private Color m_yellowParticle;
+	private Color m_yellowParticle = Color.yellow;
 
 	[Header("Material Colors")]
 	[SerializeField]
 	[ColorUsageAttribute(true, true)]
-	private Color m_blueMat;
+	private Color m_blueMat = Color.blue;
 	[SerializeField]
 	[ColorUsageAttribute(true, true)]
-	private Color m_redMat;
+	private Color m_redMat = Color.red;
 	[SerializeField]
 	[ColorUsageAttribute(true, true)]
-	private Color m_yellowMat;
+	private Color m_yellowMat = Color.yellow;
 
 	[Header("Other Settings")]
 	[SerializeField]

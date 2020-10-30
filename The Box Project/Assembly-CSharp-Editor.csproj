@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="Assets\Shader\SpriteShaders\Editor\SpriteShaderGUI.cs" />
     <Compile Include="Assets\Shader\SpriteShaders\Editor\SpriteDiffuseShaderGUI.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\Editor\RelayTests.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\Editor\RelayProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

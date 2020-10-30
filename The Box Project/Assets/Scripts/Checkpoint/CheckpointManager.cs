@@ -1,41 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yube;
 
-public class CheckpointManager : MonoBehaviour
+public class CheckpointManager : Singleton<CheckpointManager>
 {
-    public static CheckpointManager Instance { get { return s_instance; } }
+	public Checkpoint CurrentCheckpoint { get { return m_currentCheckpoint; } set { m_currentCheckpoint = value; } }
 
-    public Checkpoint CurrentCheckpoint { get { return m_currentCheckpoint; } set { m_currentCheckpoint = value; } }
+	public void ReloadLevel()
+	{
+		Player.transform.position = m_currentCheckpoint.transform.position;
+	}
 
-    public void ReloadLevel()
-    {
-        m_player.transform.position = m_currentCheckpoint.transform.position;
-    }
+	#region Private
 
-    #region Private
+	private CharacterController Player { get { return (m_player ?? (m_player = FindObjectOfType<CharacterController>())); } }
 
-    private void Awake()
-    {
-        if(s_instance == null)
-        {
-            s_instance = this;
-            DontDestroyOnLoad(this);
-            m_currentCheckpoint = m_beginCheckpoint;
-        }
-        else
-        {
-            Debug.Log("Checkpoint manager already exists. Destroying.");
-        }
-    }
+	protected override void Awake()
+	{
+		base.Awake();
+		m_currentCheckpoint = m_beginCheckpoint;
+	}
 
-    [SerializeField]
-    private Checkpoint m_beginCheckpoint = null;
-    [SerializeField]
-    private CharacterController m_player = null;
- 
-    private Checkpoint m_currentCheckpoint = null;
-    private static CheckpointManager s_instance = null;
+	[SerializeField]
+	private Checkpoint m_beginCheckpoint = null;
 
-    #endregion
+	private Checkpoint m_currentCheckpoint = null;
+	private CharacterController m_player = null;
+
+	#endregion Private
 }

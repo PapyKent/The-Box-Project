@@ -4,17 +4,17 @@ public class PlatformFXManager : MonoBehaviour
 {
 	public static PlatformFXManager Instance { get; private set; } = null;
 
-	public PlatformFXConfig GetPlatformFXConfig(GridManager.Color color)
+	public PlatformFXConfig GetPlatformFXConfig(Platform.Color color)
 	{
 		switch (color)
 		{
-			case GridManager.Color.RED:
+			case Platform.Color.RED:
 				return m_redPlatformConfig;
 
-			case GridManager.Color.YELLOW:
+			case Platform.Color.YELLOW:
 				return m_yellowPlatformConfig;
 
-			case GridManager.Color.BLUE:
+			case Platform.Color.BLUE:
 				return m_bluePlatformConfig;
 		}
 		return null;

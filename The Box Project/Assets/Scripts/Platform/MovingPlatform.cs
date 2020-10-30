@@ -38,7 +38,7 @@ public class MovingPlatform : Platform
 		{
 			m_isMoving = true;
 		}
-		if (m_currentColor == GridManager.Color.NONE)
+		if (m_currentColor == Platform.Color.NONE)
 			m_active = true;
 	}
 
@@ -74,7 +74,7 @@ public class MovingPlatform : Platform
 		}
 	}
 
-	protected override void OnColorButtonPressed(GridManager.Color newColor)
+	protected override void OnColorButtonPressed(Platform.Color newColor)
 	{
 		base.OnColorButtonPressed(newColor);
 		if (!m_active)
@@ -165,7 +165,7 @@ public class MovingPlatform : Platform
 	{
 		if (localWaypoints != null)
 		{
-			Gizmos.color = Color.red;
+			Gizmos.color = UnityEngine.Color.red;
 			float size = .3f;
 
 			for (int i = 0; i < localWaypoints.Length; i++)
@@ -181,26 +181,26 @@ public class MovingPlatform : Platform
 	[SerializeField]
 	private bool m_alwaysMove = false;
 	[SerializeField]
-	private Vector3[] localWaypoints;
+	private Vector3[] localWaypoints = null;
 	[SerializeField]
-	private float m_speed;
+	private float m_speed = 0.0f;
 	[SerializeField]
-	private bool m_cyclic;
+	private bool m_cyclic = false;
 	[SerializeField]
-	private float m_waitTIme;
+	private float m_waitTIme = 0.0f;
 	[Range(0, 2)]
 	[SerializeField]
-	public float easeAmount;
+	public float easeAmount = 0.0f;
 
-	private CollisionInfo m_collisions;
-	private int fromWaypointIndex;
-	private float percentBetweenWaypoints;
-	private float nextMoveTime;
+	private CollisionInfo m_collisions = new CollisionInfo();
+	private int fromWaypointIndex = 0;
+	private float percentBetweenWaypoints = 0.0f;
+	private float nextMoveTime = 0.0f;
 	private bool m_isMoving = false;
-	private Vector3[] globalWaypoints;
+	private Vector3[] globalWaypoints = null;
 	private CharacterController m_player = null;
 	private bool m_characterStandingOnPlatform = false;
-	private Vector3 m_startingPos;
+	private Vector3 m_startingPos = Vector3.zero;
 
 	#endregion Private
 }

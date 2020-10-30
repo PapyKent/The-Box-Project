@@ -1,113 +1,90 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yube;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
+	public enum SFXType
+	{
+		JUMP,
+		PLATFORMCHANGE
+	}
 
-    public enum SFXType
-    {
-        JUMP,
-        PLATFORMCHANGE
-    }
+	protected override void Awake()
+	{
+		base.Awake();
 
+		//create audio sources
+		musicSource = this.gameObject.AddComponent<AudioSource>();
+		sfxSource = this.gameObject.AddComponent<AudioSource>();
 
-    #region Static Instance
-    private static AudioManager instance;
-    public static AudioManager Instance
-    {
-        get
-        {
-            if(instance == null)
-            {
-                instance = FindObjectOfType<AudioManager>();
-                if (instance == null)
-                {
-                    instance = new GameObject("Spawned Audio Manager", typeof(AudioManager)).GetComponent<AudioManager>();
-                }
-            }
-            return instance;
-        }
-        private set
-        {
-            instance = value;
-        }
-    }
-    #endregion
+		//loop the music track
+		musicSource.loop = true;
+	}
 
-    #region Fields
-    private AudioSource musicSource;
-    private AudioSource sfxSource;
+	public void PlayMusic()
+	{
+		musicSource.clip = music;
+		musicSource.volume = musicVolume;
+		musicSource.Play();
+	}
 
-    #endregion
+	public void PlaySFX(SFXType SFXType)
+	{
+		switch (SFXType)
+		{
+			case SFXType.JUMP:
+				sfxSource.Stop();
+				sfxSource.PlayOneShot(jumpSFX);
+				break;
 
+			case SFXType.PLATFORMCHANGE:
+				sfxSource.Stop();
+				sfxSource.PlayOneShot(platformChange, platformChangeSFXVolume);
+				break;
 
-    private void Awake()
-    {
-        //make sure we don't destroy this instance
-        DontDestroyOnLoad(this.gameObject);
+			default:
+				break;
+		}
+	}
 
-        //create audio sources
-        musicSource = this.gameObject.AddComponent<AudioSource>();
-        sfxSource = this.gameObject.AddComponent<AudioSource>();
+	public void PlaySFX(SFXType SFXType, float volume)
+	{
+		switch (SFXType)
+		{
+			case SFXType.JUMP:
+				sfxSource.Stop();
+				sfxSource.PlayOneShot(jumpSFX, volume);
+				break;
 
-        //loop the music track
-        musicSource.loop = true;
+			case SFXType.PLATFORMCHANGE:
+				sfxSource.Stop();
+				sfxSource.PlayOneShot(platformChange, volume);
+				break;
 
-    }
-    
-    public void PlayMusic()
-    {
-        musicSource.clip = music;
-        musicSource.volume = musicVolume;
-        musicSource.Play();
-    }
+			default:
+				break;
+		}
+	}
 
+	[Header("Audio clips")]
+	[SerializeField]
+	private AudioClip music = null;
+	[SerializeField]
+	private AudioClip jumpSFX = null;
+	[SerializeField]
+	private AudioClip platformChange = null;
 
-    public void PlaySFX(SFXType SFXType)
-    {
-        switch (SFXType)
-        {
-            case SFXType.JUMP:
-                sfxSource.Stop();
-                sfxSource.PlayOneShot(jumpSFX);
-                break;
-            case SFXType.PLATFORMCHANGE:
-                sfxSource.Stop();
-                sfxSource.PlayOneShot(platformChange, platformChangeSFXVolume);
-                break;
-            default:
-                break;
-        }
-        
-    }
+	[Header("Audio settings")]
+	[SerializeField]
+	private float musicVolume = 1.0f;
+	[SerializeField]
+	private float platformChangeSFXVolume = 1.0f;
 
-    public void PlaySFX(SFXType SFXType, float volume)
-    {
-        switch (SFXType)
-        {
-            case SFXType.JUMP:
-                sfxSource.Stop();
-                sfxSource.PlayOneShot(jumpSFX, volume);
-                break;
-            case SFXType.PLATFORMCHANGE:
-                sfxSource.Stop();
-                sfxSource.PlayOneShot(platformChange, volume);
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    #region Clips
-    [SerializeField] private AudioClip music;
-    [SerializeField] private AudioClip jumpSFX;
-    [SerializeField] private AudioClip platformChange;
-    #endregion
-
-
-    [SerializeField] private float musicVolume = 1.0f;
-    [SerializeField] private float platformChangeSFXVolume = 1.0f;
-
+	[NonSerialized]
+	private AudioSource musicSource = null;
+	[NonSerialized]
+	private AudioSource sfxSource = null;
 }

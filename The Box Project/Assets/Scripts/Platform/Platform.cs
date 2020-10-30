@@ -1,10 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : RaycastCollisionDetector
 {
-	public GridManager.Color CurrentColor { get { return m_currentColor; } }
+	[Serializable]
+	public enum Color
+	{
+		NONE,
+		BLUE,
+		RED,
+		YELLOW
+	}
+
+	public Color CurrentColor { get { return m_currentColor; } }
 
 	#region Private
 
@@ -22,9 +32,9 @@ public class Platform : RaycastCollisionDetector
 		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
 	}
 
-	protected virtual void OnColorButtonPressed(GridManager.Color newColor)
+	protected virtual void OnColorButtonPressed(Color newColor)
 	{
-		if (m_currentColor != GridManager.Color.NONE)
+		if (m_currentColor != Color.NONE)
 		{
 			bool sameColor = newColor == m_currentColor;
 			EnablePlatform(sameColor);
@@ -33,7 +43,7 @@ public class Platform : RaycastCollisionDetector
 
 	protected void EnablePlatform(bool enable, bool force = false)
 	{
-		if (m_currentColor == GridManager.Color.NONE)
+		if (m_currentColor == Color.NONE)
 		{
 			m_active = true;
 			return;
@@ -95,7 +105,7 @@ public class Platform : RaycastCollisionDetector
 
 	[Header("Platform Settings")]
 	[SerializeField]
-	protected GridManager.Color m_currentColor = GridManager.Color.NONE;
+	protected Color m_currentColor = Color.NONE;
 
 	[Header("Graphics Settings")]
 	[SerializeField]
