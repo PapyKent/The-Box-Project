@@ -71,6 +71,7 @@ public class CharacterController : RaycastCollisionDetector
 		ApplyGravity();
 		m_inputs.y = m_velocity.y * Time.fixedDeltaTime;
 		Vector3 newPos = transform.position + (Vector3)m_inputs + (Vector3)m_externalForces;
+		m_willHitAbove = false;
 		if (m_velocity.y < 0.0f || m_externalForces.y < 0.0f)
 		{
 			if (m_collisions.below && (newPos.y - (ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
@@ -88,6 +89,15 @@ public class CharacterController : RaycastCollisionDetector
 			{
 				m_willHitAbove = true;
 				newPos.y = m_collisions.aboveHit.point.y - (ColliderBounds.size.y / 2);
+				if (!m_hasReleasedJump)
+				{
+					ReleaseJump();
+				}
+				else
+				{
+					m_velocity.y = 0.0f;//to not have the impression to be bounced down
+					m_elapsedTimeVerticalSpeedCut = m_currentTimeVerticalSpeedCut + 1;
+				}
 			}
 			else
 			{
@@ -160,7 +170,6 @@ public class CharacterController : RaycastCollisionDetector
 			CheckAboveCollisions(ref m_collisions);
 		CheckBelowCollisions(ref m_collisions);
 		CheckIfGrounded();
-		//transform.Translate(m_inputs);
 	}
 
 	private void CheckSideCollisions()
@@ -218,10 +227,18 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void ReleaseJump()
 	{
-		//m_isJumping = false;
 		m_hasReleasedJump = true;
-		m_currentTimeVerticalSpeedCut = m_willHitAbove ? m_timeVerticalSpeedCut / 2 : m_timeVerticalSpeedCut;
-		m_elapsedTimeVerticalSpeedCut = 0.0f;
+		if (m_willHitAbove)
+		{
+			m_velocity.y = 1.0f;//to not have the impression to be bounced down
+			m_elapsedTimeVerticalSpeedCut = m_currentTimeVerticalSpeedCut + 1;
+		}
+		else
+		{
+			m_yVelocityBeforeVerticalSpeedCut = m_velocity.y;
+			m_elapsedTimeVerticalSpeedCut = 0.0f;
+			m_currentTimeVerticalSpeedCut = m_timeVerticalSpeedCut;
+		}
 		Debug.Log("Release Jump");
 	}
 
@@ -238,7 +255,7 @@ public class CharacterController : RaycastCollisionDetector
 		else if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_currentTimeVerticalSpeedCut)
 		{
 			m_isBouncing = false;
-			float newVelocity = m_jumpSpeed * ((m_currentTimeVerticalSpeedCut - (m_elapsedTimeVerticalSpeedCut / m_currentTimeVerticalSpeedCut)) / m_currentTimeVerticalSpeedCut);
+			float newVelocity = Mathf.Lerp(m_yVelocityBeforeVerticalSpeedCut, 0.0f, m_elapsedTimeVerticalSpeedCut / m_currentTimeVerticalSpeedCut);
 			if (newVelocity < m_maxFallSpeed)
 				newVelocity = m_maxFallSpeed;
 			m_velocity.y = newVelocity;
@@ -271,7 +288,7 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void ApplyGravity()
 	{
-		if ((!m_isGrounded && !m_isJumping) || (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut >= m_timeVerticalSpeedCut))
+		if ((!m_isGrounded && !m_isJumping) || (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut >= m_currentTimeVerticalSpeedCut))
 		{
 			if (m_velocity.y > m_maxFallSpeed)
 			{
@@ -296,9 +313,9 @@ public class CharacterController : RaycastCollisionDetector
 	[SerializeField]
 	private float m_maxFallSpeed = -25.0f;
 	[SerializeField]
-	private float m_timeVerticalSpeedCut = 0.3f;
+	private float m_timeVerticalSpeedCut = 2.0f;
 	[SerializeField]
-	private LayerMask m_platformMask;
+	private LayerMask m_platformMask = 0;
 	[SerializeField]
 	private float m_groundedTolerance = 0.35f;
 
@@ -316,13 +333,14 @@ public class CharacterController : RaycastCollisionDetector
 	private CollisionInfo m_collisions;
 	private bool m_isJumping = false;
 	private float m_yJumpStart = 0.0f;
+	private float m_currentTimeVerticalSpeedCut = 0.0f;
 	private float m_elapsedTimeVerticalSpeedCut = 0.0f;
+	private float m_yVelocityBeforeVerticalSpeedCut = 0.0f;
 	private float m_currentMaxJumpHeight = 0.0f;
 
 	private bool m_hasReleasedJump = false;
 	private bool m_isGrounded = false;
 	private bool m_willHitAbove = false;
-	private float m_currentTimeVerticalSpeedCut = 0.0f;
 	private bool m_isBouncing = false;
 	private BouncingPlatform.BouncingConfig m_lastBouncingConfig;
 
