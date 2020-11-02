@@ -1,16 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Yube.Relays;
 
 public class CharacterController : RaycastCollisionDetector
 {
-	public static CharacterController Instance
-	{
-		get
-		{
-			return s_instance;
-		}
-	}
-
 	public void SetExternalForce(Vector2 externalForce)
 	{
 		m_externalForces += externalForce;
@@ -23,19 +16,43 @@ public class CharacterController : RaycastCollisionDetector
 	}
 
 	public bool FaceRight { get { return m_collisions.faceRight; } }
+	public IRelayLink<bool, bool> JumpRelay { get { return m_jumpRelay ?? (m_jumpRelay = new Relay<bool, bool>()); } }
+	public IRelayLink<bool> GroundedRelay { get { return m_groundedRelay ?? (m_groundedRelay = new Relay<bool>()); } }
+	public float XSpeed { get { return Mathf.Abs(m_inputs.x); } }
+	public float YVelocity { get { return m_velocity.y; } }
 
 	#region Private
 
+	protected bool IsJumping
+	{
+		get { return m_isJumping; }
+		set
+		{
+			if (value != m_isJumping)
+			{
+				m_isJumping = value;
+				m_jumpRelay?.Dispatch(m_isJumping, m_isBouncing);
+			}
+		}
+	}
+
+	protected bool IsGrounded
+	{
+		get { return m_isGrounded; }
+		set
+		{
+			if (value != m_isGrounded)
+			{
+				m_isGrounded = value;
+				m_groundedRelay?.Dispatch(m_isGrounded);
+			}
+		}
+	}
+
 	protected override void Awake()
 	{
-		if (s_instance == null)
-		{
-			s_instance = this;
-			InputManager.Instance.RegisterOnJumpInput(OnJumpPressed, true);
-			base.Awake();
-		}
-		else
-			Destroy(this);
+		base.Awake();
+		InputManager.Instance.RegisterOnJumpInput(OnJumpPressed, true);
 	}
 
 	protected void OnDestroy()
@@ -43,19 +60,14 @@ public class CharacterController : RaycastCollisionDetector
 		InputManager.Instance?.RegisterOnJumpInput(OnJumpPressed, false);
 	}
 
-	private void Update()
-	{
-		m_animator.SetFloat("Speed", Mathf.Abs(m_inputs.x));
-		m_animator.SetBool("IsJumping", m_isJumping);
-		m_animator.SetFloat("YVelocity", m_velocity.y);
-		m_animator.SetBool("IsGrounded", m_isGrounded);
-	}
-
 	private void FixedUpdate()
 	{
 		m_inputs = InputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
-		HandleSpriteDirection();
 		m_collisions.Reset();
+		if (m_inputs.x != 0)
+		{
+			m_collisions.faceRight = m_inputs.x > 0.0f;
+		}
 		CheckSideCollisions();
 		if (m_externalForces.x > 0.0f && m_inputs.x < 0.0f && (m_collisions.left && m_collisions.leftHit.distance < Mathf.Epsilon)
 			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.right && m_collisions.rightHit.distance < Mathf.Epsilon))
@@ -78,9 +90,9 @@ public class CharacterController : RaycastCollisionDetector
 			{
 				newPos.y = m_collisions.belowHit.point.y + (ColliderBounds.size.y / 2);
 				m_velocity.y = 0.0f;
-				m_isJumping = false;
+				IsJumping = false;
 				m_isBouncing = false;
-				m_isGrounded = true;
+				IsGrounded = true;
 			}
 		}
 		else if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
@@ -180,25 +192,15 @@ public class CharacterController : RaycastCollisionDetector
 			CheckLeftCollisions(ref m_collisions);
 	}
 
-	private void HandleSpriteDirection()
-	{
-		if (m_inputs.x != 0.0f)
-		{
-			bool flipX = m_inputs.x < 0.0f;
-			m_sprite.flipX = flipX;
-			m_collisions.faceRight = !flipX;
-		}
-	}
-
 	private void OnJumpPressed(bool jumpReleased)
 	{
 		bool nothing = true;
-		if (!m_isJumping && !jumpReleased && m_isGrounded)
+		if (!IsJumping && !jumpReleased && IsGrounded)
 		{
 			nothing = false;
 			StartJump(true);
 		}
-		else if (!m_hasReleasedJump && m_isJumping && jumpReleased)
+		else if (!m_hasReleasedJump && IsJumping && jumpReleased)
 		{
 			nothing = false;
 			ReleaseJump();
@@ -216,10 +218,10 @@ public class CharacterController : RaycastCollisionDetector
 		AudioManager.Instance.PlaySFX(AudioManager.SFXType.JUMP);
 
 		//Here we start jumping
-		m_isJumping = true;
+		IsJumping = true;
 		m_hasReleasedJump = false;
-		m_velocity.y = jump ? m_jumpSpeed : m_lastBouncingConfig.BoucingSpeed;
 		m_yJumpStart = transform.position.y;
+		m_velocity.y = jump ? m_jumpSpeed : m_lastBouncingConfig.BoucingSpeed;
 		m_currentMaxJumpHeight = jump ? m_maxJumpHeight : m_lastBouncingConfig.BoucingHeight;
 
 		Debug.Log("Start jump");
@@ -244,15 +246,15 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void HandleJump()
 	{
-		if (!m_isJumping && m_isBouncing && m_isGrounded)
+		if (!IsJumping && m_isBouncing && IsGrounded)
 		{
 			StartJump(false);
 		}
-		else if ((m_isJumping && !m_hasReleasedJump) && ((transform.position.y - m_yJumpStart >= m_currentMaxJumpHeight) || (m_collisions.above && m_willHitAbove)))
+		else if ((IsJumping && !m_hasReleasedJump) && ((transform.position.y - m_yJumpStart >= m_currentMaxJumpHeight) || (m_collisions.above && m_willHitAbove)))
 		{
 			ReleaseJump();
 		}
-		else if (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_currentTimeVerticalSpeedCut)
+		else if (IsJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut <= m_currentTimeVerticalSpeedCut)
 		{
 			m_isBouncing = false;
 			float newVelocity = Mathf.Lerp(m_yVelocityBeforeVerticalSpeedCut, 0.0f, m_elapsedTimeVerticalSpeedCut / m_currentTimeVerticalSpeedCut);
@@ -269,26 +271,26 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			if (m_collisions.belowHit.distance <= m_groundedTolerance)
 			{
-				m_isGrounded = true;
+				IsGrounded = true;
 				if (m_hasReleasedJump)
 				{
-					m_isJumping = false;
+					IsJumping = false;
 				}
 			}
 			else
 			{
-				m_isGrounded = false;
+				IsGrounded = false;
 			}
 		}
 		else
 		{
-			m_isGrounded = false;
+			IsGrounded = false;
 		}
 	}
 
 	private void ApplyGravity()
 	{
-		if ((!m_isGrounded && !m_isJumping) || (m_isJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut >= m_currentTimeVerticalSpeedCut))
+		if ((!IsGrounded && !IsJumping) || (IsJumping && m_hasReleasedJump && m_elapsedTimeVerticalSpeedCut >= m_currentTimeVerticalSpeedCut))
 		{
 			if (m_velocity.y > m_maxFallSpeed)
 			{
@@ -319,19 +321,10 @@ public class CharacterController : RaycastCollisionDetector
 	[SerializeField]
 	private float m_groundedTolerance = 0.35f;
 
-	[Header("Graphics Settings")]
-	[SerializeField]
-	private SpriteRenderer m_sprite = null;
-
-	[Header("Animation Settings")]
-	[SerializeField]
-	private Animator m_animator = null;
-
 	private Vector2 m_inputs = Vector2.zero;
 	private Vector2 m_externalForces = Vector2.zero;
 	private Vector2 m_velocity = Vector2.zero;
 	private CollisionInfo m_collisions;
-	private bool m_isJumping = false;
 	private float m_yJumpStart = 0.0f;
 	private float m_currentTimeVerticalSpeedCut = 0.0f;
 	private float m_elapsedTimeVerticalSpeedCut = 0.0f;
@@ -339,12 +332,14 @@ public class CharacterController : RaycastCollisionDetector
 	private float m_currentMaxJumpHeight = 0.0f;
 
 	private bool m_hasReleasedJump = false;
-	private bool m_isGrounded = false;
 	private bool m_willHitAbove = false;
 	private bool m_isBouncing = false;
+	private bool m_isJumping = false;
+	private bool m_isGrounded = false;
 	private BouncingPlatform.BouncingConfig m_lastBouncingConfig;
 
-	private static CharacterController s_instance = null;
+	public Relay<bool, bool> m_jumpRelay = null;
+	public Relay<bool> m_groundedRelay = null;
 
 	#endregion Private
 }

@@ -32,7 +32,6 @@ public class MovingPlatform : Platform
 
 	protected void Start()
 	{
-		m_player = CharacterController.Instance;
 		globalWaypointsCreation();
 		if (m_alwaysMove)
 		{
@@ -88,10 +87,12 @@ public class MovingPlatform : Platform
 		if (m_collisions.above && m_collisions.aboveHit.distance < Mathf.Epsilon)
 		{
 			SetCurrentPlayer(true);
+			m_player = m_collisions.aboveHit.collider.GetComponentInParent<CharacterController>();
 		}
 		else
 		{
 			SetCurrentPlayer(false);
+			m_player = null;
 		}
 	}
 

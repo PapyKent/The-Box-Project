@@ -24,6 +24,8 @@ namespace Yube.Relays
 		/// <param name="listener">Listener.</param>
 		bool Contains(TDelegate listener);
 
+		void RegisterListener(TDelegate listener, bool register, bool allowDuplicates = false);
+
 		/// <summary>
 		/// Adds a persistent listener.
 		/// </summary>
@@ -119,6 +121,11 @@ namespace Yube.Relays.Link
 		public bool Contains(TDelegate listener)
 		{
 			return _relay.Contains(listener);
+		}
+
+		public void RegisterListener(TDelegate listener, bool register, bool allowDuplicates)
+		{
+			_relay.RegisterListener(listener, register, allowDuplicates);
 		}
 
 		/// <summary>Adds a persistent listener.</summary>

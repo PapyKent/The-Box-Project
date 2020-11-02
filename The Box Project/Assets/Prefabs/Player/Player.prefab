@@ -510,6 +510,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Fire
       objectReference: {fileID: 0}
+    - target: {fileID: 200397209312381313, guid: 30410ccee5529b6468b71d7dc1771706,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 200397209312381314, guid: 30410ccee5529b6468b71d7dc1771706,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 200397209312381314, guid: 30410ccee5529b6468b71d7dc1771706,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 200397209312381314, guid: 30410ccee5529b6468b71d7dc1771706,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 200397209312381315, guid: 30410ccee5529b6468b71d7dc1771706,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -565,11 +585,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1238169275082735900, guid: 30410ccee5529b6468b71d7dc1771706,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2937392595399346765, guid: 30410ccee5529b6468b71d7dc1771706,
         type: 3}
       propertyPath: m_parent
       value: 
       objectReference: {fileID: 7952166411756378549}
+    - target: {fileID: 2937392595399346765, guid: 30410ccee5529b6468b71d7dc1771706,
+        type: 3}
+      propertyPath: m_player
+      value: 
+      objectReference: {fileID: 1096166764240444414}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30410ccee5529b6468b71d7dc1771706, type: 3}
 --- !u!4 &1424019966394864277 stripped

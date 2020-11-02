@@ -19,7 +19,6 @@ public class BouncingPlatform : Platform
 	protected override void Awake()
 	{
 		base.Awake();
-		m_character = CharacterController.Instance;
 	}
 
 	private void FixedUpdate()
@@ -34,7 +33,11 @@ public class BouncingPlatform : Platform
 
 	private bool IsSomeoneStandingOnPlatform()
 	{
-		return m_collisions.above && m_collisions.aboveHit.distance < Mathf.Epsilon;
+		if (m_collisions.above && m_collisions.aboveHit.distance < Mathf.Epsilon)
+		{
+			m_character = m_collisions.aboveHit.collider.GetComponentInParent<CharacterController>();
+		}
+		return m_character != null;
 	}
 
 	private void BounceCharacterOnPlatform()

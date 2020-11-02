@@ -60,8 +60,14 @@
     <Compile Include="Assets\Scripts\SwitchLevel.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraOffset.cs" />
     <Compile Include="Assets\Scripts\Physics\RaycastCollisionDetector.cs" />
+    <Compile Include="Assets\Scripts\Yube\Singleton.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\CheckpointManager.cs" />
     <Compile Include="Assets\FXs\Scripts\Platform_Trigger.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\Relay.Debug.cs" />
+    <Compile Include="Assets\Scripts\Yube\Assertion.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\RelayLink.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\Relay.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\RelayBinding.cs" />
     <Compile Include="Assets\FXs\Scripts\Platforms_Color_State.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Platform\PlatformFXManager.cs" />
@@ -70,18 +76,13 @@
     <Compile Include="Assets\Scripts\Checkpoint\ReloadLevelBox.cs" />
     <Compile Include="Assets\FXs\Scripts\Crown_FX_Trigger.cs" />
     <Compile Include="Assets\Scripts\Platform\PlatformFXConfig.cs" />
+    <Compile Include="Assets\Scripts\Yube\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\Platform\BouncingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\Platform.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterController.cs" />
-    <Compile Include="Assets\Scripts\Yube\Singleton.cs" />
-    <Compile Include="Assets\Scripts\Yube\Relay\Relay.Debug.cs" />
-    <Compile Include="Assets\Scripts\Yube\Assertion.cs" />
-    <Compile Include="Assets\Scripts\Yube\Relay\RelayLink.cs" />
-    <Compile Include="Assets\Scripts\Yube\Relay\Relay.cs" />
-    <Compile Include="Assets\Scripts\Yube\Relay\RelayBinding.cs" />
-    <Compile Include="Assets\Scripts\Yube\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\Yube\ResourceManager.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterAnimation.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />

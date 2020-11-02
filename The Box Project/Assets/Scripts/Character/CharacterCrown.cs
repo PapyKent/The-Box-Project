@@ -11,10 +11,10 @@ public class CharacterCrown : MonoBehaviour
 
 	private void Update()
 	{
-		if (CharacterController.Instance != null)
+		if (m_player != null)
 		{
 			m_parent.eulerAngles = new Vector3(0.0f, 0.0f,
-				CharacterController.Instance.FaceRight ? m_zRotation : -1 * m_zRotation);
+				m_player.FaceRight ? m_zRotation : -1 * m_zRotation);
 		}
 	}
 
@@ -86,6 +86,8 @@ public class CharacterCrown : MonoBehaviour
 	private Transform m_parent = null;
 	[SerializeField]
 	private float m_zRotation = 0.0f;
+	[SerializeField]
+	private CharacterController m_player = null;
 
 	private const string COLOR_FIELD_MATERIAL = "_Color";
 

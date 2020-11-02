@@ -122,7 +122,8 @@ namespace Yube.Relays
 		/// <param name="allowDuplicates">If <c>false</c>, checks whether persistent listener is already present.</param>
 		public bool AddListener(TDelegate listener, bool allowDuplicates = false)
 		{
-			if (!allowDuplicates && Contains(listener)) return false;
+			if (!allowDuplicates && Contains(listener))
+				return false;
 			if (_count == _cap)
 			{
 				_cap *= 2;
@@ -162,7 +163,8 @@ namespace Yube.Relays
 		/// <param name="allowDuplicates">If <c>false</c>, checks whether one-time listener is already present.</param>
 		public bool AddOnce(TDelegate listener, bool allowDuplicates = false)
 		{
-			if (!allowDuplicates && Contains(_listenersOnce, _onceCount, listener)) return false;
+			if (!allowDuplicates && Contains(_listenersOnce, _onceCount, listener))
+				return false;
 			if (_onceCount == _onceCap)
 			{
 				if (_onceCap == 0)
@@ -336,7 +338,8 @@ namespace Yube.Relays
 			// Reversal allows safe addition during dispatch (doesn't fire immediately)
 			for (uint i = _count; i > 0; --i)
 			{
-				if (i > _count) throw _eIOOR;
+				if (i > _count)
+					throw _eIOOR;
 				if (_listeners[i - 1] != null)
 				{
 					_listeners[i - 1]();
@@ -388,7 +391,8 @@ namespace Yube.Relays
 		{
 			for (uint i = _count; i > 0; --i)
 			{
-				if (i > _count) throw _eIOOR;
+				if (i > _count)
+					throw _eIOOR;
 				if (_listeners[i - 1] != null)
 				{
 					_listeners[i - 1](t);
@@ -439,7 +443,8 @@ namespace Yube.Relays
 		{
 			for (uint i = _count; i > 0; --i)
 			{
-				if (i > _count) throw _eIOOR;
+				if (i > _count)
+					throw _eIOOR;
 				if (_listeners[i - 1] != null)
 				{
 					_listeners[i - 1](t, u);
@@ -490,7 +495,8 @@ namespace Yube.Relays
 		{
 			for (uint i = _count; i > 0; --i)
 			{
-				if (i > _count) throw _eIOOR;
+				if (i > _count)
+					throw _eIOOR;
 				if (_listeners[i - 1] != null)
 				{
 					_listeners[i - 1](t, u, v);
@@ -541,7 +547,8 @@ namespace Yube.Relays
 		{
 			for (uint i = _count; i > 0; --i)
 			{
-				if (i > _count) throw _eIOOR;
+				if (i > _count)
+					throw _eIOOR;
 				if (_listeners[i - 1] != null)
 				{
 					_listeners[i - 1](t, u, v, w);
