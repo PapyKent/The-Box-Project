@@ -79,10 +79,11 @@
     <Compile Include="Assets\Scripts\Yube\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\Platform\BouncingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\MovingPlatform.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterAnimation.cs" />
     <Compile Include="Assets\Scripts\Platform\Platform.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Yube\ResourceManager.cs" />
-    <Compile Include="Assets\Scripts\Character\CharacterAnimation.cs" />
+    <Compile Include="Assets\Scripts\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />

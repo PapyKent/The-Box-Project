@@ -23,7 +23,7 @@ public class CharacterController : RaycastCollisionDetector
 
 	#region Private
 
-	protected bool IsJumping
+	public bool IsJumping
 	{
 		get { return m_isJumping; }
 		set
@@ -73,6 +73,8 @@ public class CharacterController : RaycastCollisionDetector
 			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.right && m_collisions.rightHit.distance < Mathf.Epsilon))
 		{
 			m_inputs.x = 0.0f;
+			Debug.Log("Input to 0");
+			Debug.Break();
 		}
 
 		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
@@ -145,7 +147,7 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			if (newPos.y > collider2D.bounds.center.y
 				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
-				&& (newPos.y - ColliderBounds.extents.y) < collider2D.bounds.max.y
+				&& Utils.IsInferior((newPos.y - ColliderBounds.extents.y), collider2D.bounds.max.y, true) //need epsilon check in utils.
 				&& !m_willHitAbove)
 			{
 				newPos.y = collider2D.bounds.max.y + ColliderBounds.extents.y + Mathf.Epsilon;
@@ -153,7 +155,7 @@ public class CharacterController : RaycastCollisionDetector
 			}
 			else if (newPos.y < collider2D.bounds.center.y
 				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
-				&& (newPos.y + ColliderBounds.extents.y) > collider2D.bounds.min.y)
+				&& Utils.IsSuperior((newPos.y + ColliderBounds.extents.y), collider2D.bounds.min.y, true))
 			{
 				newPos.y = collider2D.bounds.min.y - ColliderBounds.extents.y - Mathf.Epsilon;
 				Debug.Log("Reajust below");

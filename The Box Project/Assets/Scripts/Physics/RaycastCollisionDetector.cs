@@ -47,42 +47,48 @@ public class RaycastCollisionDetector : MonoBehaviour
 	{
 		if (m_collider != null)
 		{
-			m_horizontalRaycastCount = Mathf.RoundToInt(m_collider.bounds.size.y / m_distanceBetweenRay);
-			m_verticalRaycastCount = Mathf.RoundToInt(m_collider.bounds.size.x / m_distanceBetweenRay);
+			m_horizontalRaycastCount = Mathf.RoundToInt(m_collider.bounds.size.y / m_distanceBetweenRay)
+				+ (int)(m_collider.bounds.size.y % m_distanceBetweenRay);
+			m_verticalRaycastCount = Mathf.RoundToInt(m_collider.bounds.size.x / m_distanceBetweenRay)
+				+ (int)(m_collider.bounds.size.x % m_distanceBetweenRay);
 		}
-		m_shootRayDistance = 1.0f;
 	}
 
 	private void CheckCollisions(ref bool collisionDirection, ref RaycastHit2D refHit, Vector2 origin, Vector3 rayDirection, bool vertical)
 	{
 		int limit = vertical ? m_verticalRaycastCount + 1 : m_horizontalRaycastCount;
 		if (vertical)
-			origin.x += 0.05f;
+		{
+			origin = new Vector2(origin.x + ((m_collider.bounds.size.x / m_verticalRaycastCount) / 2), origin.y);
+		}
 		else
-			origin.y += 0.05f;
+		{
+			origin = new Vector2(origin.x, origin.y + ((m_collider.bounds.size.y / m_horizontalRaycastCount) / 2));
+		}
 		refHit = new RaycastHit2D();
 		bool alreadyHit = false;
 		for (int i = 0; i < limit; i++)
 		{
-			if (i == limit - 1)
+			if ((vertical && origin.x > m_collider.bounds.max.x)
+				|| (!vertical && origin.y > m_collider.bounds.max.y))
 			{
-				if (vertical)
-					origin.x -= 0.1f;
-				else
-					origin.y -= 0.1f;
+				continue;
 			}
 			Debug.DrawRay(origin, rayDirection * m_shootRayDistance, Color.red);
-			RaycastHit2D hit = Physics2D.Raycast(origin, rayDirection, m_shootRayDistance, m_collisionMask);
-
-			if (hit.collider != null && !hit.collider.isTrigger)
+			RaycastHit2D[] hits = Physics2D.RaycastAll(origin, rayDirection, m_shootRayDistance, m_collisionMask);
+			foreach (RaycastHit2D hit in hits)
 			{
-				collisionDirection = true;
-				if (!alreadyHit || IsNewHitCloser(refHit, hit, rayDirection, vertical))
+				if (hit.collider != null && !hit.collider.isTrigger)
 				{
-					alreadyHit = true;
-					refHit = hit;
+					collisionDirection = true;
+					if (!alreadyHit || IsNewHitCloser(refHit, hit, rayDirection, vertical))
+					{
+						alreadyHit = true;
+						refHit = hit;
+					}
 				}
 			}
+
 			if (vertical)
 			{
 				origin = new Vector2(origin.x + (m_collider.bounds.size.x / m_verticalRaycastCount), origin.y);
@@ -126,11 +132,13 @@ public class RaycastCollisionDetector : MonoBehaviour
 	protected BoxCollider2D m_collider = null;
 	[SerializeField]
 	protected LayerMask m_collisionMask;
+	[SerializeField]
+	private float m_distanceBetweenRay = 0.2f;
+	[SerializeField]
+	private float m_shootRayDistance = 1.0f;
 
 	private int m_verticalRaycastCount = 0;
 	private int m_horizontalRaycastCount = 0;
-	private float m_distanceBetweenRay = 0.1f;
-	private float m_shootRayDistance = 0.1f;
 
 	#endregion Private
 }

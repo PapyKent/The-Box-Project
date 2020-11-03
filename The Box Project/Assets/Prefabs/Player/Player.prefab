@@ -220,8 +220,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   m_groundedTolerance: 0.4
-  m_sprite: {fileID: 1096166763986101619}
-  m_animator: {fileID: 269584770061642819}
 --- !u!1 &1096166764439550599
 GameObject:
   m_ObjectHideFlags: 0
