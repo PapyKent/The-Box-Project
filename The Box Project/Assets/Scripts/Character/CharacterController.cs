@@ -87,6 +87,7 @@ public class CharacterController : RaycastCollisionDetector
 		transform.position = newPos;
 		m_externalForces = Vector2.zero;
 
+		//Allow the player to jump earlier when he fall.
 		m_collisions.Reset();
 		CheckSideCollisions();
 		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
@@ -298,7 +299,8 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_collisions.below)
 		{
-			if (m_collisions.belowHit.distance <= m_groundedTolerance)
+			if (m_collisions.belowHit.distance <= m_groundedTolerance
+				&& !(IsJumping && m_velocity.y > 0.0f))//Fix bug when colliding to an angle while jumping, it was reseting the jump & make the player jump higher.
 			{
 				IsGrounded = true;
 				if (m_hasReleasedJump)
