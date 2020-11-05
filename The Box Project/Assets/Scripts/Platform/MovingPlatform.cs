@@ -6,7 +6,6 @@ public class MovingPlatform : Platform
 	{
 		m_isMoving = false;
 		percentBetweenWaypoints = 0.0f;
-		//transform.position = globalWaypoints[0];
 		transform.position = m_startingPos;
 		globalWaypointsCreation();
 		m_characterStandingOnPlatform = false;
@@ -37,7 +36,7 @@ public class MovingPlatform : Platform
 		{
 			m_isMoving = true;
 		}
-		if (m_currentColor == Platform.Color.NONE)
+		if (m_currentColor == Color.NONE)
 			m_active = true;
 	}
 
@@ -73,7 +72,7 @@ public class MovingPlatform : Platform
 		}
 	}
 
-	protected override void OnColorButtonPressed(Platform.Color newColor)
+	protected override void OnColorButtonPressed(Color newColor)
 	{
 		base.OnColorButtonPressed(newColor);
 		if (!m_active)
@@ -84,7 +83,7 @@ public class MovingPlatform : Platform
 
 	private void CheckIfPlayerIsOnPlatform()
 	{
-		if (m_collisions.above && m_collisions.aboveHit.distance < Mathf.Epsilon)
+		if (m_collisions.above && m_collisions.aboveHit.distance <= GameManager.Instance.GameConstants.MovingPlateformCollisionCheck)
 		{
 			SetCurrentPlayer(true);
 			m_player = m_collisions.aboveHit.collider.GetComponentInParent<CharacterController>();
@@ -141,15 +140,15 @@ public class MovingPlatform : Platform
 		}
 		else if (velocity.x > 0.0f || velocity.x < 0.0f)
 		{
-			if (m_collisions.right && Mathf.Abs(m_collisions.rightHit.distance) < Mathf.Epsilon
-				|| m_collisions.left && Mathf.Abs(m_collisions.leftHit.distance) < Mathf.Epsilon)
-			{
-				m_player.SetExternalForce(new Vector2(velocity.x, 0.0f));
-			}
+			//if (m_collisions.right && Mathf.Abs(m_collisions.rightHit.distance) < Mathf.Epsilon
+			//	|| m_collisions.left && Mathf.Abs(m_collisions.leftHit.distance) < Mathf.Epsilon)
+			//{
+			//	m_player.SetExternalForce(new Vector2(velocity.x, 0.0f));
+			//}
 		}
 		else if (velocity.y < 0.0f)
 		{
-			if (m_collisions.below && Mathf.Abs(m_collisions.belowHit.distance) < Mathf.Epsilon)
+			if (m_collisions.below && Mathf.Abs(m_collisions.belowHit.distance) <= GameManager.Instance.GameConstants.MovingPlateformCollisionCheck)
 			{
 				m_player.SetExternalForce(new Vector2(0.0f, velocity.y));
 			}

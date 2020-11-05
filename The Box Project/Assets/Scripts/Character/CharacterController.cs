@@ -74,7 +74,7 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			m_inputs.x = 0.0f;
 			Debug.Log("Input to 0");
-			Debug.Break();
+			//Debug.Break();
 		}
 
 		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
@@ -90,7 +90,7 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			if (m_collisions.below && (newPos.y - (ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
 			{
-				newPos.y = m_collisions.belowHit.point.y + (ColliderBounds.size.y / 2);
+				newPos.y = m_collisions.belowHit.point.y + (ColliderBounds.size.y / 2) + GameManager.Instance.GameConstants.ConstantDistanceToGround;
 				m_velocity.y = 0.0f;
 				IsJumping = false;
 				m_isBouncing = false;
@@ -147,7 +147,7 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			if (newPos.y > collider2D.bounds.center.y
 				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
-				&& Utils.IsInferior((newPos.y - ColliderBounds.extents.y), collider2D.bounds.max.y, true) //need epsilon check in utils.
+				&& Utils.IsInferior((newPos.y - ColliderBounds.extents.y), collider2D.bounds.max.y, true)
 				&& !m_willHitAbove)
 			{
 				newPos.y = collider2D.bounds.max.y + ColliderBounds.extents.y + Mathf.Epsilon;
@@ -160,19 +160,20 @@ public class CharacterController : RaycastCollisionDetector
 				newPos.y = collider2D.bounds.min.y - ColliderBounds.extents.y - Mathf.Epsilon;
 				Debug.Log("Reajust below");
 			}
-			//This portion of code is used to put the player out of a moving plateform, from left/right. This is a bit extreme...
-			//else if (newPos.x >= collider2D.bounds.min.x
-			//	&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
-			//{
-			//	newPos.x = collider2D.bounds.max.x + ColliderBounds.extents.x + Mathf.Epsilon;
-			//	Debug.Log("Reajust right");
-			//}
-			//else if (newPos.x <= collider2D.bounds.max.x
-			//	&& (newPos.y >= collider2D.bounds.min.y && newPos.y <= collider2D.bounds.max.y))
-			//{
-			//	newPos.x = collider2D.bounds.min.x - ColliderBounds.extents.x - Mathf.Epsilon;
-			//	Debug.Log("Reajust left");
-			//}
+			else if (newPos.x >= collider2D.bounds.center.x //Eject right
+				&& (collider2D.bounds.min.y - ColliderBounds.extents.y) < (newPos.y + Mathf.Epsilon) && (newPos.y - Mathf.Epsilon) < (collider2D.bounds.max.y + ColliderBounds.extents.y)
+				&& Utils.IsInferior((newPos.x - ColliderBounds.extents.x), collider2D.bounds.max.x, true))
+			{
+				newPos.x = collider2D.bounds.max.x + ColliderBounds.extents.x + Mathf.Epsilon;
+				Debug.Log("Reajust right " + IsJumping);
+			}
+			else if (newPos.x <= collider2D.bounds.center.x //Eject left
+				&& (collider2D.bounds.min.y - ColliderBounds.extents.y) < (newPos.y + Mathf.Epsilon) && (newPos.y - Mathf.Epsilon) < (collider2D.bounds.max.y + ColliderBounds.extents.y)
+				&& Utils.IsSuperior((newPos.x + ColliderBounds.extents.x), collider2D.bounds.min.x, true))
+			{
+				newPos.x = collider2D.bounds.min.x - ColliderBounds.extents.x - Mathf.Epsilon;
+				Debug.Log("Reajust left " + IsJumping);
+			}
 		}
 
 		transform.position = newPos;

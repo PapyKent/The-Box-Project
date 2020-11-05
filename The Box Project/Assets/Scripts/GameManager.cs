@@ -4,6 +4,8 @@ using Yube;
 
 public class GameManager : Singleton<GameManager>
 {
+	public GameConstants GameConstants { get { return m_gameConstants; } }
+
 	private void Start()
 	{
 		AudioManager.Instance.PlayMusic();
@@ -18,4 +20,11 @@ public class GameManager : Singleton<GameManager>
 	{
 		SceneManager.LoadScene(buildIndex);
 	}
+
+	#region Private
+
+	[SerializeField]
+	private GameConstants m_gameConstants = null;
+
+	#endregion Private
 }
