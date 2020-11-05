@@ -66,18 +66,12 @@ public class CharacterController : RaycastCollisionDetector
 		m_inputs = InputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
 		CheckFaceRight();
 		CheckSideCollisions();
-
-		if (m_externalForces.x > 0.0f && m_inputs.x < 0.0f && (m_collisions.left && m_collisions.leftHit.distance < Mathf.Epsilon)
-			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.right && m_collisions.rightHit.distance < Mathf.Epsilon))
-		{
-			m_inputs.x = 0.0f;
-			Debug.Log("Input to 0");
-			//Debug.Break();
-		}
+		CheckIfCanApplySideInputs();
 
 		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
 			CheckAboveCollisions(ref m_collisions);
 		CheckBelowCollisions(ref m_collisions);
+
 		CheckIfGrounded();
 		HandleJump();
 		ApplyGravity();
@@ -85,6 +79,43 @@ public class CharacterController : RaycastCollisionDetector
 
 		Vector3 newPos = transform.position + (Vector3)m_inputs + (Vector3)m_externalForces;
 		m_willHitAbove = false;
+
+		AdjustNewPosIfWillCollideUpOrDown(ref newPos);
+		AdjustNewPosIfWillCollideSide(ref newPos);
+		AdjustNewPosIfOverlap(ref newPos);
+
+		transform.position = newPos;
+		m_externalForces = Vector2.zero;
+
+		m_collisions.Reset();
+		CheckSideCollisions();
+		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
+			CheckAboveCollisions(ref m_collisions);
+		CheckBelowCollisions(ref m_collisions);
+		CheckIfGrounded();
+	}
+
+	private void CheckFaceRight()
+	{
+		if (m_inputs.x != 0)
+		{
+			m_collisions.faceRight = m_inputs.x > 0.0f;
+		}
+	}
+
+	private void CheckIfCanApplySideInputs()
+	{
+		if (m_externalForces.x > 0.0f && m_inputs.x < 0.0f && (m_collisions.left && m_collisions.leftHit.distance < Mathf.Epsilon)
+			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.right && m_collisions.rightHit.distance < Mathf.Epsilon))
+		{
+			m_inputs.x = 0.0f;
+			Debug.Log("Input to 0");
+			//Debug.Break();
+		}
+	}
+
+	private void AdjustNewPosIfWillCollideUpOrDown(ref Vector3 newPos)
+	{
 		if (m_velocity.y < 0.0f || m_externalForces.y < 0.0f)
 		{
 			if (m_collisions.below && (newPos.y - (ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
@@ -117,7 +148,10 @@ public class CharacterController : RaycastCollisionDetector
 				m_willHitAbove = false;
 			}
 		}
+	}
 
+	private void AdjustNewPosIfWillCollideSide(ref Vector3 newPos)
+	{
 		if (m_inputs.x > 0.0f || m_externalForces.x > 0.0f)
 		{
 			if (m_collisions.right && (newPos.x + (ColliderBounds.size.x / 2) > m_collisions.rightHit.point.x))
@@ -139,26 +173,6 @@ public class CharacterController : RaycastCollisionDetector
 					newPos.x = m_collisions.leftHit.point.x + (ColliderBounds.size.x / 2);
 				}
 			}
-		}
-
-		AdjustNewPosIfOverlap(ref newPos);
-
-		transform.position = newPos;
-		m_externalForces = Vector2.zero;
-
-		m_collisions.Reset();
-		CheckSideCollisions();
-		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
-			CheckAboveCollisions(ref m_collisions);
-		CheckBelowCollisions(ref m_collisions);
-		CheckIfGrounded();
-	}
-
-	private void CheckFaceRight()
-	{
-		if (m_inputs.x != 0)
-		{
-			m_collisions.faceRight = m_inputs.x > 0.0f;
 		}
 	}
 
