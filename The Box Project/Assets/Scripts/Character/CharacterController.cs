@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Yube.Relays;
 
@@ -53,6 +54,8 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		base.Awake();
 		InputManager.Instance.RegisterOnJumpInput(OnJumpPressed, true);
+		m_overlapFilter.layerMask = m_platformMask;
+		m_overlapFilter.useLayerMask = true;
 	}
 
 	protected void OnDestroy()
@@ -179,37 +182,41 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void AdjustNewPosIfOverlap(ref Vector3 newPos)
 	{
-		Collider2D collider2D = Physics2D.OverlapBox(ColliderBounds.center, ColliderBounds.size, 360.0f, m_platformMask);
-		if (collider2D != null)
+		m_overlapingObjects.Clear();
+		int nbOverlap = m_collider.OverlapCollider(m_overlapFilter, m_overlapingObjects);
+		if (nbOverlap > 0)
 		{
-			if (newPos.y > collider2D.bounds.center.y
+			foreach (Collider2D collider2D in m_overlapingObjects)
+			{
+				if (newPos.y > collider2D.bounds.center.y
 				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
 				&& Utils.IsInferior((newPos.y - ColliderBounds.extents.y), collider2D.bounds.max.y, true)
 				&& !m_willHitAbove)
-			{
-				newPos.y = collider2D.bounds.max.y + ColliderBounds.extents.y + GameManager.Instance.GameConstants.EjectDistance;
-				Debug.Log("Reajust above");
-			}
-			else if (newPos.y < collider2D.bounds.center.y
-				&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
-				&& Utils.IsSuperior((newPos.y + ColliderBounds.extents.y), collider2D.bounds.min.y, true))
-			{
-				newPos.y = collider2D.bounds.min.y - ColliderBounds.extents.y - GameManager.Instance.GameConstants.EjectDistance;
-				Debug.Log("Reajust below");
-			}
-			else if (newPos.x >= collider2D.bounds.center.x //Eject right
-				&& (collider2D.bounds.min.y - ColliderBounds.extents.y) < (newPos.y + Mathf.Epsilon) && (newPos.y - Mathf.Epsilon) < (collider2D.bounds.max.y + ColliderBounds.extents.y)
-				&& Utils.IsInferior((newPos.x - ColliderBounds.extents.x), collider2D.bounds.max.x, true))
-			{
-				newPos.x = collider2D.bounds.max.x + ColliderBounds.extents.x + GameManager.Instance.GameConstants.EjectDistance;
-				Debug.Log("Reajust right " + IsJumping);
-			}
-			else if (newPos.x <= collider2D.bounds.center.x //Eject left
-				&& (collider2D.bounds.min.y - ColliderBounds.extents.y) < (newPos.y + Mathf.Epsilon) && (newPos.y - Mathf.Epsilon) < (collider2D.bounds.max.y + ColliderBounds.extents.y)
-				&& Utils.IsSuperior((newPos.x + ColliderBounds.extents.x), collider2D.bounds.min.x, true))
-			{
-				newPos.x = collider2D.bounds.min.x - ColliderBounds.extents.x - GameManager.Instance.GameConstants.EjectDistance;
-				Debug.Log("Reajust left " + IsJumping);
+				{
+					newPos.y = collider2D.bounds.max.y + ColliderBounds.extents.y + GameManager.Instance.GameConstants.EjectDistance;
+					Debug.Log("Reajust above");
+				}
+				else if (newPos.y < collider2D.bounds.center.y
+					&& (newPos.x >= collider2D.bounds.min.x && newPos.x <= collider2D.bounds.max.x)
+					&& Utils.IsSuperior((newPos.y + ColliderBounds.extents.y), collider2D.bounds.min.y, true))
+				{
+					newPos.y = collider2D.bounds.min.y - ColliderBounds.extents.y - GameManager.Instance.GameConstants.EjectDistance;
+					Debug.Log("Reajust below");
+				}
+				else if (newPos.x >= collider2D.bounds.center.x //Eject right
+					&& (collider2D.bounds.min.y - ColliderBounds.extents.y) < (newPos.y + Mathf.Epsilon) && (newPos.y - Mathf.Epsilon) < (collider2D.bounds.max.y + ColliderBounds.extents.y)
+					&& Utils.IsInferior((newPos.x - ColliderBounds.extents.x), collider2D.bounds.max.x, true))
+				{
+					newPos.x = collider2D.bounds.max.x + ColliderBounds.extents.x + GameManager.Instance.GameConstants.EjectDistance;
+					Debug.Log("Reajust right " + IsJumping);
+				}
+				else if (newPos.x <= collider2D.bounds.center.x //Eject left
+					&& (collider2D.bounds.min.y - ColliderBounds.extents.y) < (newPos.y + Mathf.Epsilon) && (newPos.y - Mathf.Epsilon) < (collider2D.bounds.max.y + ColliderBounds.extents.y)
+					&& Utils.IsSuperior((newPos.x + ColliderBounds.extents.x), collider2D.bounds.min.x, true))
+				{
+					newPos.x = collider2D.bounds.min.x - ColliderBounds.extents.x - GameManager.Instance.GameConstants.EjectDistance;
+					Debug.Log("Reajust left " + IsJumping);
+				}
 			}
 		}
 	}
@@ -368,9 +375,11 @@ public class CharacterController : RaycastCollisionDetector
 	private bool m_isJumping = false;
 	private bool m_isGrounded = false;
 	private BouncingPlatform.BouncingConfig m_lastBouncingConfig;
+	private List<Collider2D> m_overlapingObjects = new List<Collider2D>();
+	private ContactFilter2D m_overlapFilter = new ContactFilter2D();
 
-	public Relay<bool, bool> m_jumpRelay = null;
-	public Relay<bool> m_groundedRelay = null;
+	private Relay<bool, bool> m_jumpRelay = null;
+	private Relay<bool> m_groundedRelay = null;
 
 	#endregion Private
 }
