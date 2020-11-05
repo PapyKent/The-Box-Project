@@ -62,13 +62,11 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void FixedUpdate()
 	{
-		m_inputs = InputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
 		m_collisions.Reset();
-		if (m_inputs.x != 0)
-		{
-			m_collisions.faceRight = m_inputs.x > 0.0f;
-		}
+		m_inputs = InputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
+		CheckFaceRight();
 		CheckSideCollisions();
+
 		if (m_externalForces.x > 0.0f && m_inputs.x < 0.0f && (m_collisions.left && m_collisions.leftHit.distance < Mathf.Epsilon)
 			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.right && m_collisions.rightHit.distance < Mathf.Epsilon))
 		{
@@ -84,6 +82,7 @@ public class CharacterController : RaycastCollisionDetector
 		HandleJump();
 		ApplyGravity();
 		m_inputs.y = m_velocity.y * Time.fixedDeltaTime;
+
 		Vector3 newPos = transform.position + (Vector3)m_inputs + (Vector3)m_externalForces;
 		m_willHitAbove = false;
 		if (m_velocity.y < 0.0f || m_externalForces.y < 0.0f)
@@ -109,7 +108,7 @@ public class CharacterController : RaycastCollisionDetector
 				}
 				else
 				{
-					m_velocity.y = 0.0f;//to not have the impression to be bounced down
+					m_velocity.y = 0.0f;
 					m_elapsedTimeVerticalSpeedCut = m_currentTimeVerticalSpeedCut + 1;
 				}
 			}
@@ -142,6 +141,29 @@ public class CharacterController : RaycastCollisionDetector
 			}
 		}
 
+		AdjustNewPosIfOverlap(ref newPos);
+
+		transform.position = newPos;
+		m_externalForces = Vector2.zero;
+
+		m_collisions.Reset();
+		CheckSideCollisions();
+		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
+			CheckAboveCollisions(ref m_collisions);
+		CheckBelowCollisions(ref m_collisions);
+		CheckIfGrounded();
+	}
+
+	private void CheckFaceRight()
+	{
+		if (m_inputs.x != 0)
+		{
+			m_collisions.faceRight = m_inputs.x > 0.0f;
+		}
+	}
+
+	private void AdjustNewPosIfOverlap(ref Vector3 newPos)
+	{
 		Collider2D collider2D = Physics2D.OverlapBox(ColliderBounds.center, ColliderBounds.size, 360.0f, m_platformMask);
 		if (collider2D != null)
 		{
@@ -175,16 +197,6 @@ public class CharacterController : RaycastCollisionDetector
 				Debug.Log("Reajust left " + IsJumping);
 			}
 		}
-
-		transform.position = newPos;
-		m_externalForces = Vector2.zero;
-
-		m_collisions.Reset();
-		CheckSideCollisions();
-		if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
-			CheckAboveCollisions(ref m_collisions);
-		CheckBelowCollisions(ref m_collisions);
-		CheckIfGrounded();
 	}
 
 	private void CheckSideCollisions()
