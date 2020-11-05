@@ -169,6 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1096166764240444413}
   - component: {fileID: 1096166764240444414}
+  - component: {fileID: 1254833167}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -210,6 +211,8 @@ MonoBehaviour:
   m_collisionMask:
     serializedVersion: 2
     m_Bits: 1536
+  m_distanceBetweenRay: 0.2
+  m_shootRayDistance: 1
   m_groundSpeed: 0.18
   m_jumpSpeed: 15
   m_maxJumpHeight: 2.75
@@ -220,6 +223,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   m_groundedTolerance: 0.4
+--- !u!114 &1254833167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096166764240444415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95824eca5ed74b4bb106d0086ef33fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_controller: {fileID: 1096166764240444414}
+  m_animator: {fileID: 269584770061642819}
+  m_renderer: {fileID: 1096166763986101619}
 --- !u!1 &1096166764439550599
 GameObject:
   m_ObjectHideFlags: 0
