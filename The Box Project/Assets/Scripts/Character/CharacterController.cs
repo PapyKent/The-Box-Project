@@ -261,7 +261,8 @@ public class CharacterController : RaycastCollisionDetector
 	private void OnJumpPressed(bool jumpReleased)
 	{
 		bool nothing = true;
-		if (!IsJumping && !jumpReleased && IsGrounded)
+		if (!IsJumping && !jumpReleased && IsGrounded
+			|| (IsJumping && m_hasReleasedJump && m_collisions.below && m_collisions.belowHit.distance <= m_groundedTolerance))
 		{
 			nothing = false;
 			StartJump(true);
@@ -286,7 +287,7 @@ public class CharacterController : RaycastCollisionDetector
 		//Here we start jumping
 		IsJumping = true;
 		m_hasReleasedJump = false;
-		m_yJumpStart = transform.position.y;
+		m_yJumpStart = m_collisions.below ? transform.position.y - m_collisions.belowHit.distance : transform.position.y;
 		m_velocity.y = jump ? m_jumpSpeed : m_lastBouncingConfig.BoucingSpeed;
 		m_currentMaxJumpHeight = jump ? m_maxJumpHeight : m_lastBouncingConfig.BoucingHeight;
 
@@ -335,7 +336,7 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_collisions.below)
 		{
-			if (m_collisions.belowHit.distance <= m_groundedTolerance
+			if (m_collisions.belowHit.distance <= 0.01f
 				&& !(IsJumping && m_velocity.y > 0.0f))//Fix bug when colliding to an angle while jumping, it was reseting the jump & make the player jump higher.
 			{
 				IsGrounded = true;
