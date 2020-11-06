@@ -262,7 +262,7 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		bool nothing = true;
 		if (!IsJumping && !jumpReleased && IsGrounded
-			|| (IsJumping && m_hasReleasedJump && m_collisions.below && m_collisions.belowHit.distance <= m_groundedTolerance))
+			|| (IsJumping && !jumpReleased && m_hasReleasedJump && m_collisions.below && m_collisions.belowHit.distance <= m_groundedTolerance))
 		{
 			nothing = false;
 			StartJump(true);
