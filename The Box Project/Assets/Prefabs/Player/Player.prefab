@@ -221,8 +221,8 @@ MonoBehaviour:
   m_timeVerticalSpeedCut: 0.2
   m_platformMask:
     serializedVersion: 2
-    m_Bits: 1024
-  m_groundedTolerance: 0.4
+    m_Bits: 1536
+  m_groundedTolerance: 0.75
 --- !u!114 &1254833167
 MonoBehaviour:
   m_ObjectHideFlags: 0
