@@ -616,11 +616,22 @@ PrefabInstance:
       propertyPath: m_player
       value: 
       objectReference: {fileID: 1096166764240444414}
+    - target: {fileID: 2937392595399346765, guid: 30410ccee5529b6468b71d7dc1771706,
+        type: 3}
+      propertyPath: m_fxRenderer
+      value: 
+      objectReference: {fileID: 1424019966394864279}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30410ccee5529b6468b71d7dc1771706, type: 3}
 --- !u!4 &1424019966394864277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 200397209312381315, guid: 30410ccee5529b6468b71d7dc1771706,
+    type: 3}
+  m_PrefabInstance: {fileID: 1226341042992503574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &1424019966394864279 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 200397209312381313, guid: 30410ccee5529b6468b71d7dc1771706,
     type: 3}
   m_PrefabInstance: {fileID: 1226341042992503574}
   m_PrefabAsset: {fileID: 0}

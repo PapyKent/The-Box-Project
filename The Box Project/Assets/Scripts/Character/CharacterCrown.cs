@@ -7,6 +7,7 @@ public class CharacterCrown : MonoBehaviour
 	private void Start()
 	{
 		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
+		m_fxMaterial = m_fxRenderer.sharedMaterial;
 	}
 
 	private void Update()
@@ -56,7 +57,7 @@ public class CharacterCrown : MonoBehaviour
 
 	[Header("Particles Systems")]
 	[SerializeField]
-	private Material m_fxMaterial = null;
+	private Renderer m_fxRenderer = null;
 	[SerializeField]
 	private ParticleSystem m_fireFx = null;
 	[SerializeField]
@@ -89,6 +90,7 @@ public class CharacterCrown : MonoBehaviour
 	[SerializeField]
 	private CharacterController m_player = null;
 
+	private Material m_fxMaterial = null;
 	private const string COLOR_FIELD_MATERIAL = "_Color";
 
 	#endregion Private

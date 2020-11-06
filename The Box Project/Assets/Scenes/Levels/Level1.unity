@@ -2673,7 +2673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_controller: {fileID: 167179705}
-  m_recordJumpPosEachTime: 0.1
+  m_recordJumpPosEachTime: 0.05
 --- !u!114 &167179705 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1096166764240444414, guid: a5faed2a47cfdf542a621c24da46714e,
@@ -43443,11 +43443,11 @@ PrefabInstance:
       objectReference: {fileID: 714653538}
     - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.009266853
+      value: 0.008923531
       objectReference: {fileID: 0}
     - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0422535
+      value: -1.0422564
       objectReference: {fileID: 0}
     - target: {fileID: 905176600, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_BoundingShape2D
