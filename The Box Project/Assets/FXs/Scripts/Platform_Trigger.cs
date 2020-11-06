@@ -30,7 +30,7 @@ public class Platform_Trigger : MonoBehaviour
 		colorState = GameObject.Find("Platforms_ColorState").GetComponent<Platforms_Color_State>();
 
 		meshRenderer = gameObject.GetComponent<Renderer>();
-		instancedMaterial = meshRenderer.sharedMaterial;
+		instancedMaterial = meshRenderer.material;
 	}
 
 	// Update is called once per frame

@@ -7,7 +7,7 @@ public class CharacterCrown : MonoBehaviour
 	private void Start()
 	{
 		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
-		m_fxMaterial = m_fxRenderer.sharedMaterial;
+		m_fxMaterial = m_fxRenderer.material;
 	}
 
 	private void Update()

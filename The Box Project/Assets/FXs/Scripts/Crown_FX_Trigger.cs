@@ -23,7 +23,7 @@ public class Crown_FX_Trigger : MonoBehaviour
 	private void Start()
 	{
 		crownFx = GetComponent<ParticleSystem>();
-		fxMaterial = GetComponent<Renderer>().sharedMaterial;
+		fxMaterial = GetComponent<Renderer>().material;
 	}
 
 	// Update is called once per frame

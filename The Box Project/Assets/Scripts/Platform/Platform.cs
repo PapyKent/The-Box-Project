@@ -71,7 +71,7 @@ public class Platform : RaycastCollisionDetector
 		float elapsedTime = 0.0f;
 		float oldElapsedTime = 0.0f;
 		PlayFxInList(m_offFx);
-		m_renderer.ForEach(renderer => renderer.sharedMaterial.SetFloat("_UVScale", m_fxConfig.DisappearUVScale));
+		m_renderer.ForEach(renderer => renderer.material.SetFloat("_UVScale", m_fxConfig.DisappearUVScale));
 		while (elapsedTime < 1.0f || oldElapsedTime < 1.0f)
 		{
 			float dissolveAmount = Mathf.Lerp(m_fxConfig.BeginDisappearDissolveAmount, m_fxConfig.EndDisappearDissolveAmount, elapsedTime);
@@ -87,8 +87,8 @@ public class Platform : RaycastCollisionDetector
 		PlayFxInList(m_onFx);
 		m_renderer.ForEach(renderer =>
 		{
-			renderer.sharedMaterial.SetFloat("_UVScale", m_fxConfig.AppearUVScale);
-			renderer.sharedMaterial.SetFloat("_Dissolveamount", m_fxConfig.AppearDissolveAmount);
+			renderer.material.SetFloat("_UVScale", m_fxConfig.AppearUVScale);
+			renderer.material.SetFloat("_Dissolveamount", m_fxConfig.AppearDissolveAmount);
 		});
 	}
 
