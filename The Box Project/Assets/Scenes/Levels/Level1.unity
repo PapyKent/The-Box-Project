@@ -43409,22 +43409,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 714653538}
-    - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.008923531
-      objectReference: {fileID: 0}
-    - target: {fileID: 905176599, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.0422564
-      objectReference: {fileID: 0}
     - target: {fileID: 905176600, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 1192366057}
-    - target: {fileID: 905176600, guid: bd7aa432f6dcf0b4aa9dcc4646735891, type: 3}
-      propertyPath: m_ConfineScreenEdges
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4777005377300286289, guid: bd7aa432f6dcf0b4aa9dcc4646735891,
         type: 3}
       propertyPath: m_Name

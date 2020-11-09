@@ -58,7 +58,6 @@
     <Compile Include="Assets\Scripts\Inputs\InputManager.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterCrown.cs" />
     <Compile Include="Assets\Scripts\SwitchLevel.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraOffset.cs" />
     <Compile Include="Assets\Scripts\Physics\RaycastCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\Yube\Singleton.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\CheckpointManager.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="Assets\Scripts\Yube\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <Compile Include="Assets\Scripts\Debug\LastJumpGizmo.cs" />
+    <Compile Include="Assets\Scripts\Camera\MainCamera.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />
