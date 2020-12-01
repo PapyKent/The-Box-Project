@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Yube;
+using Yube.Relays;
 
 public class LocalInputManager : InputManager<LocalInputManager.EAxis, LocalInputManager.EKey>
 {
@@ -19,13 +20,25 @@ public class LocalInputManager : InputManager<LocalInputManager.EAxis, LocalInpu
 	}
 
 	public static new LocalInputManager Instance { get { return InputManager<EAxis, EKey>.Instance as LocalInputManager; } }
-
 	public Vector2 DirectionalInput { get => m_directionalInput; }
+	public IRelayLink<Platform.Color> OnSwitchRelay { get { return m_onSwitchRelay ?? (m_onSwitchRelay = new Relay<Platform.Color>()); } }
 
 	protected override void Awake()
 	{
 		base.Awake();
 		m_directionalInput = Vector2.zero;
+		if (GameManager.Instance.SwitchMode == GameManager.ESwitchMode.SIMPLE_SWITCH)
+		{
+			RegisterKeyListener(EKey.SWITCH, OnSwitchInput, true);
+		}
+	}
+
+	private void OnDestroy()
+	{
+		if (GameManager.Instance.SwitchMode == GameManager.ESwitchMode.SIMPLE_SWITCH)
+		{
+			RegisterKeyListener(EKey.SWITCH, OnSwitchInput, false);
+		}
 	}
 
 	protected override void Update()
@@ -50,5 +63,17 @@ public class LocalInputManager : InputManager<LocalInputManager.EAxis, LocalInpu
 		}
 	}
 
+	private void OnSwitchInput(EKey keyInput, EKeyInputEvent inputEvent)
+	{
+		if (inputEvent != EKeyInputEvent.DOWN)
+		{
+			return;
+		}
+		m_currentColor = m_currentColor == Platform.Color.RED ? Platform.Color.BLUE : Platform.Color.RED;
+		m_onSwitchRelay?.Dispatch(m_currentColor);
+	}
+
 	private Vector2 m_directionalInput;
+	private Platform.Color m_currentColor = Platform.Color.RED;
+	private Relay<Platform.Color> m_onSwitchRelay = null;
 }

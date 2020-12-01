@@ -21,9 +21,8 @@ public class Platform : RaycastCollisionDetector
 	protected override void Awake()
 	{
 		base.Awake();
-		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_BLUE, OnColorSwitchInput, true);
-		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_RED, OnColorSwitchInput, true);
-		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_YELLOW, OnColorSwitchInput, true);
+		RegisterInputListeners(true);
+
 		m_fxConfig = PlatformFXManager.Instance?.GetPlatformFXConfig(m_currentColor);
 		//HACK TO DISABLE PLATFORMS ON START
 		EnablePlatform(false, true);
@@ -31,9 +30,21 @@ public class Platform : RaycastCollisionDetector
 
 	protected void OnDestroy()
 	{
-		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_BLUE, OnColorSwitchInput, false);
-		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_RED, OnColorSwitchInput, false);
-		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_YELLOW, OnColorSwitchInput, false);
+		RegisterInputListeners(false);
+	}
+
+	private void RegisterInputListeners(bool register)
+	{
+		if (GameManager.Instance.SwitchMode == GameManager.ESwitchMode.TRICOLOR)
+		{
+			LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_BLUE, OnColorSwitchInput, register);
+			LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_RED, OnColorSwitchInput, register);
+			LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_YELLOW, OnColorSwitchInput, register);
+		}
+		else
+		{
+			LocalInputManager.Instance.OnSwitchRelay.RegisterListener(OnSwitchInput, register);
+		}
 	}
 
 	private void OnColorSwitchInput(LocalInputManager.EKey inputKey, LocalInputManager.EKeyInputEvent inputEvent)
@@ -56,6 +67,11 @@ public class Platform : RaycastCollisionDetector
 				OnColorButtonPressed(Platform.Color.YELLOW);
 				break;
 		}
+	}
+
+	private void OnSwitchInput(Platform.Color currentColor)
+	{
+		OnColorButtonPressed(currentColor);
 	}
 
 	protected virtual void OnColorButtonPressed(Color newColor)
