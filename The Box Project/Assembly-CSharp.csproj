@@ -55,7 +55,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Inputs\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Inputs\LocalInputManager.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterCrown.cs" />
     <Compile Include="Assets\Scripts\SwitchLevel.cs" />
     <Compile Include="Assets\Scripts\Physics\RaycastCollisionDetector.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="Assets\FXs\Scripts\Platform_Trigger.cs" />
     <Compile Include="Assets\Scripts\GameConstants.cs" />
     <Compile Include="Assets\Scripts\Yube\Relay\Relay.Debug.cs" />
+    <Compile Include="Assets\Scripts\Camera\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Yube\Assertion.cs" />
     <Compile Include="Assets\Scripts\Yube\Relay\RelayLink.cs" />
     <Compile Include="Assets\Scripts\Yube\Relay\Relay.cs" />
@@ -85,7 +86,6 @@
     <Compile Include="Assets\Scripts\Yube\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <Compile Include="Assets\Scripts\Debug\LastJumpGizmo.cs" />
-    <Compile Include="Assets\Scripts\Camera\MainCamera.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />

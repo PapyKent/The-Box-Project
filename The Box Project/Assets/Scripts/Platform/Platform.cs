@@ -21,7 +21,9 @@ public class Platform : RaycastCollisionDetector
 	protected override void Awake()
 	{
 		base.Awake();
-		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, true);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_BLUE, OnColorSwitchInput, true);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_RED, OnColorSwitchInput, true);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_YELLOW, OnColorSwitchInput, true);
 		m_fxConfig = PlatformFXManager.Instance?.GetPlatformFXConfig(m_currentColor);
 		//HACK TO DISABLE PLATFORMS ON START
 		EnablePlatform(false, true);
@@ -29,7 +31,31 @@ public class Platform : RaycastCollisionDetector
 
 	protected void OnDestroy()
 	{
-		InputManager.Instance.RegisterOnColorButtonPressed(OnColorButtonPressed, false);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_BLUE, OnColorSwitchInput, false);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_RED, OnColorSwitchInput, false);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.SWITCH_YELLOW, OnColorSwitchInput, false);
+	}
+
+	private void OnColorSwitchInput(LocalInputManager.EKey inputKey, LocalInputManager.EKeyInputEvent inputEvent)
+	{
+		if (inputEvent != Yube.InputManager<LocalInputManager.EAxis, LocalInputManager.EKey>.EKeyInputEvent.DOWN)
+		{
+			return;
+		}
+		switch (inputKey)
+		{
+			case LocalInputManager.EKey.SWITCH_BLUE:
+				OnColorButtonPressed(Platform.Color.BLUE);
+				break;
+
+			case LocalInputManager.EKey.SWITCH_RED:
+				OnColorButtonPressed(Platform.Color.RED);
+				break;
+
+			case LocalInputManager.EKey.SWITCH_YELLOW:
+				OnColorButtonPressed(Platform.Color.YELLOW);
+				break;
+		}
 	}
 
 	protected virtual void OnColorButtonPressed(Color newColor)

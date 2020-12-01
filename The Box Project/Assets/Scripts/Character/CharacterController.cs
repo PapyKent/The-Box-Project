@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.Tilemaps;
 using Yube.Relays;
 
@@ -54,20 +55,20 @@ public class CharacterController : RaycastCollisionDetector
 	protected override void Awake()
 	{
 		base.Awake();
-		InputManager.Instance.RegisterOnJumpInput(OnJumpPressed, true);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.JUMP, OnJumpInput, true);
 		m_overlapFilter.layerMask = m_platformMask;
 		m_overlapFilter.useLayerMask = true;
 	}
 
 	protected void OnDestroy()
 	{
-		InputManager.Instance?.RegisterOnJumpInput(OnJumpPressed, false);
+		LocalInputManager.Instance.RegisterKeyListener(LocalInputManager.EKey.JUMP, OnJumpInput, false);
 	}
 
 	private void FixedUpdate()
 	{
 		m_collisions.Reset();
-		m_inputs = InputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
+		m_inputs = LocalInputManager.Instance.DirectionalInput * new Vector2(m_groundSpeed, 0.0f);
 		CheckFaceRight();
 		CheckSideCollisions();
 		CheckIfCanApplySideInputs();
@@ -258,8 +259,13 @@ public class CharacterController : RaycastCollisionDetector
 			CheckLeftCollisions(ref m_collisions);
 	}
 
-	private void OnJumpPressed(bool jumpReleased)
+	private void OnJumpInput(LocalInputManager.EKey key, LocalInputManager.EKeyInputEvent keyEvent)
 	{
+		if (keyEvent == LocalInputManager.EKeyInputEvent.PRESSED)
+		{
+			return;
+		}
+		bool jumpReleased = keyEvent == LocalInputManager.EKeyInputEvent.UP;
 		bool nothing = true;
 		if (!IsJumping && !jumpReleased && IsGrounded
 			|| (IsJumping && !jumpReleased && m_hasReleasedJump && m_collisions.below && m_collisions.belowHit.distance <= m_groundedTolerance))

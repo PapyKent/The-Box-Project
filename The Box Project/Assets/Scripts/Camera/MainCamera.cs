@@ -10,7 +10,7 @@ public class MainCamera : Singleton<MainCamera>
 
 	private void LateUpdate()
 	{
-		if (InputManager.Instance.DirectionalInput.y != 0 && InputManager.Instance.DirectionalInput.x == 0.0f)
+		if (LocalInputManager.Instance.DirectionalInput.y != 0 && LocalInputManager.Instance.DirectionalInput.x == 0.0f)
 		{
 			m_elapsedTimeOffset += Time.deltaTime;
 		}
@@ -26,13 +26,13 @@ public class MainCamera : Singleton<MainCamera>
 		if (!m_isOffseted && m_elapsedTimeOffset >= m_timeOffsetUpOrDown)
 		{
 			StopAllCoroutines();
-			StartCoroutine(ApplyOffset(InputManager.Instance.DirectionalInput.y > 0, true));
+			StartCoroutine(ApplyOffset(LocalInputManager.Instance.DirectionalInput.y > 0, true));
 			m_isOffseted = true;
 		}
 		else if (m_isOffseted && m_elapsedTimeOffset < m_timeOffsetUpOrDown)
 		{
 			StopAllCoroutines();
-			StartCoroutine(ApplyOffset(InputManager.Instance.DirectionalInput.y > 0, false));
+			StartCoroutine(ApplyOffset(LocalInputManager.Instance.DirectionalInput.y > 0, false));
 			m_isOffseted = false;
 		}
 	}

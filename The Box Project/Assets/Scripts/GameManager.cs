@@ -4,6 +4,13 @@ using Yube;
 
 public class GameManager : Singleton<GameManager>
 {
+	public enum ESwitchMode
+	{
+		TRICOLOR,
+		SIMPLE_SWITCH
+	}
+
+	public ESwitchMode SwitchMode { get { return m_switchMode; } }
 	public GameConstants GameConstants { get { return m_gameConstants; } }
 
 	private void Start()
@@ -25,6 +32,8 @@ public class GameManager : Singleton<GameManager>
 
 	[SerializeField]
 	private GameConstants m_gameConstants = null;
+	[SerializeField]
+	private ESwitchMode m_switchMode = default(ESwitchMode);
 
 	#endregion Private
 }

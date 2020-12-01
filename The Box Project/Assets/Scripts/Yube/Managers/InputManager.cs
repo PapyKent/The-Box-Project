@@ -33,8 +33,9 @@ namespace Yube
 
 		#region Private
 
-		protected void Start()
+		protected override void Awake()
 		{
+			base.Awake();
 			m_axisInputsRelays = new Dictionary<AXIS_INPUT, Relay<AXIS_INPUT, float>>();
 			m_axisRawInputsRelays = new Dictionary<AXIS_INPUT, Relay<AXIS_INPUT, float>>();
 			m_keyInputsRelays = new Dictionary<KEY_INPUT, Relay<KEY_INPUT, EKeyInputEvent>>();
@@ -58,7 +59,7 @@ namespace Yube
 			}
 		}
 
-		private void Update()
+		protected virtual void Update()
 		{
 			foreach (AXIS_INPUT axisInput in m_axisInputEnumValues)
 			{
@@ -76,15 +77,15 @@ namespace Yube
 
 			foreach (KeyValuePair<KEY_INPUT, Relay<KEY_INPUT, EKeyInputEvent>> keyInput in m_keyInputsRelays)
 			{
-				if (Input.GetKeyDown(keyInput.Key.ToString()))
+				if (Input.GetButtonDown(keyInput.Key.ToString()))
 				{
 					keyInput.Value.Dispatch(keyInput.Key, EKeyInputEvent.DOWN);
 				}
-				if (Input.GetKey(keyInput.Key.ToString()))
+				if (Input.GetButton(keyInput.Key.ToString()))
 				{
 					keyInput.Value.Dispatch(keyInput.Key, EKeyInputEvent.PRESSED);
 				}
-				if (Input.GetKeyUp(keyInput.Key.ToString()))
+				if (Input.GetButtonUp(keyInput.Key.ToString()))
 				{
 					keyInput.Value.Dispatch(keyInput.Key, EKeyInputEvent.UP);
 				}
