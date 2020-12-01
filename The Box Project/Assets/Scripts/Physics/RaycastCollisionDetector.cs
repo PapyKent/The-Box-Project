@@ -4,18 +4,35 @@ public class RaycastCollisionDetector : MonoBehaviour
 {
 	public struct CollisionInfo
 	{
-		public bool above, below;
-		public bool left, right;
+		public DirectionalCollisionInfo aboveCollision;
+		public DirectionalCollisionInfo belowCollision;
+		public DirectionalCollisionInfo leftCollision;
+		public DirectionalCollisionInfo rightCollision;
+		//public bool above, below;
+		//public bool left, right;
 
-		public RaycastHit2D aboveHit, belowHit;
-		public RaycastHit2D leftHit, rightHit;
+		//public RaycastHit2D aboveHit, belowHit;
+		//public RaycastHit2D leftHit, rightHit;
 
 		public bool faceRight;
 
 		public void Reset()
 		{
-			above = below = false;
-			left = right = false;
+			aboveCollision.Reset();
+			belowCollision.Reset();
+			leftCollision.Reset();
+			rightCollision.Reset();
+		}
+	}
+
+	public struct DirectionalCollisionInfo
+	{
+		public bool isColliding;
+		public RaycastHit2D hit;
+
+		public void Reset()
+		{
+			isColliding = false;
 		}
 	}
 
@@ -23,22 +40,22 @@ public class RaycastCollisionDetector : MonoBehaviour
 
 	public void CheckBelowCollisions(ref CollisionInfo collisions)
 	{
-		CheckCollisions(ref collisions.below, ref collisions.belowHit, m_collider.bounds.min, Vector3.down, true);
+		CheckCollisions(ref collisions.belowCollision, m_collider.bounds.min, Vector3.down, true);
 	}
 
 	public void CheckAboveCollisions(ref CollisionInfo collisions)
 	{
-		CheckCollisions(ref collisions.above, ref collisions.aboveHit, new Vector2(m_collider.bounds.min.x, m_collider.bounds.max.y), Vector3.up, true);
+		CheckCollisions(ref collisions.aboveCollision, new Vector2(m_collider.bounds.min.x, m_collider.bounds.max.y), Vector3.up, true);
 	}
 
 	public void CheckRightCollisions(ref CollisionInfo collisions)
 	{
-		CheckCollisions(ref collisions.right, ref collisions.rightHit, new Vector2(m_collider.bounds.max.x, m_collider.bounds.min.y), Vector3.right, false);
+		CheckCollisions(ref collisions.rightCollision, new Vector2(m_collider.bounds.max.x, m_collider.bounds.min.y), Vector3.right, false);
 	}
 
 	public void CheckLeftCollisions(ref CollisionInfo collisions)
 	{
-		CheckCollisions(ref collisions.left, ref collisions.leftHit, m_collider.bounds.min, Vector3.left, false);
+		CheckCollisions(ref collisions.leftCollision, m_collider.bounds.min, Vector3.left, false);
 	}
 
 	#region Private
@@ -54,7 +71,7 @@ public class RaycastCollisionDetector : MonoBehaviour
 		}
 	}
 
-	private void CheckCollisions(ref bool collisionDirection, ref RaycastHit2D refHit, Vector2 origin, Vector3 rayDirection, bool vertical)
+	private void CheckCollisions(ref DirectionalCollisionInfo collisionInfo, Vector2 origin, Vector3 rayDirection, bool vertical)
 	{
 		int limit = vertical ? m_verticalRaycastCount + 1 : m_horizontalRaycastCount;
 		if (vertical)
@@ -65,7 +82,7 @@ public class RaycastCollisionDetector : MonoBehaviour
 		{
 			origin = new Vector2(origin.x, origin.y + ((m_collider.bounds.size.y / m_horizontalRaycastCount) / 2));
 		}
-		refHit = new RaycastHit2D();
+		collisionInfo.hit = new RaycastHit2D();
 		bool alreadyHit = false;
 		for (int i = 0; i < limit; i++)
 		{
@@ -80,11 +97,11 @@ public class RaycastCollisionDetector : MonoBehaviour
 			{
 				if (hit.collider != null && !hit.collider.isTrigger)
 				{
-					collisionDirection = true;
-					if (!alreadyHit || IsNewHitCloser(refHit, hit, rayDirection, vertical))
+					collisionInfo.isColliding = true;
+					if (!alreadyHit || IsNewHitCloser(collisionInfo.hit, hit, rayDirection, vertical))
 					{
 						alreadyHit = true;
-						refHit = hit;
+						collisionInfo.hit = hit;
 					}
 				}
 			}

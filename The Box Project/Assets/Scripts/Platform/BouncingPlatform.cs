@@ -33,9 +33,9 @@ public class BouncingPlatform : Platform
 
 	private bool IsSomeoneStandingOnPlatform()
 	{
-		if (m_collisions.above && m_collisions.aboveHit.distance < Mathf.Epsilon)
+		if (m_collisions.aboveCollision.isColliding && m_collisions.aboveCollision.hit.distance < Mathf.Epsilon)
 		{
-			m_character = m_collisions.aboveHit.collider.GetComponentInParent<CharacterController>();
+			m_character = m_collisions.aboveCollision.hit.collider.GetComponentInParent<CharacterController>();
 		}
 		return m_character != null;
 	}

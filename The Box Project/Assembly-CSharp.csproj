@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Yube\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <Compile Include="Assets\Scripts\Debug\LastJumpGizmo.cs" />
+    <Compile Include="Assets\Scripts\Physics\Projectile.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />

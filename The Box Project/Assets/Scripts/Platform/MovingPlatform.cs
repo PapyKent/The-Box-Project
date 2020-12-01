@@ -83,10 +83,11 @@ public class MovingPlatform : Platform
 
 	private void CheckIfPlayerIsOnPlatform()
 	{
-		if (m_collisions.above && m_collisions.aboveHit.distance <= GameManager.Instance.GameConstants.MovingPlateformCollisionCheck)
+		if (m_collisions.aboveCollision.isColliding
+			&& m_collisions.aboveCollision.hit.distance <= GameManager.Instance.GameConstants.MovingPlateformCollisionCheck)
 		{
 			SetCurrentPlayer(true);
-			m_player = m_collisions.aboveHit.collider.GetComponentInParent<CharacterController>();
+			m_player = m_collisions.aboveCollision.hit.collider.GetComponentInParent<CharacterController>();
 		}
 		else
 		{
@@ -148,7 +149,8 @@ public class MovingPlatform : Platform
 		}
 		else if (velocity.y < 0.0f)
 		{
-			if (m_collisions.below && Mathf.Abs(m_collisions.belowHit.distance) <= GameManager.Instance.GameConstants.MovingPlateformCollisionCheck)
+			if (m_collisions.belowCollision.isColliding
+				&& Mathf.Abs(m_collisions.belowCollision.hit.distance) <= GameManager.Instance.GameConstants.MovingPlateformCollisionCheck)
 			{
 				m_player.SetExternalForce(new Vector2(0.0f, velocity.y));
 			}

@@ -111,8 +111,8 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void CheckIfCanApplySideInputs()
 	{
-		if (m_externalForces.x > 0.0f && m_inputs.x < 0.0f && (m_collisions.left && m_collisions.leftHit.distance < Mathf.Epsilon)
-			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.right && m_collisions.rightHit.distance < Mathf.Epsilon))
+		if (m_externalForces.x > 0.0f && m_inputs.x < 0.0f && (m_collisions.leftCollision.isColliding && m_collisions.leftCollision.hit.distance < Mathf.Epsilon)
+			|| m_externalForces.x < 0.0f && m_inputs.x > 0.0f && (m_collisions.rightCollision.isColliding && m_collisions.rightCollision.hit.distance < Mathf.Epsilon))
 		{
 			m_inputs.x = 0.0f;
 			Debug.Log("Input to 0");
@@ -124,9 +124,9 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_velocity.y < 0.0f || m_externalForces.y < 0.0f)
 		{
-			if (m_collisions.below && (newPos.y - (ColliderBounds.size.y / 2)) < m_collisions.belowHit.point.y)
+			if (m_collisions.belowCollision.isColliding && (newPos.y - (ColliderBounds.size.y / 2)) < m_collisions.belowCollision.hit.point.y)
 			{
-				newPos.y = m_collisions.belowHit.point.y + (ColliderBounds.size.y / 2) + GameManager.Instance.GameConstants.ConstantDistanceToGround;
+				newPos.y = m_collisions.belowCollision.hit.point.y + (ColliderBounds.size.y / 2) + GameManager.Instance.GameConstants.ConstantDistanceToGround;
 				m_velocity.y = 0.0f;
 				IsJumping = false;
 				m_isBouncing = false;
@@ -135,10 +135,10 @@ public class CharacterController : RaycastCollisionDetector
 		}
 		else if (m_velocity.y > 0.0f || m_externalForces.y > 0.0f)
 		{
-			if (m_collisions.above && (newPos.y + (ColliderBounds.size.y / 2)) > m_collisions.aboveHit.point.y)
+			if (m_collisions.aboveCollision.isColliding && (newPos.y + (ColliderBounds.size.y / 2)) > m_collisions.aboveCollision.hit.point.y)
 			{
 				m_willHitAbove = true;
-				newPos.y = m_collisions.aboveHit.point.y - (ColliderBounds.size.y / 2);
+				newPos.y = m_collisions.aboveCollision.hit.point.y - (ColliderBounds.size.y / 2);
 				if (!m_hasReleasedJump)
 				{
 					ReleaseJump();
@@ -160,10 +160,10 @@ public class CharacterController : RaycastCollisionDetector
 	{
 		if (m_inputs.x > 0.0f || m_externalForces.x > 0.0f)
 		{
-			if (m_collisions.right && (newPos.x + (ColliderBounds.size.x / 2) > m_collisions.rightHit.point.x))
+			if (m_collisions.rightCollision.isColliding && (newPos.x + (ColliderBounds.size.x / 2) > m_collisions.rightCollision.hit.point.x))
 			{
 				if (m_externalForces.y == 0.0f ||
-					m_externalForces.y > 0.0f && newPos.y - (ColliderBounds.size.y / 2) <= m_collisions.rightHit.point.y)
+					m_externalForces.y > 0.0f && newPos.y - (ColliderBounds.size.y / 2) <= m_collisions.rightCollision.hit.point.y)
 				{
 					newPos.x = transform.position.x; //m_collisions.rightHit.point.x - (ColliderBounds.size.x / 2);
 				}
@@ -171,12 +171,12 @@ public class CharacterController : RaycastCollisionDetector
 		}
 		else if (m_inputs.x < 0.0f || m_externalForces.x < 0.0f)
 		{
-			if (m_collisions.left && (newPos.x - (ColliderBounds.size.x / 2) < m_collisions.leftHit.point.x))
+			if (m_collisions.leftCollision.isColliding && (newPos.x - (ColliderBounds.size.x / 2) < m_collisions.leftCollision.hit.point.x))
 			{
 				if (m_externalForces.y == 0.0f
-					|| m_externalForces.y < 0.0f && newPos.y - (ColliderBounds.size.y / 2) <= m_collisions.leftHit.point.y)
+					|| m_externalForces.y < 0.0f && newPos.y - (ColliderBounds.size.y / 2) <= m_collisions.leftCollision.hit.point.y)
 				{
-					newPos.x = m_collisions.leftHit.point.x + (ColliderBounds.size.x / 2);
+					newPos.x = m_collisions.leftCollision.hit.point.x + (ColliderBounds.size.x / 2);
 				}
 			}
 		}
@@ -195,20 +195,20 @@ public class CharacterController : RaycastCollisionDetector
 				{
 					Grid grid = collider2D.GetComponent<Tilemap>().layoutGrid;
 					Vector3 boundsCenter = new Vector3();
-					if (m_collisions.below)
+					if (m_collisions.belowCollision.isColliding)
 					{
-						boundsCenter.x = Mathf.RoundToInt(m_collisions.belowHit.point.x) + grid.cellSize.x / 2.0f;
-						boundsCenter.y = Mathf.RoundToInt(m_collisions.belowHit.point.y) - grid.cellSize.y / 2.0f;
+						boundsCenter.x = Mathf.RoundToInt(m_collisions.belowCollision.hit.point.x) + grid.cellSize.x / 2.0f;
+						boundsCenter.y = Mathf.RoundToInt(m_collisions.belowCollision.hit.point.y) - grid.cellSize.y / 2.0f;
 					}
-					else if (m_collisions.right)
+					else if (m_collisions.rightCollision.isColliding)
 					{
-						boundsCenter.x = Mathf.RoundToInt(m_collisions.rightHit.point.x) + grid.cellSize.x / 2.0f;
-						boundsCenter.y = Mathf.RoundToInt(m_collisions.rightHit.point.y) - grid.cellSize.y / 2.0f;
+						boundsCenter.x = Mathf.RoundToInt(m_collisions.rightCollision.hit.point.x) + grid.cellSize.x / 2.0f;
+						boundsCenter.y = Mathf.RoundToInt(m_collisions.rightCollision.hit.point.y) - grid.cellSize.y / 2.0f;
 					}
-					else if (m_collisions.left)
+					else if (m_collisions.leftCollision.isColliding)
 					{
-						boundsCenter.x = Mathf.RoundToInt(m_collisions.leftHit.point.x) - grid.cellSize.x / 2.0f;
-						boundsCenter.y = Mathf.RoundToInt(m_collisions.leftHit.point.y) - grid.cellSize.y / 2.0f;
+						boundsCenter.x = Mathf.RoundToInt(m_collisions.leftCollision.hit.point.x) - grid.cellSize.x / 2.0f;
+						boundsCenter.y = Mathf.RoundToInt(m_collisions.leftCollision.hit.point.y) - grid.cellSize.y / 2.0f;
 					}
 					else
 					{
@@ -268,7 +268,7 @@ public class CharacterController : RaycastCollisionDetector
 		bool jumpReleased = keyEvent == LocalInputManager.EKeyInputEvent.UP;
 		bool nothing = true;
 		if (!IsJumping && !jumpReleased && IsGrounded
-			|| (IsJumping && !jumpReleased && m_hasReleasedJump && m_collisions.below && m_collisions.belowHit.distance <= m_groundedTolerance))
+			|| (IsJumping && !jumpReleased && m_hasReleasedJump && m_collisions.belowCollision.isColliding && m_collisions.belowCollision.hit.distance <= m_groundedTolerance))
 		{
 			nothing = false;
 			StartJump(true);
@@ -280,7 +280,7 @@ public class CharacterController : RaycastCollisionDetector
 		}
 		if (nothing && !jumpReleased)
 		{
-			Debug.Log($"Ground Distance: {m_collisions.belowHit.distance}");
+			Debug.Log($"Ground Distance: {m_collisions.belowCollision.hit.distance}");
 			//Debug.Break();
 		}
 	}
@@ -293,7 +293,7 @@ public class CharacterController : RaycastCollisionDetector
 		//Here we start jumping
 		IsJumping = true;
 		m_hasReleasedJump = false;
-		m_yJumpStart = m_collisions.below ? transform.position.y - m_collisions.belowHit.distance : transform.position.y;
+		m_yJumpStart = m_collisions.belowCollision.isColliding ? transform.position.y - m_collisions.belowCollision.hit.distance : transform.position.y;
 		m_velocity.y = jump ? m_jumpSpeed : m_lastBouncingConfig.BoucingSpeed;
 		m_currentMaxJumpHeight = jump ? m_maxJumpHeight : m_lastBouncingConfig.BoucingHeight;
 
@@ -323,7 +323,7 @@ public class CharacterController : RaycastCollisionDetector
 		{
 			StartJump(false);
 		}
-		else if ((IsJumping && !m_hasReleasedJump) && ((transform.position.y - m_yJumpStart >= m_currentMaxJumpHeight) || (m_collisions.above && m_willHitAbove)))
+		else if ((IsJumping && !m_hasReleasedJump) && ((transform.position.y - m_yJumpStart >= m_currentMaxJumpHeight) || (m_collisions.aboveCollision.isColliding && m_willHitAbove)))
 		{
 			ReleaseJump();
 		}
@@ -340,9 +340,9 @@ public class CharacterController : RaycastCollisionDetector
 
 	private void CheckIfGrounded()
 	{
-		if (m_collisions.below)
+		if (m_collisions.belowCollision.isColliding)
 		{
-			if (m_collisions.belowHit.distance <= 0.01f
+			if (m_collisions.belowCollision.hit.distance <= 0.01f
 				&& !(IsJumping && m_velocity.y > 0.0f))//Fix bug when colliding to an angle while jumping, it was reseting the jump & make the player jump higher.
 			{
 				IsGrounded = true;
