@@ -55,8 +55,6 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Yube_Old\Relay\Editor\RelayTests.cs" />
-    <Compile Include="Assets\Scripts\Yube_Old\Relay\Editor\RelayProfile.cs" />
     <Compile Include="Assets\Shader\SpriteShaders\Editor\SpriteShaderGUI.cs" />
     <Compile Include="Assets\Shader\SpriteShaders\Editor\SpriteDiffuseShaderGUI.cs" />
     <Compile Include="Assets\Scripts\Yube\Relay\Editor\RelayTests.cs" />
