@@ -31,23 +31,12 @@ namespace Yube
 
 		public GameObject AcquireInstance(GameObject prefab, Transform parent, bool startActive = true)
 		{
-			Queue<PooledObject> pooledObjs = null;
-			if (!m_pooledObjects.TryGetValue(prefab, out pooledObjs))
-			{
-				pooledObjs = new Queue<PooledObject>();
-				m_pooledObjects.Add(prefab, pooledObjs);
-			}
-			if (pooledObjs.Count == 0)
-			{
-				GameObject instance = CreateInstance(prefab, parent, startActive);
-				pooledObjs.Enqueue(new PooledObject(prefab, instance));
-			}
-			PooledObject pooledObject = pooledObjs.Dequeue();
-			m_usedObjects.Add(pooledObject);
-			pooledObject.Instance.SetActive(startActive);
-			pooledObject.Instance.transform.SetParent(parent);
-			pooledObject.Instance.transform.localPosition = Vector3.zero;
-			return pooledObject.Instance;
+			Pool pool = FindPool(prefab);
+			GameObject pooledObject = pool.AcquireInstance();
+			pooledObject.SetActive(startActive);
+			pooledObject.transform.SetParent(parent);
+			pooledObject.transform.localPosition = Vector3.zero;
+			return pooledObject;
 		}
 
 		public void ReleaseInstance<T>(T instance) where T : MonoBehaviour
@@ -57,26 +46,14 @@ namespace Yube
 
 		public void ReleaseInstance(GameObject instance)
 		{
-			PooledObject pooledObject = null;
-			foreach (PooledObject pooledObj in m_usedObjects)
+			foreach (Pool pool in m_pools)
 			{
-				if (pooledObj.Instance == instance)
+				if (pool.ReleaseInstance(instance))
 				{
-					pooledObject = pooledObj;
-					break;
+					return;
 				}
 			}
-
-			if (pooledObject != null)
-			{
-				m_usedObjects.Remove(pooledObject);
-				m_pooledObjects[pooledObject.Prefab].Enqueue(pooledObject);
-				pooledObject.Instance.SetActive(false);
-			}
-			else
-			{
-				Destroy(instance);
-			}
+			Destroy(instance);
 		}
 
 		#region Private
@@ -90,81 +67,96 @@ namespace Yube
 
 		private class Pool
 		{
-			public Transform PoolParent { get; private set; }
 			public GameObject Prefab { get; private set; }
+			public Transform PoolTransform { get; private set; }
 
-			public Pool(GameObject prefab, ResourceManager resourceManager)
+			public Pool(GameObject prefab, int size, ResourceManager resourceManager)
 			{
 				Prefab = prefab;
 				GameObject parent = new GameObject();
 				parent.name = Prefab.name;
 				parent.transform.SetParent(resourceManager.transform);
-				PoolParent = parent.transform;
+				PoolTransform = parent.transform;
+
+				for (int i = 0; i < size; i++)
+				{
+					CreateInstance();
+				}
 			}
 
 			public GameObject AcquireInstance()
 			{
-				if (m_pooledInstances.Count == 0)
+				if (m_unusedInstances.Count == 0)
 				{
 					CreateInstance();
 				}
-				return m_pooledInstances.Dequeue();
+				return m_unusedInstances.Dequeue();
 			}
+
+			public bool ReleaseInstance(GameObject instance)
+			{
+				int instanceIndex = m_usedInstances.IndexOf(instance);
+				if (instanceIndex != -1)
+				{
+					m_usedInstances.Remove(instance);
+					instance.SetActive(false);
+					instance.transform.SetParent(PoolTransform);
+					m_unusedInstances.Enqueue(instance);
+					return true;
+				}
+				return false;
+			}
+
+			#region Private
 
 			private void CreateInstance()
 			{
 				bool oldPrefabState = Prefab.gameObject.activeSelf;
 				Prefab.gameObject.SetActive(false);
-				GameObject instance = GameObject.Instantiate(Prefab, PoolParent);
+				GameObject instance = GameObject.Instantiate(Prefab, PoolTransform);
 				Prefab.gameObject.SetActive(oldPrefabState);
-				m_pooledInstances.Enqueue(instance);
+				m_unusedInstances.Enqueue(instance);
 			}
 
-			private Queue<GameObject> m_pooledInstances = new Queue<GameObject>();
+			private List<GameObject> m_usedInstances = new List<GameObject>();
+			private Queue<GameObject> m_unusedInstances = new Queue<GameObject>();
+
+			#endregion Private
 		}
 
-		private class PooledObject
+		protected override void Awake()
 		{
-			public GameObject Prefab { get; private set; }
-			public GameObject Instance { get; private set; }
-
-			public PooledObject(GameObject prefab, GameObject instance)
-			{
-				Prefab = prefab;
-				Instance = instance;
-			}
-		}
-
-		protected void Start()
-		{
+			base.Awake();
 			foreach (ObjectToLoad objToLoad in m_objectsToLoad)
 			{
-				Queue<PooledObject> pooledObjs = new Queue<PooledObject>();
-				for (int i = 0; i < objToLoad.PoolSize; i++)
-				{
-					GameObject obj = CreateInstance(objToLoad.Prefab, gameObject.transform, false);
-					pooledObjs.Enqueue(new PooledObject(objToLoad.Prefab, obj));
-				}
-				m_pooledObjects.Add(objToLoad.Prefab, pooledObjs);
+				Pool pool = new Pool(objToLoad.Prefab, objToLoad.PoolSize, this);
+				m_pools.Add(pool);
 			}
 		}
 
-		private GameObject CreateInstance(GameObject prefab, Transform parent, bool startActive = true)
+		private Pool FindPool(GameObject prefab, bool createIfNotExists = true)
 		{
-			bool oldPrefabState = prefab.gameObject.activeSelf;
-			prefab.gameObject.SetActive(startActive);
-			GameObject instance = GameObject.Instantiate(prefab, parent);
-			prefab.gameObject.SetActive(oldPrefabState);
-			return instance;
+			Pool pool = null;
+			foreach (Pool existingPool in m_pools)
+			{
+				if (existingPool.Prefab == prefab)
+				{
+					pool = existingPool;
+					break;
+				}
+			}
+			if (pool == null && createIfNotExists)
+			{
+				pool = new Pool(prefab, 5, this);
+			}
+			return pool;
 		}
 
 		[SerializeField]
 		private List<ObjectToLoad> m_objectsToLoad = new List<ObjectToLoad>();
 
 		[NonSerialized]
-		private List<PooledObject> m_usedObjects = new List<PooledObject>();
-		[NonSerialized]
-		private Dictionary<GameObject, Queue<PooledObject>> m_pooledObjects = new Dictionary<GameObject, Queue<PooledObject>>();
+		private List<Pool> m_pools = new List<Pool>();
 
 		#endregion Private
 	}
