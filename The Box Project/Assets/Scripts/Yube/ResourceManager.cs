@@ -46,6 +46,7 @@ namespace Yube
 			m_usedObjects.Add(pooledObject);
 			pooledObject.Instance.SetActive(startActive);
 			pooledObject.Instance.transform.SetParent(parent);
+			pooledObject.Instance.transform.localPosition = Vector3.zero;
 			return pooledObject.Instance;
 		}
 

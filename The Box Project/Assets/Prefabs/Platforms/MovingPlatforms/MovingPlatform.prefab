@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2972173913744951070}
   m_Layer: 10
   m_Name: MovingPlatform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,6 +157,8 @@ MonoBehaviour:
   m_collisionMask:
     serializedVersion: 2
     m_Bits: 256
+  m_distanceBetweenRay: 0.2
+  m_shootRayDistance: 1
   m_currentColor: 0
   m_renderer: []
   m_onFx: []

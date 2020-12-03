@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3412338923443793146}
   m_Layer: 10
   m_Name: 1x1RedPlatform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,8 @@ MonoBehaviour:
   m_collisionMask:
     serializedVersion: 2
     m_Bits: 0
+  m_distanceBetweenRay: 0.2
+  m_shootRayDistance: 1
   m_currentColor: 2
   m_renderer:
   - {fileID: 3223441132451395991}

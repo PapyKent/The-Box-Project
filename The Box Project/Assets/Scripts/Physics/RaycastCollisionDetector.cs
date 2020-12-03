@@ -8,11 +8,6 @@ public class RaycastCollisionDetector : MonoBehaviour
 		public DirectionalCollisionInfo belowCollision;
 		public DirectionalCollisionInfo leftCollision;
 		public DirectionalCollisionInfo rightCollision;
-		//public bool above, below;
-		//public bool left, right;
-
-		//public RaycastHit2D aboveHit, belowHit;
-		//public RaycastHit2D leftHit, rightHit;
 
 		public bool faceRight;
 
