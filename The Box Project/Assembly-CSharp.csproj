@@ -89,6 +89,15 @@
     <Compile Include="Assets\Scripts\Debug\LastJumpGizmo.cs" />
     <Compile Include="Assets\Scripts\Environement\ProjectileSpawner.cs" />
     <Compile Include="Assets\Scripts\Environement\BreakableBloc.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\RelayLink.cs" />
+    <Compile Include="Assets\Scripts\Yube\Assertion.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\Relay.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\Relay.Debug.cs" />
+    <Compile Include="Assets\Scripts\Yube\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Yube\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Yube\ResourceManager.cs" />
+    <Compile Include="Assets\Scripts\Yube\Managers\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Yube\Relay\RelayBinding.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />
