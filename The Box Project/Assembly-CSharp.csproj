@@ -91,6 +91,9 @@
     <Compile Include="Assets\Scripts\Debug\LastJumpGizmo.cs" />
     <Compile Include="Assets\Scripts\Environement\ChangeDirectionBlock.cs" />
     <Compile Include="Assets\Scripts\Environement\ActionBlock.cs" />
+    <Compile Include="Assets\Scripts\Environement\SwitchBlock.cs" />
+    <Compile Include="Assets\Scripts\Environement\PlayerTrigger.cs" />
+    <Compile Include="Assets\Scripts\Environement\ProjectileActivationTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />
