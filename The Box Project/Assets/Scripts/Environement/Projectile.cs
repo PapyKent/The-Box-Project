@@ -16,7 +16,7 @@ public class Projectile : RaycastCollisionDetector
 	{
 		if (collision.tag == "Ground")
 		{
-			BreakableBloc breakable = collision.GetComponent<BreakableBloc>();
+			BreakableBlock breakable = collision.GetComponent<BreakableBlock>();
 			if (breakable != null)
 			{
 				breakable.Break();

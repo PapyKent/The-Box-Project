@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yube;
 
-public class BreakableBloc : MonoBehaviour
+public class BreakableBlock : MonoBehaviour
 {
 	public void Break()
 	{
