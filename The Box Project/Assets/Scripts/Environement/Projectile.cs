@@ -14,19 +14,22 @@ public class Projectile : RaycastCollisionDetector
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.tag == "Ground")
-		{
-			BreakableBlock breakable = collision.GetComponent<BreakableBlock>();
-			if (breakable != null)
-			{
-				breakable.Break();
-			}
-			ResourceManager.Instance.ReleaseInstance(this);
-		}
-		else if (collision.tag == "Player")
+		if (collision.tag == "Player")
 		{
 			Debug.Log("Projo collide player");
 			ResourceManager.Instance.ReleaseInstance(this);
+		}
+		else
+		{
+			ActionBlock actionBlock = collision.GetComponent<ActionBlock>();
+			if (actionBlock != null)
+			{
+				actionBlock.OnBlockTrigger(collision, this);
+			}
+			else if (collision.tag == "Ground")
+			{
+				ResourceManager.Instance.ReleaseInstance(this);
+			}
 		}
 	}
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yube;
 
-public class BreakableBlock : MonoBehaviour
+public class BreakableBlock : ActionBlock
 {
-	public void Break()
+	public override void OnBlockTrigger(Collider2D collision, Projectile projectile)
 	{
+		ResourceManager.Instance.ReleaseInstance(projectile);
 		ResourceManager.Instance.ReleaseInstance(this);
 	}
 }
