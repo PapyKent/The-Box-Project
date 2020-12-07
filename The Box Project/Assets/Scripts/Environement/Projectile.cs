@@ -17,6 +17,7 @@ public class Projectile : RaycastCollisionDetector
 		if (collision.tag == "Player")
 		{
 			Debug.Log("Projo collide player");
+			CheckpointManager.Instance.ReloadLevel();
 			ResourceManager.Instance.ReleaseInstance(this);
 		}
 		else
