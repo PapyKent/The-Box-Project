@@ -35,6 +35,10 @@ public class ProjectileSpawner : MonoBehaviour
 		{
 			Projectile projectile = ResourceManager.Instance.AcquireInstance<Projectile>(m_projectileToSpawn, transform);
 			projectile.transform.rotation = transform.rotation;
+			if (m_overrideProjectileSpeed)
+			{
+				projectile.OverrideSpeed(m_projectileSpeed);
+			}
 			yield return new WaitForSeconds(m_spawnCadence);
 		}
 	}
@@ -45,6 +49,10 @@ public class ProjectileSpawner : MonoBehaviour
 	private Projectile m_projectileToSpawn = null;
 	[SerializeField]
 	private float m_spawnCadence = 1.0f;
+	[SerializeField]
+	private bool m_overrideProjectileSpeed = true;
+	[SerializeField]
+	private float m_projectileSpeed = 10.0f;
 
 	[NonSerialized]
 	private bool m_isActive = false;

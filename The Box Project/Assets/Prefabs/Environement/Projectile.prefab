@@ -52,7 +52,7 @@ MonoBehaviour:
     m_Bits: 1792
   m_distanceBetweenRay: 0.2
   m_shootRayDistance: 1
-  m_speed: 7
+  m_speed: 9
 --- !u!61 &2693947247075859533
 BoxCollider2D:
   m_ObjectHideFlags: 0

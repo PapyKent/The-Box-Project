@@ -1,15 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Yube;
 
 public class Projectile : RaycastCollisionDetector
 {
+	public void OverrideSpeed(float newSpeed)
+	{
+		m_currentSpeed = newSpeed;
+	}
+
 	#region Private
+
+	protected override void Awake()
+	{
+		base.Awake();
+		m_currentSpeed = m_speed;
+	}
+
+	private void OnDisable()
+	{
+		m_currentSpeed = m_speed;
+	}
 
 	private void FixedUpdate()
 	{
-		transform.position += m_speed * Time.fixedDeltaTime * transform.right;
+		transform.position += m_currentSpeed * Time.fixedDeltaTime * transform.right;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -37,6 +54,9 @@ public class Projectile : RaycastCollisionDetector
 	[Header("Projectile")]
 	[SerializeField]
 	private float m_speed = 1.0f;
+
+	[NonSerialized]
+	private float m_currentSpeed = 0.0f;
 
 	private CollisionInfo m_collisions;
 

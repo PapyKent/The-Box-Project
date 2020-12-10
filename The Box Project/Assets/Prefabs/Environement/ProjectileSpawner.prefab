@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759363586247988141}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2152846009775275205}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_startActive: 1
   m_projectileToSpawn: {fileID: 2693947247075859535, guid: 0b91b2e9bfb680948b26381358971f20,
     type: 3}
-  m_spawnCadence: 0.5
+  m_spawnCadence: 2
 --- !u!1 &6116176358075856070
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 2152846009775275205}
   - component: {fileID: 2839038781592196273}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,4 +9,9 @@ public class Checkpoint : MonoBehaviour
 		if (other.tag == "Player")
 			CheckpointManager.Instance.CurrentCheckpoint = this;
 	}
+
+	private void OnDrawGizmos()
+	{
+		UnityEditor.Handles.Label(transform.position, "CP");
+	}
 }
