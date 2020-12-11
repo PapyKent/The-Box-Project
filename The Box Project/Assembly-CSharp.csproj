@@ -63,11 +63,14 @@
     <Compile Include="Assets\Scripts\Environement\Projectile.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\CheckpointManager.cs" />
     <Compile Include="Assets\FXs\Scripts\Platform_Trigger.cs" />
+    <Compile Include="Assets\Scripts\Environement\ActionBlock.cs" />
     <Compile Include="Assets\Scripts\GameConstants.cs" />
     <Compile Include="Assets\Scripts\Environement\BreakableBlock.cs" />
     <Compile Include="Assets\Scripts\Yube\Relay\Relay.Debug.cs" />
     <Compile Include="Assets\Scripts\Camera\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Yube\Assertion.cs" />
+    <Compile Include="Assets\Scripts\Environement\ChangeDirectionBlock.cs" />
+    <Compile Include="Assets\Scripts\Environement\ProjectileActivationTrigger.cs" />
     <Compile Include="Assets\Scripts\Yube\Relay\RelayLink.cs" />
     <Compile Include="Assets\Scripts\Yube\Relay\Relay.cs" />
     <Compile Include="Assets\Scripts\Environement\ProjectileSpawner.cs" />
@@ -78,9 +81,11 @@
     <Compile Include="Assets\Scripts\Checkpoint\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Checkpoint\ReloadLevelBox.cs" />
+    <Compile Include="Assets\Scripts\Environement\SwitchBlock.cs" />
     <Compile Include="Assets\FXs\Scripts\Crown_FX_Trigger.cs" />
     <Compile Include="Assets\Scripts\Platform\PlatformFXConfig.cs" />
     <Compile Include="Assets\Scripts\Yube\Managers\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Environement\PlayerTrigger.cs" />
     <Compile Include="Assets\Scripts\Platform\BouncingPlatform.cs" />
     <Compile Include="Assets\Scripts\Platform\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterAnimation.cs" />
@@ -89,11 +94,6 @@
     <Compile Include="Assets\Scripts\Yube\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <Compile Include="Assets\Scripts\Debug\LastJumpGizmo.cs" />
-    <Compile Include="Assets\Scripts\Environement\ChangeDirectionBlock.cs" />
-    <Compile Include="Assets\Scripts\Environement\ActionBlock.cs" />
-    <Compile Include="Assets\Scripts\Environement\SwitchBlock.cs" />
-    <Compile Include="Assets\Scripts\Environement\PlayerTrigger.cs" />
-    <Compile Include="Assets\Scripts\Environement\ProjectileActivationTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FXs\Shaders\Platforms.shader" />

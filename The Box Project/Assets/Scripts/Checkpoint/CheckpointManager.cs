@@ -16,6 +16,16 @@ public class CheckpointManager : Singleton<CheckpointManager>
 		m_reloadCheckpointRelay?.Dispatch();
 	}
 
+#if UNITY_EDITOR
+
+	public void LoadCheckpoint(Checkpoint checkpoint)
+	{
+		m_currentCheckpoint = checkpoint;
+		ReloadLevel();
+	}
+
+#endif
+
 	#region Private
 
 	private CharacterController Player { get { return (m_player ?? (m_player = FindObjectOfType<CharacterController>())); } }
@@ -23,15 +33,19 @@ public class CheckpointManager : Singleton<CheckpointManager>
 	protected override void Awake()
 	{
 		base.Awake();
-		m_currentCheckpoint = m_beginCheckpoint;
+		if (m_checkPoints.Count == 0)
+		{
+			Debug.LogError("No checkpoints filled in CheckpointManager.");
+			return;
+		}
+		m_currentCheckpoint = m_checkPoints[0];
 	}
 
 	[SerializeField]
-	private Checkpoint m_beginCheckpoint = null;
+	private List<Checkpoint> m_checkPoints = new List<Checkpoint>();
 
 	private Checkpoint m_currentCheckpoint = null;
 	private CharacterController m_player = null;
-
 	private Relay m_reloadCheckpointRelay = null;
 
 	#endregion Private
