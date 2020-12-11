@@ -31,7 +31,7 @@ public class Projectile : RaycastCollisionDetector
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.tag == "Player")
+		if (collision.tag == "Player" && m_hitPlayer)
 		{
 			Debug.Log("Projo collide player");
 			CheckpointManager.Instance.ReloadLevel();
@@ -40,11 +40,11 @@ public class Projectile : RaycastCollisionDetector
 		else
 		{
 			ActionBlock actionBlock = collision.GetComponent<ActionBlock>();
-			if (actionBlock != null)
+			if (actionBlock != null && m_hitActionBlocks)
 			{
 				actionBlock.OnBlockTrigger(collision, this);
 			}
-			else if (collision.tag == "Ground")
+			else if (collision.tag == "Ground" || collision.tag == "ReloadBox")
 			{
 				ResourceManager.Instance.ReleaseInstance(this);
 			}
@@ -54,6 +54,10 @@ public class Projectile : RaycastCollisionDetector
 	[Header("Projectile")]
 	[SerializeField]
 	private float m_speed = 1.0f;
+	[SerializeField]
+	private bool m_hitPlayer = true;
+	[SerializeField]
+	private bool m_hitActionBlocks = true;
 
 	[NonSerialized]
 	private float m_currentSpeed = 0.0f;

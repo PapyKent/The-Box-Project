@@ -2605,7 +2605,7 @@ GameObject:
   - component: {fileID: 155193309}
   m_Layer: 0
   m_Name: ReloadBox1
-  m_TagString: Untagged
+  m_TagString: ReloadBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3745,7 +3745,7 @@ GameObject:
   - component: {fileID: 224415110}
   m_Layer: 0
   m_Name: ReloadBox1 (4)
-  m_TagString: Untagged
+  m_TagString: ReloadBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5338,6 +5338,7 @@ Transform:
   - {fileID: 659156908}
   - {fileID: 1887216577}
   - {fileID: 224415109}
+  - {fileID: 1876328353}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5586,7 +5587,7 @@ GameObject:
   - component: {fileID: 386065538}
   m_Layer: 9
   m_Name: Room 12 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6672,7 +6673,7 @@ GameObject:
   - component: {fileID: 507995952}
   m_Layer: 9
   m_Name: Room 13 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7111,7 +7112,7 @@ GameObject:
   - component: {fileID: 529108038}
   m_Layer: 9
   m_Name: Room 14 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9397,7 +9398,7 @@ GameObject:
   - component: {fileID: 659156909}
   m_Layer: 0
   m_Name: ReloadBox1 (2)
-  m_TagString: Untagged
+  m_TagString: ReloadBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9410,7 +9411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659156907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 315.9, y: -5.44, z: 4.930397}
+  m_LocalPosition: {x: 315.9, y: -6.55, z: 4.930397}
   m_LocalScale: {x: 150, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 318993119}
@@ -11345,7 +11346,7 @@ GameObject:
   - component: {fileID: 777510178}
   m_Layer: 9
   m_Name: Room 15 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17424,7 +17425,7 @@ GameObject:
   - component: {fileID: 1185575447}
   m_Layer: 9
   m_Name: Room 8 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18174,7 +18175,7 @@ GameObject:
   - component: {fileID: 1207870888}
   m_Layer: 9
   m_Name: Room 17 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19468,7 +19469,7 @@ GameObject:
   - component: {fileID: 1266029202}
   m_Layer: 9
   m_Name: Room 16 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20995,7 +20996,7 @@ GameObject:
   - component: {fileID: 1292555221}
   m_Layer: 9
   m_Name: Room 11 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21895,7 +21896,7 @@ GameObject:
   - component: {fileID: 1383229523}
   m_Layer: 9
   m_Name: Room 10 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23967,7 +23968,7 @@ GameObject:
   - component: {fileID: 1561468895}
   m_Layer: 9
   m_Name: Room 9 - Tiles
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24592,7 +24593,7 @@ GameObject:
   - component: {fileID: 1588378301}
   m_Layer: 0
   m_Name: ReloadBox1 (1)
-  m_TagString: Untagged
+  m_TagString: ReloadBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24605,7 +24606,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588378299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 188.1, y: -0.2, z: 4.930397}
+  m_LocalPosition: {x: 188.1, y: -1.58, z: 4.930397}
   m_LocalScale: {x: 150, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 318993119}
@@ -26647,6 +26648,76 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19349f53bf483454c833698651030847, type: 3}
+--- !u!1 &1876328352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1876328353}
+  - component: {fileID: 1876328355}
+  - component: {fileID: 1876328354}
+  m_Layer: 0
+  m_Name: ReloadBox1 (5)
+  m_TagString: ReloadBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1876328353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876328352}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 136.5, y: 13.81, z: 4.930397}
+  m_LocalScale: {x: 150, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 318993119}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876328354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876328352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3fa5392ecadef4eb4fb012d0500dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &1876328355
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876328352}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.41135907, y: 0.29088217}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.01593265, y: 1.7272071}
+  m_EdgeRadius: 0
 --- !u!1 &1876588200
 GameObject:
   m_ObjectHideFlags: 0
@@ -26917,7 +26988,7 @@ GameObject:
   - component: {fileID: 1887216578}
   m_Layer: 0
   m_Name: ReloadBox1 (3)
-  m_TagString: Untagged
+  m_TagString: ReloadBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26930,7 +27001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887216576}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 515.3, y: 5.4, z: 4.930397}
+  m_LocalPosition: {x: 515.3, y: 4.48, z: 4.930397}
   m_LocalScale: {x: 150, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 318993119}
